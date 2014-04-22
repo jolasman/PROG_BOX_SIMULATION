@@ -1,18 +1,17 @@
 #ifndef BOX_H
 #define BOX_H
+#include <iostream>
+using namespace std;
 
 using namespace std;
 
-class Channel{
+class Box{
+
+protected:
+	string password;
 
 public:
-	string name;
-
-	//uma lista de programas
-
-
-
-
+	
 
 };
 
