@@ -1,22 +1,21 @@
-#ifndef MOVIE_H
-#define MOVIE_H
-#include <iostream>
+#ifndef _MOVIE
+ #define _MOVIE
+
+#include<iostream>
+
 using namespace std;
 
+
 class Movie{
-
-	string title;
-	string type;
-	double cost;
-	int num_times;
-
-public:
-	string getTitle();
-	string getType();
-	double getCost();
-	int getNum_times();
+  string title;
+  string type;
+  float cost;
+  unsigned timesRented;
+ public:
+  Movie(string title, string type, float cost);
+  string getTitle();
+  string getType();
+  float getCost();
 };
-
-
 
 #endif

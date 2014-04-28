@@ -1,18 +1,25 @@
 #include "Date.h"
-#include "string"
+
 #include <iostream>
 using namespace std;
- 
 
+#include <string>
+
+Date::Date(string weekDay, unsigned hour, unsigned minutes){
+	this->weekDay = weekDay;
+	this->hour = hour;
+	this->minutes = minutes;
+
+}
 
 string Date::getDay(){
-	return day;
+	return weekDay;
 }
 
 int Date::getHour(){
 	return hour;
 }
 
-int Date::getMinute(){
-	return minute;
+int Date::getMinutes(){
+	return minutes;
 }

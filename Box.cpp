@@ -1,5 +1,9 @@
 #include "Box.h"
-#include "string"
-#include <iostream>
-using namespace std;
+
+
+
+Box::Box(string passwd, Date date):currentDate(date){
+  password = passwd;
+}
+
 

@@ -1,19 +1,20 @@
-#ifndef DATE_H
-#define DATE_H
+#ifndef _DATE
+#define _DATE
+
+#include <string> 
 #include <iostream>
 using namespace std;
 
-class Date{
-	string day;
-	int hour;
-	int minute;
-	
-public:
-	string getDay();
-	int getHour();
-	int getMinute();
-	
-};
 
+class Date{
+  string weekDay;
+  unsigned hour;
+  unsigned minutes;
+ public:
+  Date(string day, unsigned hour, unsigned minutes);
+  string getDay();
+  int getHour();
+  int getMinutes();
+};
 
 #endif

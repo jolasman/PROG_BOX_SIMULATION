@@ -1,19 +1,20 @@
-#ifndef CHANNEL_H
-#define CHANNEL_H
-#include <iostream>
+#ifndef _CHANNEL
+ #define _CHANNEL
+
+#include<iostream>
+#include<vector>
+#include<string>
+
+#include "Program.h"
+
 using namespace std;
 
 class Channel{
-	string name;
-
-	//uma lista de programas
-
-public:
-
-	
+  string name;
+  vector<Program> programs;
+ public:
+  Channel(string name);
+  string getChannelName();
 };
 
-
 #endif
-
-
