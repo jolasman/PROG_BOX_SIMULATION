@@ -92,6 +92,11 @@
     <ClInclude Include="Movie.h" />
     <ClInclude Include="Program.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="Channels.txt" />
+    <Text Include="movies.txt" />
+    <Text Include="programs.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

@@ -74,12 +74,12 @@ void pressed_key_channels(){
 	cin >> x;
 
 
-	if (x == 0x27)
+	if (x == 'esc')
 	{
 		menu_inicial();
 	}
 
-	if (x != 0x27)
+	if (x != 'esc')
 	{
 		menu_channels();
 	}

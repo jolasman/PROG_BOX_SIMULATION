@@ -57,4 +57,9 @@
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="Channels.txt" />
+    <Text Include="movies.txt" />
+    <Text Include="programs.txt" />
+  </ItemGroup>
 </Project>
