@@ -1,9 +1,23 @@
+#include "menu.h"
+#include "Channel.h"
+#include "Movie.h"
+#include "Program.h"
+
 #include <iostream>
 #include <cstdlib>
+#include <time.h>
 #include <iostream>
 using namespace std;
 
-#include "menu.h"
+
+
+int rand_int(int a, int b)
+{
+	int randN;
+	srand((unsigned int)time(NULL));
+	randN = rand() % (b - a + 1) + a;
+	return randN;
+}
 
 void menu_inicial(){
 
@@ -18,12 +32,14 @@ void menu_inicial(){
 }
 
 void menu_channels(){
-	
+	Channel ch;
+
 	system("CLS");
 	cout << "--------------------------Welcome to the Channels menu--------------------------\n\n";
 	cout << "Please choose one Channel to see the programs:\n\n";
-
-	//chamar a lista de canais
+	
+	//chamar lista de canais
+	ch.open_channels_file();
 
 	cout << "\n\n\n\n\n\n\n\n\tPress esc to main menu\n\n\n\n";
 	// qualquer tecla esta a fazer com que retorne ao menu devido ao break
@@ -31,12 +47,15 @@ void menu_channels(){
 }
 
 void menu_programs(){
-	
+	Program prog;
+
 	system("CLS");
 	cout << "--------------------------Welcome to the Programs menu--------------------------\n\n";
 	cout << "Please choose your favorite Program:\n\n";
 
 	//chamar lista de progrmas
+	prog.open_programs_file();
+
 	cout << "\n\n\n\n\n\n\n\n\tPress esc to main menu\n";
 	// qualquer tecla esta a fazer com que retorne ao menu devido ao break
 	system("pause");
@@ -44,12 +63,15 @@ void menu_programs(){
 }
 
 void menu_movies(){
-	
+	Movie mov;
+
 	system("CLS");
 	cout << "--------------------------Welcome to the Movies menu----------------------------\n\n";
 	cout << "Please choose your favorite movie:\n\n";
 
 	//chamar lista de filmes
+	mov.open_movies_file();
+
 	cout << "\n\n\n\n\n\n\n\n\tPress esc to main menu\n";
 	// qualquer tecla esta a fazer com que retorne ao menu devido ao break
 	system("pause");

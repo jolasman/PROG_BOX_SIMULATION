@@ -13,8 +13,13 @@ class Channel{
   string name;
   vector<Program> programs;
  public:
-  Channel(string name);
-  string getChannelName();
+	 Channel();
+	 Channel(string name);
+	/*retorna o nome do canal*/
+	 string getChannelName();
+	/*acede ao ficheiro dos canais*/
+	 void open_channels_file();
+  
 };
 
 #endif

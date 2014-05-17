@@ -12,6 +12,7 @@ class Date{
   unsigned minutes;
  public:
   Date(string day, unsigned hour, unsigned minutes);
+  void currentDate();// adicionei
   string getDay();
   int getHour();
   int getMinutes();

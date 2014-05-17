@@ -12,10 +12,13 @@ class Movie{
   float cost;
   unsigned timesRented;
  public:
-  Movie(string title, string type, float cost);
-  string getTitle();
-  string getType();
-  float getCost();
+	 Movie(); 
+	 Movie(string title, string type, float cost);
+	 string getTitle();
+	 string getType();
+	 float getCost();
+	/*abre o ficheiro dos filmes*/
+	 void Movie::open_movies_file();
 };
 
 #endif
