@@ -10,14 +10,25 @@ using namespace std;
 #include "Box.h"
 
 // Randomly generates a valid day, hour and minute
-/*Date currentDate(string day, int hour, int minute){
-	//faazer o aleatorio do dia e assim
-	hour = rand_int(0, 24);
-	minute = rand_int(0, 59);
-  
-  // to be implemented by the students
+Date currentDate(){
+	
+	srand((unsigned)time(NULL));
+
+	vector<string> vdays = { "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY" };
+	
+	int aleat = rand() % 7 + 1;
+	string day1;
+	
+	for (int j = 0; j < aleat; j++)
+		day1 = vdays[j];
+	
+	unsigned int hour1 = rand() % 24 + 1;
+	unsigned int minutes = rand() % 60 + 1;
+	
+	Date dat = { day1, hour1, minutes };
+	return dat;
 }
-*/
+
 
 
 
@@ -49,8 +60,9 @@ using namespace std;
 
 
 int main(){
-  //Box box = Box("naotem", currentDate());
-
+	Date date = currentDate();
+	Box box = Box("naotem", date);
+	
 	menu_box();
 	
 

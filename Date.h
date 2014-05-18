@@ -11,11 +11,11 @@ class Date{
   unsigned hour;
   unsigned minutes;
  public:
-  Date(string day, unsigned hour, unsigned minutes);
-  void currentDate();// adicionei
-  string getDay();
-  int getHour();
-  int getMinutes();
+	 Date();
+	 Date(string day, unsigned int hour, unsigned int minutes);
+	 string getDay();
+	 int getHour();
+	 int getMinutes();
 };
 
 #endif

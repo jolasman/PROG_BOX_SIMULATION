@@ -10,15 +10,6 @@
 using namespace std;
 
 
-
-int rand_int(int a, int b)
-{
-	int randN;
-	srand((unsigned int)time(NULL));
-	randN = rand() % (b - a + 1) + a;
-	return randN;
-}
-
 void menu_inicial(){
 
 	system("CLS");
