@@ -11,8 +11,8 @@ bool Box::checkPassword()
 {
 	string passw;
 	
-	cout << "----------------------- You are trying to access the Box -----------------------\n\n\n\n" << endl;
-	cout << "type your PASSWORD please: " << endl;
+	cout << "----------------------- You are trying to access the Box -----------------------\n" << endl;
+	cout << "type your PASSWORD please:\n " << endl;
 	cin >> passw;
 
 	if (passw == password)

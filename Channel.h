@@ -17,7 +17,8 @@ class Channel{
 	 Channel(string name);
 	/*retorna o nome do canal*/
 	 string getChannelName();
-
+	 /*altera o nome do canal*/
+	 void setChannelName(string nome);
 
 
 	/*acede ao ficheiro dos canais*/

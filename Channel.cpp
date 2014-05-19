@@ -18,6 +18,11 @@ string Channel::getChannelName(){
 	return name;
 }
 
+void Channel::setChannelName(string nome)
+{
+	name = nome;
+}
+
 void Channel::open_channels_file()
 {
 	string line;
