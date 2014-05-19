@@ -29,23 +29,3 @@ Date Program::getDate()
 	return exhibitionDate;
 }
 
-void Program::open_programs_file(){
-	string line;
-
-	ifstream fs("Programs.txt");
-
-	if (fs.is_open())
-	{
-		//tenta abrir ficheiro 
-		while (!fs.eof()){
-
-			getline(fs, line);											  
-			cout << line << endl;
-
-		}
-		fs.close();														//fecha ficheiro 
-	}
-	else{
-		cout << "ficheiro nao abre" << endl;
-	}
-}

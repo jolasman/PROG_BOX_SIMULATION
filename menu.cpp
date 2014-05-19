@@ -25,7 +25,7 @@ void menu_inicial(){
 }
 
 void menu_channels(){
-	Channel ch;
+	Box ch;
 
 	system("CLS");
 	cout << "--------------------------Welcome to the Channels menu--------------------------\n\n";
@@ -47,13 +47,15 @@ void menu_channels(){
 		cout << "The Channels list:\n\n";
 		//chamar lista de canais
 		ch.open_channels_file();
+		ch.readChannelsVector();
 	}
 
 	// falta a parte de mudar o nome dos canais
-
+	/***********************************************************************ainda esta a dar erro aqui ao mudar o nome*************************/
 	if (number == 2)
 	{
-
+		Box b;
+		Channel c;
 		system("cls");
 
 		string nameChannel;
@@ -63,18 +65,20 @@ void menu_channels(){
 
 		// falta comparar se existe o canal no vector
 		
-		/*if (nameChannel == cenasdovetor)
+		if (nameChannel == b.compare2(nameChannel))
 		{
 			string namenew;
 			cout << "New name: " << endl;
-			cin >> namenew;
 			//alterar o nome
+			cin >> namenew;
+			c.setChannelName(namenew);
+			
 			cout << "Name changed you success!" << endl;
 		}
 		else
 		{
 			cout << " any Channel with this name! try again later" << endl;
-		}*/
+		}
 	}
 
 
@@ -165,7 +169,7 @@ void menu_channels(){
 }
 
 void menu_programs(){
-	Program prog;
+	Box prog;
 
 	system("CLS");
 	cout << "--------------------------Welcome to the Programs menu--------------------------\n\n";
@@ -188,6 +192,7 @@ void menu_programs(){
 		cout << "The Programs list:\n\n";
 		//chamar lista de progrmas
 		prog.open_programs_file();
+		prog.readProgramsVector();
 	}
 
 	// falta a parte de mudar o nome dos programas
@@ -372,7 +377,7 @@ void menu_programs(){
 }
 
 void menu_movies(){
-	Movie mov;
+	Box mov;
 
 	system("CLS");
 	cout << "--------------------------Welcome to the Movies menu----------------------------\n\n";
@@ -394,12 +399,16 @@ void menu_movies(){
 
 		//chamar lista de filmes
 		mov.open_movies_file();
+		mov.readMoviesVector();
 	}
 
 	// falta a parte de mudar o nome dos filmes
 
 	if (number == 2)
 	{
+		Box b;
+		Movie m;
+
 		system("cls");
 
 		string nameMovie;
@@ -409,12 +418,14 @@ void menu_movies(){
 
 		// falta comparar se existe o programa no vector
 
-		/*if (nameMovie == cenas_do_vetor)
+		/*if (nameMovie == b.compare2(nameMovie)
 		{
 		string namenew;
 		cout << "New name: " << endl;
+		//colocar o novo nome
 		cin >> namenew;
-		//alterar o nome
+		m.setTitle(namenew);
+		
 		cout << "Name changed you success!" << endl;
 		}
 		else

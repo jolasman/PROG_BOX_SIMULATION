@@ -23,9 +23,6 @@ class Program{
 	 string getName();
 	 /*retorna a data do programa*/
 	 Date getDate();
-
-	 /*abre o ficheiro dos programas*/
-	 void Program::open_programs_file();
 };
 
 #endif

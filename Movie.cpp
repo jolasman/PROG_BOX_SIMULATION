@@ -8,9 +8,8 @@ Movie::Movie()
 {
 }
 
-Movie::Movie(string title, string type, float cost){
+Movie::Movie(string title, float cost){
 	this->title = title;
-	this->type = type;
 	this->cost = cost;
 }
 
@@ -18,33 +17,12 @@ string Movie::getTitle(){
 	return title;
 }
 
-string Movie::getType(){
-	return type;
-}
-
 float Movie::getCost(){
 	return cost;
 }
 
-void Movie::open_movies_file(){
+void Movie::setTitle(string newname)
+{
 
-	string line;
-	
-	ifstream fs("Movies.txt");
-
-	if (fs.is_open())
-	{
-		//tenta abrir ficheiro 
-		while (!fs.eof()){
-
-			getline(fs, line);											
-			cout << line << endl;
-
-		}
-		fs.close();														//fecha ficheiro 
-	}
-	else{
-		cout << "ficheiro nao abre" << endl;
-	}
-
+	this->title = newname;
 }

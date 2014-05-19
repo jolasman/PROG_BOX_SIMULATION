@@ -19,11 +19,7 @@ class Channel{
 	 string getChannelName();
 	 /*altera o nome do canal*/
 	 void setChannelName(string nome);
-
-
-	/*acede ao ficheiro dos canais*/
-	 void open_channels_file();
-  
+	 	
 };
 
 #endif

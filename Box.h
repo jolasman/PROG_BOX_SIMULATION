@@ -23,9 +23,31 @@ class Box{
   vector<Program> recorded;
 
  public:
+	 Box();
   Box(string passwd, Date currentDate);
+ 
   /*chama as funcoes necessarias para que se abra os menus*/
   void openBox();
+  
+  /*abre o ficheiro dos canais e poe os canais no vector dos canais da box*/
+  void open_channels_file();
+  /*imprime na consola o vector do canais*/
+    void readChannelsVector();
+  
+/*abre o ficheiro dos filmes e poe os filmes no vector dos filmes da box*/
+  void open_movies_file();
+  /*imprime na consola o vector dos filmes*/
+  
+  void readMoviesVector();
+  /*abre o ficheiro dos programas e poe os programas no vector dos programas da box*/
+  void open_programs_file();
+  /*imprime na consola o vector dos programas*/
+  void readProgramsVector();
+
+
+  string compare2(string name);
+
+
   vector<Program> listByDay(string day);
   vector<Program> listByChannel(string  channel, string day);
   vector<Program> listByType(string  type, string day);
