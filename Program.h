@@ -8,15 +8,23 @@
 using namespace std;
 
 
-class Program /*: public Date*/ {
+class Program{
   string name;
   int duration;  // in minutes
-  //Date exhibitionDate;
+  Date exhibitionDate;
 
  public:
 	 Program();
 	 Program(string name, int duration, string day, int hour, int minutes);
-	     /*abre o ficheiro dos programas*/
+
+	 /*retorna o valor inteiro da duracao*/
+	 int getDuration();
+	 /*retorna o nome do programa*/
+	 string getName();
+	 /*retorna a data do programa*/
+	 Date getDate();
+
+	 /*abre o ficheiro dos programas*/
 	 void Program::open_programs_file();
 };
 

@@ -27,5 +27,9 @@ void pressed_key_movies();
 
 void pressed_key_programs();
 
+/*vai buscar a passoword ao ficheiro password.txt*/
+string getPassword();
+
+
 
 #endif

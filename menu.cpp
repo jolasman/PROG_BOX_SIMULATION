@@ -3,7 +3,7 @@
 #include "Movie.h"
 #include "Program.h"
 
-#include <iostream>
+#include "fstream"
 #include <cstdlib>
 #include <time.h>
 #include <iostream>
@@ -138,6 +138,18 @@ void pressed_key_programs(){
 
 }
 
+string getPassword()
+{
+	ifstream password;
+	string pass;
+
+	password.open("PASSWORD.txt");
+	getline(password, pass);
+	password.close();
+	return pass;
+
+}
+
 void menu_box(){
 
 	int loop = 1;
@@ -153,7 +165,8 @@ void menu_box(){
 	[*] tambem ainda não esta a sair bem, ou melhor esta a sair bem do loop mas pede duas vezes para carregar numa tecla para sair.
 	*
 	*/
-	while (loop = 1)
+
+while (loop = 1)
 	{
 
 		menu_inicial();

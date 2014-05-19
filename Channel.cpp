@@ -8,7 +8,6 @@ using namespace std;
 
 Channel::Channel()
 {
-
 }
 
 Channel::Channel(string name){
@@ -32,14 +31,15 @@ void Channel::open_channels_file()
 		while (!fs.eof()){
 
 			getline(fs, line);											
-			canais.push_back(line);
+			cout << line << endl;
+			//canais.push_back(line);
 
 			/************************************************* saber pq esta a dar mal aqui***************************************/
-			for (int i = 0; i <= 2; i++)
+			/*for (int i = 0; i <= 2; i++)
 			{
-				 << canais[i] << endl;
+				cout << canais[i] << endl;
 
-			}
+			}*/
 			/*********************************************************************************************************************/
 		}
 		fs.close();														//fecha ficheiro 

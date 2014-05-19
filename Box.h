@@ -24,13 +24,18 @@ class Box{
 
  public:
   Box(string passwd, Date currentDate);
+  /*chama as funcoes necessarias para que se abra os menus*/
+  void openBox();
   vector<Program> listByDay(string day);
   vector<Program> listByChannel(string  channel, string day);
   vector<Program> listByType(string  type, string day);
   bool rentMovies(string title);
   float moneySpent();
   int timesWhatched(string title);
-  bool changePassword();          // ask, verify and change the password
+  
+  bool checkPassword();
+  bool checkPasswordAgain();
+  void changePassword();          // ask, verify and change the password
   // Channel CRUD
   bool createdChanel();
   bool removeChanel();

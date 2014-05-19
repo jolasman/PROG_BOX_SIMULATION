@@ -60,10 +60,10 @@ Date currentDate(){
 
 
 int main(){
-	Date date = currentDate();
-	Box box = Box("naotem", date);
+		
+	Box box = Box(getPassword(), currentDate());
 	
-	menu_box();
+	box.openBox();
 	
 
 	

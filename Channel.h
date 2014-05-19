@@ -17,6 +17,9 @@ class Channel{
 	 Channel(string name);
 	/*retorna o nome do canal*/
 	 string getChannelName();
+
+
+
 	/*acede ao ficheiro dos canais*/
 	 void open_channels_file();
   

@@ -6,8 +6,8 @@ using namespace std;
 
 Movie::Movie()
 {
-
 }
+
 Movie::Movie(string title, string type, float cost){
 	this->title = title;
 	this->type = type;
@@ -18,7 +18,6 @@ string Movie::getTitle(){
 	return title;
 }
 
-
 string Movie::getType(){
 	return type;
 }
@@ -26,7 +25,6 @@ string Movie::getType(){
 float Movie::getCost(){
 	return cost;
 }
-
 
 void Movie::open_movies_file(){
 

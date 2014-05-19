@@ -5,6 +5,10 @@ using namespace std;
 
 #include <string>
 
+Date::Date()
+{
+}
+
 Date::Date(string weekDay, unsigned hour, unsigned minutes){
 	this->weekDay = weekDay;
 	this->hour = hour;

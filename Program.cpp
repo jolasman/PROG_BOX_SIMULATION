@@ -4,20 +4,29 @@
 #include <iostream>
 using namespace std;
 
-
-/*Program::Program(string name, int duration, string day, int hour, int minutes){
-	this->name = name;
-	this->duration = duration;
-	this->getDay = day;
-	this->getHour = hour;
-	this->getMinutes = minutes;
-	//nao sei se é asism aqui
-}*/
-/*ver este erro aqui*/
-
 Program::Program()
 {
+}
 
+Program::Program(string name, int duration, string day, int hour, int minutes):exhibitionDate(day, hour, minutes){
+	this->name = name;
+	this->duration = duration;
+	
+}
+
+int Program::getDuration()
+{
+	return duration;
+}
+
+string Program::getName()
+{
+	return name;
+}
+
+Date Program::getDate()
+{
+	return exhibitionDate;
 }
 
 void Program::open_programs_file(){
