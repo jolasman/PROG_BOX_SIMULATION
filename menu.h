@@ -1,35 +1,33 @@
-#ifndef _MENU
-#define _MENU
+#include "Box.h"
+#include "Channel.h"
+#include "Movie.h"
+#include "fstream"
 
-#include<iostream>
+#include <vector>
+#include <string>
+#include <time.h>
 
+#include <iostream>
 using namespace std;
 
-int rand_int(int a, int b);
-/*gera um numero aleatorio entre a e b*/
-void menu_inicial(); 
-/*apresenta no ecra o menu de opções entre os outros menus*/
-void menu_box();
-/*onde é gerado o codigo para interagir com o utilizador para a escolha do que pretende no menu inicial*/
+void menu_inicial();
+/*apresenta no ecra osub menu com a interacao do utilizador/canais*/
 void menu_channels();
-/*apresenta no ecra o menu com os canais*/
+/*apresenta no ecra o submenu com a interacao utilizador/programas*/
 void menu_programs();
-/*apresenta no ecra o menu com os programas*/
+/*apresenta no ecra o submenu com a interacao utilizador/filmes*/
 void menu_movies();
-/*apresenta no ecra o menu com os filmes */
+/*apresenta no ecra o submenu da saida da aplicacao*/
 void menu_exit();
-/*apresenta no ecra o menu de saida*/
 
-/*estas tres funções eram uma tentaiva para ser reconhecida a tecla que estava a ser carregada em cada menu*/
+/****************************************ainda por acabar as tres funcoes de verificacao de teclas carregadas******************************/
 void pressed_key_channels();
 
 void pressed_key_movies();
 
 void pressed_key_programs();
 
-/*vai buscar a passoword ao ficheiro password.txt*/
+/*funcao que vai buscar a password do utilizador ao ficheiro password.txt*/
 string getPassword();
 
-
-
-#endif
+void menu_box();

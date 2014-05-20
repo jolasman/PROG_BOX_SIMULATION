@@ -1,9 +1,8 @@
 #include "Box.h"
-#include "menu.h"
 #include "Channel.h"
 #include "Movie.h"
 #include "fstream"
-
+#include "menu.h"
 #include <vector>
 #include <string>
 #include <time.h>
@@ -20,13 +19,14 @@ Box::Box(string passwd, Date date):currentDate(date){
   password = passwd;
 }
 
+/*************************************************password *******************************************/
 bool Box::checkPassword()
 {
 	string passw;
 	
 	cout << "----------------------- You are trying to access the Box -----------------------\n" << endl;
 	cout << "type your PASSWORD please:\n " << endl;
-	cin >> passw;
+	getline(cin,passw);
 
 	if (passw == password)
 	{
@@ -77,6 +77,7 @@ void Box::changePassword()
 		cout << "INCORRECT PASSWORD! try again! " << endl;
 	}
 }
+/*******************************************************load box***************************************/
 
 void Box::openBox()
 {
@@ -99,6 +100,7 @@ void Box::openBox()
 
 }
 
+/************************************************************abrir e ler ficheiros**********************************/
 void Box::open_channels_file()
 {
 	string line;
@@ -198,7 +200,7 @@ void Box::open_programs_file(){
 			}
 			else
 			{
-				toBeRecorded.push_back(Program(line, duration, day, hour, minutes)); //poe no vector
+				recorded.push_back(Program(line, duration, day, hour, minutes)); //poe no vector
 			}
 
 		}
@@ -211,60 +213,46 @@ void Box::open_programs_file(){
 
 void Box::readProgramsVector()
 {
-	for (unsigned int i = 0; i < toBeRecorded.size(); i++)
+	for (unsigned int i = 0; i < recorded.size(); i++)
 	{
-		cout << toBeRecorded[i].getName() << endl;
+		cout << recorded[i].getName() << endl;
 	}
 }
 
-string Box::compare2(string name)
-{
-	for (unsigned int i = 0; i < channels.size(); i++)
-	{
-		if (name == channels[i].getChannelName())
-		{
-			return name;
-		}
-		else
-		{
-			return false;
-		}
-
-	}
-
-}
-
+/********************************************************submenus Channels**********************************************/
 void Box::submenuNameChannels()
 {
 
 	int mudar = 0;
-	Channel c;
 	system("cls");
 
 	string nameChannel;
+	cin.clear();
+	cin.ignore(1000, '\n');
 
 	cout << "Which  name Channel you want to change?:\n\n";
-	cin >> nameChannel;
+	getline(cin, nameChannel);
 
-	
-	// falta comparar se existe o canal no vector
-
-	for (unsigned int i = 0; i < channels.size(); i++)
+	for (unsigned int i = 0; i < channels.size(); i++)//compara se o nome introduzido e igual a algum do vector de canais
 	{
 		if (nameChannel == channels[i].getChannelName())
 		{
 			string namenew;
 			cout << "New name: \n" << endl;
+
 			//alterar o nome
-			cin >> namenew;
+			getline(cin, namenew);
+			if (namenew == "")
+			{
+				cout << "Invalid name! try again later" << endl;
+			}
+			else
+			{
+				channels[i].setChannelName(namenew);
 
-			//c.setChannelName(namenew);//funcao que muda o nome
-			
-			channels[i].setChannelName(namenew);
-			
-
-			cout << "\nName changed you success!\n" << endl;
-			mudar = 1;
+				cout << "\nName changed you success!\n" << endl;
+				mudar = 1;
+			}
 		}
 	}
 		
@@ -280,11 +268,13 @@ void Box::submenuNewChannel(){
 
 	string newChannel;
 	bool existe = 0;
+	cin.clear();
+	cin.ignore(1000, '\n');
 
 	cout << "Please type the name of the new Channel:\n\n";
-	cin >> newChannel;
+	getline(cin,newChannel);
 
-	for (unsigned int i = 0; i < channels.size(); i++)
+	for (unsigned int i = 0; i < channels.size(); i++)//compara se o nome introduzido e igual a algum do vector de canais
 	{
 		if (newChannel == channels[i].getChannelName())
 		{
@@ -294,8 +284,209 @@ void Box::submenuNewChannel(){
 	}
 	if (existe == 0)
 	{
-		channels.push_back(newChannel);
-		cout << "Channel added with success!" << endl;
+		if (newChannel == "")
+		{
+			cout << "Channel nedds a real name please..." << endl;
+		}
+		else
+			{
+			channels.push_back(newChannel);
+			cout << "Channel added with success!" << endl;
+		}
 
+	}
+}
+
+void Box::submenuRemoveChannel(){
+
+	system("cls");
+	bool existe = 0;
+	string oldChannel;
+	cin.clear();
+	cin.ignore(1000, '\n');
+
+	cout << "Please type the name of the Channel to remove:\n\n";
+	getline(cin,oldChannel);
+
+
+	for (unsigned int i = 0; i < channels.size(); i++)
+	{
+		if (oldChannel == channels[i].getChannelName())//compara se o nome introduzido e igual a algum do vector de canais
+		{
+			existe = 1;
+
+			channels.erase(channels.begin() + i);//apaga o canal no vector
+
+			cout << "This Channel has been removed with success!" << endl;
 		}
 	}
+	if (existe == 0)
+	{
+
+		cout << "Channel does not exists! try later" << endl;
+	}
+}
+
+
+/*******************falta acabar este submenu de addiconar programas***********************/
+void Box::submenuAddProgramChannel()
+{
+
+	system("cls");
+	bool existe = 0;
+	string newProgram, newday;
+	int hour, minute;
+	cin.clear();
+	cin.ignore(1000, '\n');
+
+	cout << "Please type the name of the new Program:\n\n";
+	getline(cin,newProgram);
+	cout << "Please type the hour when the new Program starts(only the hour, not the minutes):\n\n";
+	cin >> hour;
+	cout << "Please type the minutes when the new Program starts:\n\n";
+	cin >> minute;
+
+
+	for (unsigned int i = 0; i < channels.size(); i++)
+	{
+		if (newProgram == recorded[i].getName())//compara se o nome introduzido e igual a algum do vector de canais
+		{
+			existe = 1;
+
+			cout << "This Program already exists!" << endl;
+		}
+	}
+
+	if (existe == 0)
+	{
+
+		cout << "Channel added with success!" << endl;
+	}
+
+	
+
+	
+
+}
+
+/***********************************************************************************/
+
+
+/********************************************************submenus Movies**********************************************/
+void Box::submenuNameMovies()
+{
+
+	bool mudar = 0;
+	system("cls");
+
+	string nameMovie;
+	cin.clear();
+	cin.ignore(1000, '\n');
+
+	cout << "Which Movie name you want to change?:\n\n";
+	getline(cin, nameMovie);
+
+	for (unsigned int i = 0; i < movieClub.size(); i++)//compara se o nome introduzido e igual a algum do vector de canais
+	{
+		if (nameMovie == movieClub[i].getTitle())
+		{
+			string namenew;
+			cout << "New name: \n" << endl;
+
+			//alterar o nome
+			getline(cin, namenew);
+			if (namenew == "")
+			{
+				cout << "Invalid name! try again later" << endl;
+			}
+			else
+			{
+				movieClub[i].setTitle(namenew);
+
+				cout << "\nName changed you success!\n" << endl;
+				mudar = 1;
+			}
+		}
+	}
+
+	if (mudar == 0)
+	{
+		cout << "\nNot changed! Try again later" << endl;
+	}
+
+}
+
+void Box::submenuChangeCostMovies()
+{
+
+	bool mudar = 0;
+	system("cls");
+
+	string nameMovie;
+	float cost;
+	cin.clear();
+	cin.ignore(1000, '\n');
+
+	cout << "Which Movie name you want to change the cost?:\n\n";
+	getline(cin, nameMovie);
+
+	for (unsigned int i = 0; i < movieClub.size(); i++)//compara se o nome introduzido e igual a algum do vector de canais
+	{
+		if (nameMovie == movieClub[i].getTitle())
+		{
+			
+			cout << "New cost: \n" << endl;
+			cin >> cost;
+			
+			if (cost == 0.0)
+			{
+				cout << "cost nedd to be more than 0.0" << endl;
+			}
+			else
+			{
+				movieClub[i].setCost(cost);
+
+				cout << "\nCost changed you success!\n" << endl;
+				mudar = 1;
+			}
+		}
+	}
+
+	if (mudar == 0)
+	{
+		cout << "\nNot changed! Try again later" << endl;
+	}
+
+}
+
+void Box::submenuRemoveMovies()
+{
+	system("cls");
+	bool existe = 0;
+	string oldMovie;
+	cin.clear();
+	cin.ignore(1000, '\n');
+
+	cout << "Please type the name of the Movie to remove:\n\n";
+	getline(cin, oldMovie);
+
+
+	for (unsigned int i = 0; i < movieClub.size(); i++)
+	{
+		if (oldMovie == movieClub[i].getTitle())//compara se o nome introduzido e igual a algum do vector de canais
+		{
+			existe = 1;
+
+			movieClub.erase(movieClub.begin() + i);//apaga o canal no vector
+
+			cout << "This Movie has been removed with success!" << endl;
+		}
+	}
+	if (existe == 0)
+	{
+
+		cout << "Movie does not exists! try later" << endl;
+	}
+}
+
+/********************************************************************************************************************/

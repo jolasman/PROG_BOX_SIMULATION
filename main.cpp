@@ -4,10 +4,10 @@ using namespace std;
 #include "fstream"
 #include <time.h>
 #include <vector>
-#include "menu.h"
 #include "Channel.h"
 #include "Date.h"
 #include "Box.h"
+#include "menu.h"
 
 // Randomly generates a valid day, hour and minute
 Date currentDate(){
@@ -28,13 +28,6 @@ Date currentDate(){
 	Date dat = { day1, hour1, minutes };
 	return dat;
 }
-
-
-
-
-
-
-
 
 /*
 [*]
@@ -57,7 +50,7 @@ Date currentDate(){
 
 Box box = Box(getPassword(), currentDate());
 
-
+/*apresenta no ecra o menu de opções entre os outros submenus para a possivel navegacao do utilizador*/
 void menu_inicial(){
 
 	system("CLS");
@@ -69,7 +62,7 @@ void menu_inicial(){
 	cout << "Choose a number: ";
 
 }
-
+/*apresenta no ecra osub menu com a interacao do utilizador/canais*/
 void menu_channels(){
 
 
@@ -96,78 +89,37 @@ void menu_channels(){
 		//chamar lista de canais
 
 		box.readChannelsVector();
+		system("pause");
 	}
 
-	// falta a parte de mudar o nome dos canais
-	/***********************************************************************ainda esta a dar erro aqui ao mudar o nome*************************/
+	
 	if (number == 2)
 	{
-		
+		//chama a funcao que muda o nome do canal
 		box.submenuNameChannels();
-
+		system("pause");
 	}
-
-
-	// falta a parte de adicionar um canal
 
 	if (number == 3)
 	{
-
-		system("cls");
-
+		//chama a funcao que adiciona um canal novo
 		box.submenuNewChannel();
+		system("pause");
 	}
-	//falta a parte de remover um canal
+	
 
 	if (number == 4)
 	{
-
-		system("cls");
-
-		string oldChannel;
-
-		cout << "Please type the name of the Channel to remove:\n\n";
-		cin >> oldChannel;
-
-
-		/*	if (oldChannel == algumcanaldoquejaexistenovetor)
-		{
-		//remover o canal do vector
-		cout << "This Channel has been removed with success!" << endl;
-		}
-		else
-		{
-
-		cout << "Channel does not exists! try later" << endl;
-		}*/
+		//chama a funcao que remove um novo canal
+		box.submenuRemoveChannel();
+		system("pause");
 	}
 
+	/************************************************************falta fazer a funca de adicionar um programa ao canal no box.cpp**************************/
 	if (number == 5)
 	{
 
-		system("cls");
-
-		string newProgram, newday;
-		int hour, minute;
-
-		cout << "Please type the name of the new Program:\n\n";
-		cin >> newProgram;
-		cout << "Please type the hour when the new Program starts(only the hour, not the minutes):\n\n";
-		cin >> hour;
-		cout << "Please type the minutes when the new Program starts:\n\n";
-		cin >> minute;
-
-		/*if (newProgram == algumcanaldoquejaexistenovetor)
-		{
-
-		cout << "This Program already exists! try later" << endl;
-		}
-		else
-		{
-		//adicionar o programa ao vector
-
-		cout << "Channel added with success!" << endl;
-		}*/
+		box.submenuAddProgramChannel();
 	}
 
 	if (number == 6)
@@ -177,10 +129,9 @@ void menu_channels(){
 
 		menu_inicial();
 	}
-
-	system("pause");
+	
 }
-
+/*apresenta no ecra o submenu com a interacao utilizador/programas*/
 void menu_programs(){
 	Box prog;
 
@@ -388,16 +339,16 @@ void menu_programs(){
 	system("pause");
 
 }
-
+/*apresenta no ecra o submenu com a interacao utilizador/filmes*/
 void menu_movies(){
-	Box mov;
+
 
 	system("CLS");
 	cout << "--------------------------Welcome to the Movies menu----------------------------\n\n";
 
 	int number;
 	cout << "1. See Movieclub" << endl;
-	cout << "2. Tyitle change" << endl;
+	cout << "2. Title change" << endl;
 	cout << "3. Cost change" << endl;
 	cout << "4. Remove Movie" << endl;
 	cout << "5. Return to main menu\n\n";
@@ -411,40 +362,14 @@ void menu_movies(){
 		cout << "The movies list:\n\n";
 
 		//chamar lista de filmes
-		mov.open_movies_file();
-		mov.readMoviesVector();
-	}
 
-	// falta a parte de mudar o nome dos filmes
+		box.readMoviesVector();
+		system("pause");
+	}
 
 	if (number == 2)
 	{
-		Box b;
-		Movie m;
-
-		system("cls");
-
-		string nameMovie;
-
-		cout << "Which Movie name you want to change?:\n\n";
-		cin >> nameMovie;
-
-		// falta comparar se existe o programa no vector
-
-		/*if (nameMovie == b.compare2(nameMovie)
-		{
-		string namenew;
-		cout << "New name: " << endl;
-		//colocar o novo nome
-		cin >> namenew;
-		m.setTitle(namenew);
-
-		cout << "Name changed you success!" << endl;
-		}
-		else
-		{
-		cout << " Any Movie with this name! try again later" << endl;
-		}*/
+		box.submenuNameMovies();
 	}
 
 
@@ -452,62 +377,20 @@ void menu_movies(){
 
 	if (number == 3)
 	{
+		box.submenuNameMovies();
+		system("pause");
 
-		system("cls");
-
-		string nameMovie;
-		float movieCost;
-
-		cout << "Please type the name of the Movie to change cost:\n\n";
-		cin >> nameMovie;
-
-		/*if (nameMovie == programa_no_vetor)
-		{
-		cout << "new cost:" << endl;
-		cin >> movieCost;
-		//colocar o preco no filme
-		}
-		else
-		{
-		cout << "choose other Movie please:" << endl;
-
-		}
-		*/
 	}
 
 	//falta a parte de remover o filme
 	if (number == 4)
 	{
-
-		system("cls");
-
-		string nameMovie;
-
-		/*if (nameMovie == alguma_filme_no_vetor)
-		{
-		cout << "Movie removed with success!" << endl;
-		}
-
-		else
-		{
-		cout << "not removed! try again later" << endl;
-		}
-
-		*/
+		box.submenuRemoveMovies();
+		system("pause");
 	}
-
-	if (number == 5)// exit
-	{
-
-		system("cls");
-
-		menu_inicial();
-	}
-
-	system("pause");
-
 }
 
+/*apresenta no ecra o submenu da saida da aplicacao*/
 void menu_exit(){
 
 	system("CLS");
@@ -519,6 +402,7 @@ void menu_exit(){
 
 }
 
+/****************************************ainda por acabar as tres funcoes de verificacao de teclas carregadas******************************/
 void pressed_key_channels(){
 
 	char x;
@@ -577,6 +461,9 @@ void pressed_key_programs(){
 
 }
 
+/*****************************************************************************************************************************************/
+
+/*funcao que vai buscar a password do utilizador ao ficheiro password.txt*/
 string getPassword()
 {
 	ifstream password;
@@ -588,7 +475,7 @@ string getPassword()
 	return pass;
 
 }
-
+/*onde é gerado o codigo para interagir com o utilizador para a escolha do que pretende no menu inicial*/
 void menu_box(){
 
 	int loop = 1;
@@ -652,20 +539,17 @@ void menu_box(){
 
 
 int main(){
-		
-
-	
-	
-	
+	/***************************coloca em cada vector os programas, canais e filmes lidos dos respectivos ficheiros.txt*******************************/
 	box.open_channels_file();
 	box.open_movies_file();
 	box.open_programs_file();
 
-	
-	box.openBox();
-	
-	
+	/************************************************************************************************************************************************/
 
+	box.openBox();//chama a funcao que tem o funcionamento da box em si
+	
+	
+	
 	
 	
   //exit(0);

@@ -20,6 +20,8 @@ class Movie{
 	 float getCost();
 	 /*muda o titulo de um filme*/
 	 void setTitle(string newname);
+	 /*muda o preco do filme*/
+	 void setCost(float custo);
 };
 
 #endif

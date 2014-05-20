@@ -80,7 +80,6 @@
     <ClCompile Include="Channel.cpp" />
     <ClCompile Include="Date.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="menu.cpp" />
     <ClCompile Include="Movie.cpp" />
     <ClCompile Include="Program.cpp" />
   </ItemGroup>

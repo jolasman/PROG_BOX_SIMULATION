@@ -26,3 +26,10 @@ void Movie::setTitle(string newname)
 
 	this->title = newname;
 }
+
+void Movie::setCost(float custo)
+{
+
+	this->cost = custo;
+	
+}
