@@ -81,7 +81,7 @@ void Box::changePassword()
 void Box::openBox()
 {
 
-	
+
 	if (checkPassword() == true)
 	{
 		menu_box();
@@ -180,7 +180,7 @@ void Box::open_programs_file(){
 
 	string line;
 	int duration = 10;
-	string day = "Monday";
+	string day = "Monday"; ///////********************tem de ser alterado****************///////
 	int hour = 20;
 	int minutes = 15;
 	Program nome = { line, duration, day, hour, minutes };
@@ -233,3 +233,69 @@ string Box::compare2(string name)
 	}
 
 }
+
+void Box::submenuNameChannels()
+{
+
+	int mudar = 0;
+	Channel c;
+	system("cls");
+
+	string nameChannel;
+
+	cout << "Which  name Channel you want to change?:\n\n";
+	cin >> nameChannel;
+
+	
+	// falta comparar se existe o canal no vector
+
+	for (unsigned int i = 0; i < channels.size(); i++)
+	{
+		if (nameChannel == channels[i].getChannelName())
+		{
+			string namenew;
+			cout << "New name: \n" << endl;
+			//alterar o nome
+			cin >> namenew;
+
+			//c.setChannelName(namenew);//funcao que muda o nome
+			
+			channels[i].setChannelName(namenew);
+			
+
+			cout << "\nName changed you success!\n" << endl;
+			mudar = 1;
+		}
+	}
+		
+	if (mudar == 0)
+	{
+		cout << "\nNot changed! Try again later" << endl;
+	}
+	
+}
+
+void Box::submenuNewChannel(){
+	system("cls");
+
+	string newChannel;
+	bool existe = 0;
+
+	cout << "Please type the name of the new Channel:\n\n";
+	cin >> newChannel;
+
+	for (unsigned int i = 0; i < channels.size(); i++)
+	{
+		if (newChannel == channels[i].getChannelName())
+		{
+			existe = 1;
+			cout << "This Channel already exists!" << endl;
+		}
+	}
+	if (existe == 0)
+	{
+		channels.push_back(newChannel);
+		cout << "Channel added with success!" << endl;
+
+		}
+	}

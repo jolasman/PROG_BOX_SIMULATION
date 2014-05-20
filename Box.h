@@ -47,6 +47,10 @@ class Box{
 
   string compare2(string name);
 
+  void submenuNameChannels();
+
+  void submenuNewChannel();
+
 
   vector<Program> listByDay(string day);
   vector<Program> listByChannel(string  channel, string day);
