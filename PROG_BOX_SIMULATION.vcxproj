@@ -93,6 +93,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="Channels.txt" />
+    <Text Include="Durations.txt" />
     <Text Include="movies.txt" />
     <Text Include="Password.txt" />
     <Text Include="programs.txt" />

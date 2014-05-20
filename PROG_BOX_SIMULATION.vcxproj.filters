@@ -59,5 +59,6 @@
     <Text Include="movies.txt" />
     <Text Include="programs.txt" />
     <Text Include="Password.txt" />
+    <Text Include="Durations.txt" />
   </ItemGroup>
 </Project>

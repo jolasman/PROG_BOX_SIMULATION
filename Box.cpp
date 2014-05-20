@@ -331,11 +331,10 @@ void Box::submenuRemoveChannel(){
 /*******************falta acabar este submenu de addiconar programas***********************/
 void Box::submenuAddProgramChannel()
 {
-
 	system("cls");
 	bool existe = 0;
-	string newProgram, newday;
-	int hour, minute;
+	string newProgram, newday, newtype, newchannel;
+	int hour, minute,duration;
 	cin.clear();
 	cin.ignore(1000, '\n');
 
@@ -345,28 +344,49 @@ void Box::submenuAddProgramChannel()
 	cin >> hour;
 	cout << "Please type the minutes when the new Program starts:\n\n";
 	cin >> minute;
+	cout << "Please type the duration of the new Program starts:\n\n";
+	cin >> duration;
+	cout << "Please type the type of the new Program:\n\n";
+	getline(cin, newtype);
+	cout << "Please type the name of the channel to create a new Program:\n\n";
+	getline(cin, newchannel);
 
+	Program prog = { newProgram, duration, newday, hour, minute };//declaracao do programa
+	prog.setTypeName(newtype);
 
 	for (unsigned int i = 0; i < channels.size(); i++)
 	{
-		if (newProgram == recorded[i].getName())//compara se o nome introduzido e igual a algum do vector de canais
+		if (channels[i].getChannelName() == newchannel)//ve se tem o canal no vector
 		{
-			existe = 1;
 
-			cout << "This Program already exists!" << endl;
+			if (channels[i].getPrograms().size() == 0)//se o vector dos programas estiver vazio
+			{
+				channels[i].addProgram(prog);
+				cout << "Program created!" << endl;
+				
+			}
+			else
+			{
+				for (unsigned int j = 0; j < channels[i].getPrograms().size(); j++)
+				{
+					if (channels[i].getPrograms()[j].getDate().getDay() == newday)
+					{
+
+						//convem depois verificar as horas do dia para saber se nao se sobrepoe a nenhum programa ja existente
+
+					}
+
+				}
+				channels[i].addProgram(prog);
+				cout << "Program reated!" << endl;
+				existe = 1;
+			}
 		}
 	}
-
 	if (existe == 0)
 	{
-
-		cout << "Channel added with success!" << endl;
+		cout << "Program not created! try again later" << endl;
 	}
-
-	
-
-	
-
 }
 
 /***********************************************************************************/
@@ -487,6 +507,231 @@ void Box::submenuRemoveMovies()
 
 		cout << "Movie does not exists! try later" << endl;
 	}
+}
+
+/********************************************************************************************************************/
+
+
+
+/********************************************************submenus Programs**********************************************/
+void Box::submenuNamePrograms()
+{
+	bool mudar = 0;
+	system("cls");
+
+	string nameProgram;
+	cin.clear();
+	cin.ignore(1000, '\n');
+
+	cout << "Which Program name you want to change?:\n\n";
+	getline(cin, nameProgram);
+
+	for (unsigned int i = 0; i < recorded.size(); i++)//compara se o nome introduzido e igual a algum do vector de canais
+	{
+		if (nameProgram == recorded[i].getName())
+		{
+			string namenew;
+			cout << "New name: \n" << endl;
+
+			//alterar o nome
+			getline(cin, namenew);
+			if (namenew == "")
+			{
+				cout << "Invalid name! try again later" << endl;
+			}
+			else
+			{
+				recorded[i].setProgramName(namenew);
+
+				cout << "\nName changed you success!\n" << endl;
+				mudar = 1;
+			}
+		}
+	}
+
+	if (mudar == 0)
+	{
+		cout << "\nNot changed! Try again later" << endl;
+	}
+
+}
+
+void Box::submenuChangeTypePrograms()
+{
+
+	bool mudar = 0;
+	system("cls");
+
+	string nameType;
+	cin.clear();
+	cin.ignore(1000, '\n');
+
+	cout << "Which Movie name you want to change the type?:\n\n";
+	getline(cin, nameType);
+
+	for (unsigned int i = 0; i < recorded.size(); i++)//compara se o nome introduzido e igual a algum do vector de canais
+	{
+		if (nameType == recorded[i].getType())
+		{
+			string newnameType;
+
+			cout << "New type: \n" << endl;
+			getline(cin, newnameType);
+
+			if (newnameType == "")
+			{
+				cout << "Invalid Type! try again" << endl;
+			}
+			else
+			{
+				recorded[i].setTypeName(newnameType);
+
+				cout << "\nType changed you success!\n" << endl;
+				mudar = 1;
+			}
+		}
+	}
+
+	if (mudar == 0)
+	{
+		cout << "\nNot changed! Try again later" << endl;
+	}
+
+}
+
+void Box::submenuChangeDatePrograms()
+{
+	bool mudar = 0;
+	system("cls");
+
+	string program, channel,day;
+	int hour, minutes;
+	
+	cin.clear();
+	cin.ignore(1000, '\n');
+
+	cout << "Which Program name you want to change the Date?:\n\n";
+	getline(cin, program);
+
+	cout << "Which Channel have this program?:\n\n";
+	getline(cin, channel);
+
+	cout << "Day?:\n\n";
+	getline(cin, day);
+
+	cout << "Hour?:\n\n";
+	cin >> hour;
+
+	cout << "Minutes?:\n\n";
+	cin >> minutes;
+
+	Date data = { day, (unsigned int)hour, (unsigned int)minutes };//declaracao da data
+
+	for (unsigned int i = 0; i < channels.size(); i++)
+	{
+		if (channels[i].getChannelName() == channel)//procura o nome do canal no vector e ve se existe
+		{
+			for (unsigned int j = 0; j < channels[i].getPrograms().size(); j++)
+			{
+				if (channels[i].getPrograms()[j].getName() == program)//procura o nome do programa e ve se existe
+				{
+					channels[i].getPrograms()[j].changeDate(data);//muda para a data que foi declarada
+					cout << "Date changed!" << endl;
+					mudar = 1;
+				}
+			}
+		}
+
+	}
+
+		if (mudar == 0)
+		{
+			cout << "\nNot changed! Try again later" << endl;
+		}
+	}
+
+void Box::submenuChangeDurationPrograms()
+{
+	bool mudar = 0;
+	system("cls");
+
+	string program, channel;
+	int duration;
+
+	cin.clear();
+	cin.ignore(1000, '\n');
+
+	cout << "Which Program name you want to change the Duration?:\n\n";
+	getline(cin, program);
+
+	cout << "Which Channel have this program?:\n\n";
+	getline(cin, channel);
+
+	cout << "Which duration you want?:\n\n";
+	cin >> duration;
+
+	for (unsigned int i = 0; i < channels.size(); i++)
+	{
+		if (channels[i].getChannelName() == channel)//procura o nome do canal no vector e ve se existe
+		{
+			for (unsigned int j = 0; j < channels[i].getPrograms().size(); j++)
+			{
+				if (channels[i].getPrograms()[j].getName() == program)//procura o nome do programa e ve se existe
+				{
+					channels[i].getPrograms()[j].setDuration(duration);//muda para a data que foi declarada
+					cout << "Duration changed!" << endl;
+					mudar = 1;
+				}
+			}
+		}
+
+	}
+
+	if (mudar == 0)
+	{
+		cout << "\nNot changed! Try again later" << endl;
+	}
+
+}
+
+void Box::submenuRemovePrograms(){
+	bool mudar = 0;
+	system("cls");
+
+	string channel, program;
+	
+	cin.clear();
+	cin.ignore(1000, '\n');
+
+	cout << "Which Program name you want to remove?:\n\n";
+	getline(cin, program);
+
+	cout << "Which Channel have this program?:\n\n";
+	getline(cin, channel);
+
+	
+	for (unsigned int i = 0; i < channels.size(); i++)
+	{
+		if (channels[i].getChannelName() == channel)//procura o nome do canal no vector e ve se existe
+		{
+			for (unsigned int j = 0; j < channels[i].getPrograms().size(); j++)
+			{
+				if (channels[i].getPrograms()[j].getName() == program)//procura o nome do programa e ve se existe
+				{
+					channels[i].getPrograms().erase(channels[i].getPrograms().begin() + j);;//remove o programa do vector
+					cout << "Program removed!" << endl;
+					mudar = 1;
+				}
+			}
+		}
+
+	}
+
+	if (mudar == 0)
+	{
+		cout << "\nNot removed! Try again later" << endl;
+	}
+
 }
 
 /********************************************************************************************************************/

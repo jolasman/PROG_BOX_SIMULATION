@@ -19,6 +19,11 @@ int Program::getDuration()
 	return duration;
 }
 
+string Program::getType()
+{
+	return type;
+}
+
 string Program::getName()
 {
 	return name;
@@ -29,3 +34,23 @@ Date Program::getDate()
 	return exhibitionDate;
 }
 
+void Program::setProgramName(string nome)
+{
+	this->name = nome;
+}
+
+void Program::setTypeName(string tipo)
+{
+	this->type = tipo;
+}
+
+void Program::changeDate(Date data)
+{
+	this->exhibitionDate = data;
+}
+
+void Program::setDuration(int duration)
+{
+	this->duration = duration;
+
+}

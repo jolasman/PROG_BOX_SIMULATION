@@ -79,6 +79,25 @@ class Box{
 
 
 
+  /*********************************************************************menus de programs*************************************************************/
+
+  /*imprime na consola o submenu que faz a operacao de mudar o nome a um programa*/
+  void submenuNamePrograms();
+
+  /*imprime na consola o submenu que faz a operacao de remover um programa*/
+  void submenuRemovePrograms();
+
+  /*imprime na consola o submenu que faz a operacao de mudar o tipo de um programa*/
+  void submenuChangeTypePrograms();
+
+  /*imprime na consola o submenu que faz a operacao de mudar a data de um programa*/
+  void submenuChangeDatePrograms();
+
+  /*imprime na consola o submenu que faz a operacao de mudar a duracao de um programa*/
+  void submenuChangeDurationPrograms();
+
+  /****************************************************************************************************************************************************/
+
 
 
 
