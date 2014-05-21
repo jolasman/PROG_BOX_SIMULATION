@@ -111,12 +111,13 @@ void menu_programs(){
 	cout << "--------------------------Welcome to the Programs menu--------------------------\n\n";
 	int number;
 	cout << "1. See all Programs" << endl;
-	cout << "2. Name change" << endl;
-	cout << "3. Type change" << endl;
-	cout << "4. Date change" << endl;
-	cout << "5. Duration change" << endl;
-	cout << "6. Remove Program" << endl;
-	cout << "7. Return to main menu\n\n";
+	cout << "2. Create a new Program" << endl;
+	cout << "3. Name change" << endl;
+	cout << "4. Type change" << endl;
+	cout << "5. Date change" << endl;
+	cout << "6. Duration change" << endl;
+	cout << "7. Remove Program" << endl;
+	cout << "8. Return to main menu\n\n";
 	cout << "Choose a number: ";
 	cin >> number;
 
@@ -128,40 +129,42 @@ void menu_programs(){
 		box.readProgramsVector();
 	}
 
-	// falta a parte de mudar o nome dos programas
-
+	
 	if (number == 2)
+	{
+		box.submenuAddProgramChannel();
+	}
+
+	if (number == 3)
 	{
 		box.submenuNamePrograms();
 	}
 
-
-	// falta a parte de mudar o tipo de programa
-
-	if (number == 3)
+	
+	if (number == 4)
 	{
 		box.submenuChangeTypePrograms();
 	}
-	//falta a parte de mudar a data
+	
 
-	if (number == 4)
+	if (number == 5)
 	{
 		box.submenuChangeDatePrograms();
 	}
 
-	// alterar a duracao do programa
-	if (number == 5)
+	
+	if (number == 6)
 	{
 		box.submenuChangeDurationPrograms();
 	}
 
-	if (number == 6)//remove
+	if (number == 7)//remove
 	{
 		box.submenuRemovePrograms();
 	}
 
 
-	if (number == 7)// exit
+	if (number == 8)// exit
 	{
 		system("cls");
 		menu_inicial();

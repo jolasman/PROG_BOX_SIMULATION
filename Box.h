@@ -24,6 +24,8 @@ class Box{
 	 Box();
   Box(string passwd, Date currentDate);
  
+  bool seeTime(int hour, int minute, int duration, int newHour, int newMinute, int newDuration);
+
   /*chama as funcoes necessarias para que se abra os menus*/
   void openBox();
   

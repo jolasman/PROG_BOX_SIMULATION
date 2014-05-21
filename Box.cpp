@@ -19,6 +19,32 @@ Box::Box(string passwd, Date date):currentDate(date){
   password = passwd;
 }
 
+bool Box::seeTime(int hour, int minute, int duration, int newHour, int newMinute, int newDuration)
+{
+	int timeInicial, timeFinal, timeInicialNew,timeFinalNew;
+
+	timeInicial = hour * 60 + minute; //da o time em minutos para facilitar a soma
+
+	timeFinal = timeInicial + duration;// a hora final do programa e a hora inicial mais a sua duracao
+
+	timeInicialNew = newHour * 60 + newMinute;// do novo programa a adicionar
+
+	timeFinalNew = timeInicialNew + newDuration;// do novo programa a adicionar
+
+	if (timeFinalNew < timeInicial)
+	{
+		return true;
+	}
+	if (timeInicialNew > timeFinal)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
 /*************************************************password *******************************************/
 bool Box::checkPassword()
 {
@@ -119,7 +145,7 @@ void Box::open_channels_file()
 			}
 			else
 			{
-				channels.push_back(line); //poe no vector
+				channels.push_back(Channel(line)); //poe no vector
 			}
 
 		}
@@ -178,33 +204,64 @@ void Box::readMoviesVector()
 }
 
 void Box::open_programs_file(){
+	string line, durationTime, hourTime, minuteTime, typeProgram, dayProgram;
+	int h, m, d;
+	
+	ifstream fs("Programs.txt");
+	ifstream dur("Durations.txt");
+	ifstream hou("Hour.txt");
+	ifstream minute("Minute.txt");
+	ifstream da("Day.txt");
+	ifstream type("Type.txt");
 	
 
-	string line;
-	int duration = 10;
-	string day = "Monday"; ///////********************tem de ser alterado****************///////
-	int hour = 20;
-	int minutes = 15;
-	Program nome = { line, duration, day, hour, minutes };
-
-	ifstream fs("Programs.txt");
-
-	if (fs.is_open())
+	if (fs.is_open() && dur.is_open() && hou.is_open() && minute.is_open() && da.is_open() && type.is_open())
 	{
 		//tenta abrir ficheiro 
-		while (!fs.eof()){
+		while (!fs.eof() && dur.eof() && hou.eof() && minute.eof() && da.eof() && type.eof())
+		{
 
-			getline(fs, line);
+			getline(fs, line); // nome do programa
+
+			getline(hou, hourTime);
+			h = atoi(hourTime.c_str());// receber o valor das horas
+
+			getline(minute, minuteTime);
+			m = atoi(minuteTime.c_str());// receber o valor dos minutos
+
+			getline(dur, durationTime);
+			d = atoi(durationTime.c_str());// receber o valor da duracao
+
+			getline(da, dayProgram);// receber o dia
+
+			getline(type, typeProgram);// receber o tipo de programa
+
 			if (line == "")
 			{
 			}
 			else
 			{
-				recorded.push_back(Program(line, duration, day, hour, minutes)); //poe no vector
-			}
+				for (unsigned int i = 0; i < channels.size(); i++)
+				{
 
+					Program nome = { line, d, dayProgram, h, m };//declarar o programa
+
+					nome.setTypeName(typeProgram);// altera o tipo
+
+					channels[i].addProgram(nome);// poe no vector
+
+				}
+
+			}
 		}
-		fs.close();														//fecha ficheiro 
+
+		//fechar os ficheiros todos
+		fs.close();
+		dur.close();
+		hou.close();
+		minute.close();
+		da.close();
+		type.close();
 	}
 	else{
 		cout << "ficheiro nao abre" << endl;
@@ -213,9 +270,12 @@ void Box::open_programs_file(){
 
 void Box::readProgramsVector()
 {
-	for (unsigned int i = 0; i < recorded.size(); i++)
+	for (unsigned int i = 0; i < channels.size(); i++)
 	{
-		cout << recorded[i].getName() << endl;
+		vector<Program> programs = channels[i].getPrograms();
+		
+		for (unsigned int j = 0; j < programs.size(); j++)
+		cout << programs[j].getName() << endl;
 	}
 }
 
@@ -340,19 +400,22 @@ void Box::submenuAddProgramChannel()
 
 	cout << "Please type the name of the new Program:\n\n";
 	getline(cin,newProgram);
+	cout << "Please type the type of the new Program:\n\n";
+	getline(cin, newtype);
+	cout << "Please type the name of the channel to create a new Program:\n\n";
+	getline(cin, newchannel);
+	system("cls");
 	cout << "Please type the hour when the new Program starts(only the hour, not the minutes):\n\n";
 	cin >> hour;
 	cout << "Please type the minutes when the new Program starts:\n\n";
 	cin >> minute;
 	cout << "Please type the duration of the new Program starts:\n\n";
 	cin >> duration;
-	cout << "Please type the type of the new Program:\n\n";
-	getline(cin, newtype);
-	cout << "Please type the name of the channel to create a new Program:\n\n";
-	getline(cin, newchannel);
+	
+
 
 	Program prog = { newProgram, duration, newday, hour, minute };//declaracao do programa
-	prog.setTypeName(newtype);
+	prog.setTypeName(newtype);// muda o tipo do programa
 
 	for (unsigned int i = 0; i < channels.size(); i++)
 	{
@@ -369,10 +432,17 @@ void Box::submenuAddProgramChannel()
 			{
 				for (unsigned int j = 0; j < channels[i].getPrograms().size(); j++)
 				{
-					if (channels[i].getPrograms()[j].getDate().getDay() == newday)
+					if (channels[i].getPrograms()[j].getDate().getDay() == newday)//verificar o dia 
 					{
+						bool timesee;
+						//convem depois verificar a data a ver se e depois da currentDate()
 
-						//convem depois verificar as horas do dia para saber se nao se sobrepoe a nenhum programa ja existente
+						timesee = seeTime(channels[i].getPrograms()[j].getDate().getHour(), channels[i].getPrograms()[j].getDate().getMinutes(),
+							channels[i].getPrograms()[j].getDuration(), hour, minute, duration);
+						if (timesee == false)
+							{
+							cout << "Already exists a program at this time! " << endl;
+						}
 
 					}
 
