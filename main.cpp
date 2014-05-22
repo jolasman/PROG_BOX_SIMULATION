@@ -13,19 +13,19 @@ using namespace std;
 Date currentDate(){
 	
 	srand((unsigned)time(NULL));
-
-	vector<string> vdays = { "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY" };
-	
-	int aleat = rand() % 7 + 1;
+	//vector<string> vdays = { "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY" };
+	string vdays[] = { "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY" }; //alterei de vector para array
+	//int aleat = rand() % 7 + 1;
+	int aleat = rand() % 7; //indice do array: numero aleatorio de 0-6
 	string day1;
-	
-	for (int j = 0; j < aleat; j++)
-		day1 = vdays[j];
-	
-	unsigned int hour1 = rand() % 24 + 1;
-	unsigned int minutes = rand() % 60 + 1;
-	
-	Date dat = { day1, hour1, minutes };
+	//for (int j = 0; j < aleat; j++)
+	//	day1 = vdays[j];
+	day1 = vdays[aleat];
+	//unsigned int hour1 = rand() % 24 + 1;
+	unsigned int hour1 = rand() % 24; //numero aleatorio de 0-23
+	//unsigned int minutes = rand() % 60 + 1;
+	unsigned int minutes = rand() % 60;  //numero aleatorio de 0-59
+	Date dat = {day1, hour1, minutes};
 	return dat;
 }
 
@@ -83,7 +83,6 @@ void menu_channels(){
 		box.submenuNewChannel();
 		system("pause");
 	}
-	
 
 	if (number == 4)
 	{
@@ -92,7 +91,7 @@ void menu_channels(){
 		system("pause");
 	}
 
-	/************************************************************falta fazer a funca de adicionar um programa ao canal no box.cpp**************************/
+	/************************************************************falta fazer a funcao de adicionar um programa ao canal no box.cpp**************************/
 	if (number == 5)
 	{
 		box.submenuAddProgramChannel();
@@ -103,8 +102,8 @@ void menu_channels(){
 		system("cls");
 		menu_inicial();
 	}
-	
 }
+
 /*apresenta no ecra o submenu com a interacao utilizador/programas*/
 void menu_programs(){
 	system("CLS");
@@ -128,7 +127,6 @@ void menu_programs(){
 		//chamar lista de progrmas
 		box.readProgramsVector();
 	}
-
 	
 	if (number == 2)
 	{
@@ -139,19 +137,16 @@ void menu_programs(){
 	{
 		box.submenuNamePrograms();
 	}
-
 	
 	if (number == 4)
 	{
 		box.submenuChangeTypePrograms();
 	}
-	
 
 	if (number == 5)
 	{
 		box.submenuChangeDatePrograms();
 	}
-
 	
 	if (number == 6)
 	{
@@ -163,7 +158,6 @@ void menu_programs(){
 		box.submenuRemovePrograms();
 	}
 
-
 	if (number == 8)// exit
 	{
 		system("cls");
@@ -171,6 +165,7 @@ void menu_programs(){
 		system("pause");
 	}
 }
+
 /*apresenta no ecra o submenu com a interacao utilizador/filmes*/
 void menu_movies(){
 	system("CLS");
@@ -229,9 +224,7 @@ void menu_exit(){
 void pressed_key_channels(){
 
 	char x;
-
 	cin >> x;
-
 
 	if (x == 'esc')
 	{
@@ -242,15 +235,12 @@ void pressed_key_channels(){
 	{
 		menu_channels();
 	}
-
-
 }
 
 void pressed_key_movies(){
 
 	char x;
 	x = getchar();
-
 
 	if (x == 0x27)
 	{
@@ -261,15 +251,12 @@ void pressed_key_movies(){
 	{
 		menu_movies();
 	}
-
-
 }
 
 void pressed_key_programs(){
 
 	char x;
 	x = getchar();
-
 
 	if (x == 0x27)
 	{
@@ -280,8 +267,6 @@ void pressed_key_programs(){
 	{
 		menu_programs();
 	}
-
-
 }
 
 /*****************************************************************************************************************************************/
@@ -296,50 +281,39 @@ string getPassword()
 	getline(password, pass);
 	password.close();
 	return pass;
-
 }
 
 /*onde é gerado o codigo para interagir com o utilizador para a escolha do que pretende no menu inicial*/
 void menu_box(){
 
-	int loop = 1;
-
-	int choice;
+	int loop = 1, choice;
 
 	while (loop == 1)
 	{
-
 		menu_inicial();
 
 		cin >> choice;
-
 
 		switch (choice)
 		{
 		case 1:
 			menu_channels();
-
 			pressed_key_channels();
-
 			break;
 
 		case 2:
 			menu_movies();
-
 			pressed_key_movies();
-
 			break;
+
 		case 3:
 			menu_programs();
-
 			pressed_key_programs();
-
 			break;
+
 		case 4:
 			menu_exit();
-
 			loop = 0;
-
 			break;
 
 		default:
@@ -347,11 +321,9 @@ void menu_box(){
 			cin.ignore(1000, '\n'); //problema do pisca pisca resolvido :)
 			break;
 		}
-
 	}
 	exit(0);
 }
-
 
 int main(){
 	/***************************coloca em cada vector os programas, canais e filmes lidos dos respectivos ficheiros.txt*******************************/
@@ -363,10 +335,7 @@ int main(){
 
 	box.openBox();//chama a funcao que tem o funcionamento da box em si
 	
-
-	
   //exit(0);
-
 	
 }
 

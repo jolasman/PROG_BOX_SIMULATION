@@ -27,7 +27,6 @@ class Channel{
 	 /*muda o nome de um programa de um canal*/
 	 void changeNamePrograms(string oldname, string newname);
 
-
 };
 
 #endif

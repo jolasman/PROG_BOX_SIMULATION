@@ -11,9 +11,7 @@
 using namespace std;
 
 
-Box::Box()
-{
-}
+Box::Box(){}
 
 Box::Box(string passwd, Date date):currentDate(date){
   password = passwd;
@@ -45,7 +43,7 @@ bool Box::seeTime(int hour, int minute, int duration, int newHour, int newMinute
 	}
 }
 
-/*************************************************password *******************************************/
+/*************************************************password **********************************************************/
 bool Box::checkPassword()
 {
 	string passw;
@@ -62,14 +60,13 @@ bool Box::checkPassword()
 	{
 		return false;
 	}
-
 }
 
 bool Box::checkPasswordAgain()
 {
 	string passw;
 
-	cout << "\n\n Wrong PASSWORD! Is your LASTE chance now!" << endl;
+	cout << "\n\n Wrong PASSWORD! Is your LAST chance now!" << endl;
 	cout << "\n Type your PASSWORD again please:\n\n " << endl;
 	cin >> passw;
 
@@ -81,7 +78,6 @@ bool Box::checkPasswordAgain()
 	{
 		return false;
 	}
-
 }
 
 void Box::changePassword()
@@ -103,11 +99,12 @@ void Box::changePassword()
 		cout << "INCORRECT PASSWORD! try again! " << endl;
 	}
 }
-/*******************************************************load box***************************************/
 
+/********************************************************************************************************************/
+
+/***************************************************load box*********************************************************/
 void Box::openBox()
 {
-
 
 	if (checkPassword() == true)
 	{
@@ -119,35 +116,25 @@ void Box::openBox()
 	}
 	else
 	{
-		
 		checkPasswordAgain();
-			
 	}
-
 }
 
-/************************************************************abrir e ler ficheiros**********************************/
+/********************************************************************************************************************/
+
+/***************************************************abrir e ler ficheiros********************************************/
 void Box::open_channels_file()
 {
 	string line;
-	
-
 	ifstream fs("Channels.txt");
 
 	if (fs.is_open())
 	{
-		//tenta abrir ficheiro 
+		//se ficheiro estiver aberto importa informacao 
 		while (!fs.eof()){
-
 			getline(fs, line);
-			if (line == "")
-			{
-			}
-			else
-			{
+			if (line != "")
 				channels.push_back(Channel(line)); //poe no vector
-			}
-
 		}
 		fs.close();	//fecha ficheiro 
 	}
@@ -166,7 +153,6 @@ void Box::readChannelsVector()
 
 void Box::open_movies_file(){
 
-	
 	string line;
 	float cost = 5.00;
 	Movie nome = { line, cost };
@@ -175,24 +161,17 @@ void Box::open_movies_file(){
 
 	if (fs.is_open())
 	{
-		//tenta abrir ficheiro 
+		//se ficheiro estiver aberto importa informacao 
 		while (!fs.eof()){
-
 			getline(fs, line);
-			if (line == "")
-			{
-			}
-			else
-			{
+			if (line != "")
 				movieClub.push_back(Movie(line,cost)); //poe no vector
-			}
 		}
-		fs.close();														//fecha ficheiro 
+		fs.close();	//fecha ficheiro 
 	}
 	else{
 		cout << "ficheiro nao abre" << endl;
 	}
-
 }
 
 void Box::readMoviesVector()
@@ -204,64 +183,47 @@ void Box::readMoviesVector()
 }
 
 void Box::open_programs_file(){
-	string line, durationTime, hourTime, minuteTime, typeProgram, dayProgram;
-	int h, m, d;
+	string prog, durationTime, hourTime, minuteTime, typeProgram, dayWeek;
+	int h, m, dur;
 	
-	ifstream fs("Programs.txt");
-	ifstream dur("Durations.txt");
-	ifstream hou("Hour.txt");
-	ifstream minute("Minute.txt");
-	ifstream da("Day.txt");
-	ifstream type("Type.txt");
-	
+	ifstream prog_file("Programs.txt");
+	ifstream duration_file("Durations.txt");
+	ifstream hour_file("Hour.txt");
+	ifstream minute_file("Minute.txt");
+	ifstream day_file("Day.txt");
+	ifstream type_file("Type.txt");
 
-	if (fs.is_open() && dur.is_open() && hou.is_open() && minute.is_open() && da.is_open() && type.is_open())
+	if (prog_file.is_open() && duration_file.is_open() && hour_file.is_open() && minute_file.is_open() && day_file.is_open() && type_file.is_open())
 	{
-		//tenta abrir ficheiro 
-		while (!fs.eof() && dur.eof() && hou.eof() && minute.eof() && da.eof() && type.eof())
+		while (!prog_file.eof() && !duration_file.eof() && !hour_file.eof() && !minute_file.eof() && !day_file.eof() && !type_file.eof())
 		{
-
-			getline(fs, line); // nome do programa
-
-			getline(hou, hourTime);
+			getline(prog_file, prog); // nome do programa
+			getline(hour_file, hourTime);
 			h = atoi(hourTime.c_str());// receber o valor das horas
-
-			getline(minute, minuteTime);
+			getline(minute_file, minuteTime);
 			m = atoi(minuteTime.c_str());// receber o valor dos minutos
+			getline(duration_file, durationTime);
+			dur = atoi(durationTime.c_str());// receber o valor da duracao
+			getline(day_file, dayWeek);// receber o dia
+			getline(type_file, typeProgram);// receber o tipo de programa
 
-			getline(dur, durationTime);
-			d = atoi(durationTime.c_str());// receber o valor da duracao
-
-			getline(da, dayProgram);// receber o dia
-
-			getline(type, typeProgram);// receber o tipo de programa
-
-			if (line == "")
-			{
-			}
-			else
-			{
+			if (prog != "")
 				for (unsigned int i = 0; i < channels.size(); i++)
 				{
+					Program nome = { prog, dur, dayWeek, h, m };	//declarar o programa
+					nome.setTypeName(typeProgram);					// altera o tipo (alterar constructor?!)
 
-					Program nome = { line, d, dayProgram, h, m };//declarar o programa
-
-					nome.setTypeName(typeProgram);// altera o tipo
-
-					channels[i].addProgram(nome);// poe no vector
-
+					channels[i].addProgram(nome);					// poe no vector
 				}
-
-			}
 		}
 
 		//fechar os ficheiros todos
-		fs.close();
-		dur.close();
-		hou.close();
-		minute.close();
-		da.close();
-		type.close();
+		prog_file.close();
+		duration_file.close();
+		hour_file.close();
+		minute_file.close();
+		day_file.close();
+		type_file.close();
 	}
 	else{
 		cout << "ficheiro nao abre" << endl;
@@ -273,16 +235,16 @@ void Box::readProgramsVector()
 	for (unsigned int i = 0; i < channels.size(); i++)
 	{
 		vector<Program> programs = channels[i].getPrograms();
-		
 		for (unsigned int j = 0; j < programs.size(); j++)
-		cout << programs[j].getName() << endl;
+			cout << programs[j].getName() << endl;
 	}
 }
 
-/********************************************************submenus Channels**********************************************/
+/*********************************************************************************************************************/
+
+/********************************************************submenus Channels********************************************/
 void Box::submenuNameChannels()
 {
-
 	int mudar = 0;
 	system("cls");
 
@@ -309,7 +271,6 @@ void Box::submenuNameChannels()
 			else
 			{
 				channels[i].setChannelName(namenew);
-
 				cout << "\nName changed you success!\n" << endl;
 				mudar = 1;
 			}
@@ -353,7 +314,6 @@ void Box::submenuNewChannel(){
 			channels.push_back(newChannel);
 			cout << "Channel added with success!" << endl;
 		}
-
 	}
 }
 
@@ -368,7 +328,6 @@ void Box::submenuRemoveChannel(){
 	cout << "Please type the name of the Channel to remove:\n\n";
 	getline(cin,oldChannel);
 
-
 	for (unsigned int i = 0; i < channels.size(); i++)
 	{
 		if (oldChannel == channels[i].getChannelName())//compara se o nome introduzido e igual a algum do vector de canais
@@ -382,13 +341,13 @@ void Box::submenuRemoveChannel(){
 	}
 	if (existe == 0)
 	{
-
 		cout << "Channel does not exists! try later" << endl;
 	}
 }
 
+/*********************************************************************************************************************/
 
-/*******************falta acabar este submenu de addiconar programas***********************/
+/*******************falta acabar este submenu de addiconar programas**************************************************/
 void Box::submenuAddProgramChannel()
 {
 	system("cls");
@@ -411,8 +370,6 @@ void Box::submenuAddProgramChannel()
 	cin >> minute;
 	cout << "Please type the duration of the new Program starts:\n\n";
 	cin >> duration;
-	
-
 
 	Program prog = { newProgram, duration, newday, hour, minute };//declaracao do programa
 	prog.setTypeName(newtype);// muda o tipo do programa
@@ -421,12 +378,10 @@ void Box::submenuAddProgramChannel()
 	{
 		if (channels[i].getChannelName() == newchannel)//ve se tem o canal no vector
 		{
-
 			if (channels[i].getPrograms().size() == 0)//se o vector dos programas estiver vazio
 			{
 				channels[i].addProgram(prog);
 				cout << "Program created!" << endl;
-				
 			}
 			else
 			{
@@ -443,9 +398,7 @@ void Box::submenuAddProgramChannel()
 							{
 							cout << "Already exists a program at this time! " << endl;
 						}
-
 					}
-
 				}
 				channels[i].addProgram(prog);
 				cout << "Program reated!" << endl;
@@ -454,18 +407,14 @@ void Box::submenuAddProgramChannel()
 		}
 	}
 	if (existe == 0)
-	{
 		cout << "Program not created! try again later" << endl;
-	}
 }
 
-/***********************************************************************************/
-
+/*********************************************************************************************************************/
 
 /********************************************************submenus Movies**********************************************/
 void Box::submenuNameMovies()
 {
-
 	bool mudar = 0;
 	system("cls");
 
@@ -500,15 +449,11 @@ void Box::submenuNameMovies()
 	}
 
 	if (mudar == 0)
-	{
 		cout << "\nNot changed! Try again later" << endl;
-	}
-
 }
 
 void Box::submenuChangeCostMovies()
 {
-
 	bool mudar = 0;
 	system("cls");
 
@@ -546,7 +491,6 @@ void Box::submenuChangeCostMovies()
 	{
 		cout << "\nNot changed! Try again later" << endl;
 	}
-
 }
 
 void Box::submenuRemoveMovies()
@@ -560,7 +504,6 @@ void Box::submenuRemoveMovies()
 	cout << "Please type the name of the Movie to remove:\n\n";
 	getline(cin, oldMovie);
 
-
 	for (unsigned int i = 0; i < movieClub.size(); i++)
 	{
 		if (oldMovie == movieClub[i].getTitle())//compara se o nome introduzido e igual a algum do vector de canais
@@ -573,17 +516,12 @@ void Box::submenuRemoveMovies()
 		}
 	}
 	if (existe == 0)
-	{
-
 		cout << "Movie does not exists! try later" << endl;
-	}
 }
 
-/********************************************************************************************************************/
+/*********************************************************************************************************************/
 
-
-
-/********************************************************submenus Programs**********************************************/
+/********************************************************submenus Programs********************************************/
 void Box::submenuNamePrograms()
 {
 	bool mudar = 0;
@@ -596,7 +534,7 @@ void Box::submenuNamePrograms()
 	cout << "Which Program name you want to change?:\n\n";
 	getline(cin, nameProgram);
 
-	for (unsigned int i = 0; i < recorded.size(); i++)//compara se o nome introduzido e igual a algum do vector de canais
+	for (unsigned int i = 0; i < recorded.size(); i++)	//compara se o nome introduzido e igual a algum do vector de canais
 	{
 		if (nameProgram == recorded[i].getName())
 		{
@@ -620,10 +558,7 @@ void Box::submenuNamePrograms()
 	}
 
 	if (mudar == 0)
-	{
 		cout << "\nNot changed! Try again later" << endl;
-	}
-
 }
 
 void Box::submenuChangeTypePrograms()
@@ -663,10 +598,7 @@ void Box::submenuChangeTypePrograms()
 	}
 
 	if (mudar == 0)
-	{
 		cout << "\nNot changed! Try again later" << endl;
-	}
-
 }
 
 void Box::submenuChangeDatePrograms()
@@ -715,10 +647,8 @@ void Box::submenuChangeDatePrograms()
 	}
 
 		if (mudar == 0)
-		{
 			cout << "\nNot changed! Try again later" << endl;
-		}
-	}
+}
 
 void Box::submenuChangeDurationPrograms()
 {
@@ -801,7 +731,95 @@ void Box::submenuRemovePrograms(){
 	{
 		cout << "\nNot removed! Try again later" << endl;
 	}
-
 }
 
-/********************************************************************************************************************/
+/*********************************************************************************************************************/
+
+/********************************************************Listar Programas*********************************************/
+vector<Program> Box::listByDay(){
+	vector<Program> progsDay;
+	for (unsigned int i; i < channels.size(); i++)
+	{
+		vector<Program> progsChannel = channels[i].getPrograms();
+		for (unsigned int j; j < progsChannel.size(); j++)
+		{
+			if (progsChannel[j].getDate().getDay() == currentDate.getDay())
+				progsDay.push_back(progsChannel[j]);
+		}
+	}
+	return progsDay;
+}
+
+vector<Program> Box::listByDay(string day){
+	vector<Program> progsDay;
+	for (unsigned int i; i < channels.size(); i++)
+	{
+		vector<Program> progsChannel = channels[i].getPrograms();
+		for (unsigned int j; j < progsChannel.size(); j++)
+		{
+			if (progsChannel[j].getDate().getDay() == day)
+				progsDay.push_back(progsChannel[j]);
+		}
+	}
+	return progsDay;
+}
+
+vector<Program> Box::listByChannel(string channel){
+	vector<Program> progsChannel;
+	for (unsigned int i; i < channels.size(); i++)
+	{
+		if (channels[i].getChannelName() == channel)
+		{
+			progsChannel = channels[i].getPrograms();
+			break;
+		}
+	}
+	return progsChannel;
+}
+
+vector<Program> Box::listByChannel(string channel, string day){
+	vector<Program> progsDay;
+	for (unsigned int i; i < channels.size(); i++)
+	{
+		if (channels[i].getChannelName() == channel)
+		{
+			vector<Program> progsChannel = channels[i].getPrograms();
+			for (unsigned int j; j < progsChannel.size(); j++)
+			{
+				if (progsChannel[j].getDate().getDay() == currentDate.getDay())
+					progsDay.push_back(progsChannel[j]);
+			}
+			break;
+		}
+	}
+	return progsDay;
+}
+
+vector<Program> Box::listByType(string type){
+	vector<Program> progsType;
+	for (unsigned int i; i < channels.size(); i++)
+	{
+		vector<Program> progsChannel = channels[i].getPrograms();
+		for (unsigned int j; j < progsChannel.size(); j++)
+		{
+			if (progsChannel[j].getType() == type)
+				progsType.push_back(progsChannel[j]);
+		}
+	}
+	return progsType;
+}
+
+vector<Program> Box::listByType(string type, string day){
+	vector<Program> progsType;
+	for (unsigned int i; i < channels.size(); i++)
+	{
+		vector<Program> progsChannel = channels[i].getPrograms();
+		for (unsigned int j; j < progsChannel.size(); j++)
+		{
+			if ((progsChannel[j].getType() == type) && (progsChannel[j].getDate().getDay() == day))
+				progsType.push_back(progsChannel[j]);
+		}
+	}
+	return progsType;
+}
+/*********************************************************************************************************************/

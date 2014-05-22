@@ -10,7 +10,7 @@ class Movie{
   string title;
   string type;
   float cost;
-  unsigned timesRented;
+  unsigned int timesRented;
  public:
 	 Movie(); 
 	 Movie(string title, float cost);
@@ -22,6 +22,8 @@ class Movie{
 	 void setTitle(string newname);
 	 /*muda o preco do filme*/
 	 void setCost(float custo);
+	 unsigned int getRented();
+	 unsigned int Rent();
 };
 
 #endif

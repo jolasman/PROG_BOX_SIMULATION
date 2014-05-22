@@ -13,7 +13,7 @@ class Date{
  public:
 	 Date();
 	 Date(string day, unsigned int hour, unsigned int minutes);
-	 
+	 bool operator<(Date d);
 	 /*retorna o dia da data*/
 	 string getDay();
 	 /*retorna a hora da data*/
