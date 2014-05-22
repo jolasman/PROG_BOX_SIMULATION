@@ -15,15 +15,15 @@ class Movie{
 	 Movie(); 
 	 Movie(string title, float cost);
 	 /*retorna o titulo do filme*/
-	 string getTitle();
+	 string getTitle() const;
 	 /*retorna o preco do filme*/
-	 float getCost();
+	 float getCost() const;
 	 /*muda o titulo de um filme*/
 	 void setTitle(string newname);
 	 /*muda o preco do filme*/
 	 void setCost(float custo);
-	 unsigned int getRented();
-	 unsigned int Rent();
+	 unsigned int getRented() const;
+	 void Rent();
 };
 
 #endif

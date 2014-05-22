@@ -11,11 +11,13 @@ Movie::Movie(string title, float cost){
 	this->cost = cost;
 }
 
-string Movie::getTitle(){
+string Movie::getTitle() const
+{
 	return title;
 }
 
-float Movie::getCost(){
+float Movie::getCost() const
+{
 	return cost;
 }
 
@@ -29,14 +31,13 @@ void Movie::setCost(float custo)
 	this->cost = custo;
 }
 
-unsigned int Movie::getRented()
+unsigned int Movie::getRented() const
 {
 	return timesRented;
 }
 
-unsigned int Movie::Rent()
+void Movie::Rent()
 {
 	timesRented++;
-	return timesRented;
 }
 

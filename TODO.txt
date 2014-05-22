@@ -1,0 +1,57 @@
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Menu utilizador normal:
+	- Programação
+		- listar programas por dia, por canal, por tipo de programa
+		- gravações
+			- listar programas gravados
+			- listar programas a gravar
+			- gravar programa
+	- Videoclube
+		- alugar filme
+		- ver numero de visualizações do filme x
+		- consultar despesa do videoclube (necessario importar e exportar este valor para ficheiro?! ou é sempre calculado "on the fly"?!)
+	- Aceder menu Administrador
+		- operações CRUD
+
+Nota: nas operações CRUD com programas as alteraçoes devem ser tanto no vector programs (do canal) como no vector recorded (da box) 
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Box::seeTime() ?
+	- verificar sobreposição?!
+	- parametro deve ser "programa a adicionar"
+	- criei uma função Canal::checkOverlap()
+
+Importar ficheiros
+	- Canal e programas devem estar juntos
+	- verifica se existe canal
+		- se nao existe adiciona canal e insere programa
+		- se existe canal:
+			- verifica sobreposição de programas, se nao houver sobreposição:
+				- insere programa no vector programas do canal
+	- lista de gravaçoes
+		- verifica se programa existe no canal (ou em todos?)
+		- verifica se data do programa é antes ou depois da "current"
+			- se for antes: poe a flag record a "true"
+		- adiciona programa ao vector "recordList"
+
+Exportar ficheiros ao sair
+
+função "criar programa" (da classe canal)
+	- cria programa (parametros pedidos na interface)
+	- funçao recebe programa como parametro (já estava)
+	- verifica se existe sobreposição (overlap na grelha) e insere no vector programas do canal
+
+Separar interface (menus) da classe box 
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Movies
+	
+
+
+
+
+
+	
