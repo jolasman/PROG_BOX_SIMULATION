@@ -736,7 +736,8 @@ void Box::submenuRemovePrograms(){
 /*********************************************************************************************************************/
 
 /********************************************************Listar Programas*********************************************/
-vector<Program> Box::listByDay(){
+vector<Program> Box::listByDay() const
+{
 	vector<Program> progsDay;
 	for (unsigned int i = 0; i < channels.size(); i++)
 	{
@@ -750,7 +751,8 @@ vector<Program> Box::listByDay(){
 	return progsDay;
 }
 
-vector<Program> Box::listByDay(string day){
+vector<Program> Box::listByDay(string day) const
+{
 	vector<Program> progsDay;
 	for (unsigned int i = 0; i < channels.size(); i++)
 	{
@@ -764,7 +766,8 @@ vector<Program> Box::listByDay(string day){
 	return progsDay;
 }
 
-vector<Program> Box::listByChannel(string channel){
+vector<Program> Box::listByChannel(string channel) const
+{
 	vector<Program> progsChannel;
 	for (unsigned int i = 0; i < channels.size(); i++)
 	{
@@ -777,7 +780,8 @@ vector<Program> Box::listByChannel(string channel){
 	return progsChannel;
 }
 
-vector<Program> Box::listByChannel(string channel, string day){
+vector<Program> Box::listByChannel(string channel, string day) const
+{
 	vector<Program> progsDay;
 	for (unsigned int i = 0; i < channels.size(); i++)
 	{
@@ -795,7 +799,8 @@ vector<Program> Box::listByChannel(string channel, string day){
 	return progsDay;
 }
 
-vector<Program> Box::listByType(string type){
+vector<Program> Box::listByType(string type) const
+{
 	vector<Program> progsType;
 	for (unsigned int i = 0; i < channels.size(); i++)
 	{
@@ -809,7 +814,8 @@ vector<Program> Box::listByType(string type){
 	return progsType;
 }
 
-vector<Program> Box::listByType(string type, string day){
+vector<Program> Box::listByType(string type, string day) const
+{
 	vector<Program> progsType;
 	for (unsigned int i = 0; i < channels.size(); i++)
 	{
@@ -822,4 +828,50 @@ vector<Program> Box::listByType(string type, string day){
 	}
 	return progsType;
 }
+/*********************************************************************************************************************/
+
+/********************************************************Movies*******************************************************/
+bool Box::rentMovies(string title)
+{
+	for (unsigned int i = 0; i < movieClub.size(); i++)
+	{
+		if (movieClub[i].getTitle() == title)
+		{
+			movieClub[i].Rent();
+			seenMovies.push_back(movieClub[i]);
+			movieClub.erase(movieClub.begin() + i);
+			return true;
+		}
+	}
+	for (unsigned int i = 0; i < seenMovies.size(); i++)
+	{
+		if (seenMovies[i].getTitle() == title)
+		{
+			seenMovies[i].Rent();
+			return true;
+		}
+	}
+	return false;
+}
+
+float Box::moneySpent() const
+{
+	float totalCost = 0;
+	for (unsigned int i = 0; i < seenMovies.size(); i++)
+	{
+		totalCost += seenMovies[i].getCost()*seenMovies[i].getRented();
+	}
+	return totalCost;
+}
+
+int Box::timesWhatched(string title) const
+{
+	for (unsigned int i = 0; i < seenMovies.size(); i++)
+	{
+		if (seenMovies[i].getTitle() == title)
+			return seenMovies[i].getRented();
+	}
+	return 0;
+}
+
 /*********************************************************************************************************************/

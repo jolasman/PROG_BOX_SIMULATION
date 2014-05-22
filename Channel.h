@@ -16,16 +16,18 @@ class Channel{
 	 Channel();
 	 Channel(string name);
 	/*retorna o nome do canal*/
-	 string getChannelName();
+	 string getChannelName() const;
 	 /*altera o nome do canal*/
 	 void setChannelName(string nome);
 	 	
 	 /*adiciona um programa no vector de programas de um canal*/
 	 void addProgram(Program p);
 	 /*vector que nos da os programas de um canal*/
-	 vector<Program> &getPrograms();
+	 vector<Program> getPrograms() const;
 	 /*muda o nome de um programa de um canal*/
 	 void changeNamePrograms(string oldname, string newname);
+	 /*verifica sobreposicao de programas*/
+	 bool checkOverlap(Program p); //const?
 
 };
 

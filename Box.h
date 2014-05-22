@@ -76,15 +76,15 @@ class Box{
 	 void submenuChangeDurationPrograms();
 	 /****************************************************************************************************************************************************/
 	 
-	 vector<Program> listByDay();
-	 vector<Program> listByDay(string day);
-	 vector<Program> listByChannel(string  channel);
-	 vector<Program> listByChannel(string  channel, string day);
-	 vector<Program> listByType(string type);
-	 vector<Program> listByType(string type, string day);
+	 vector<Program> listByDay() const;
+	 vector<Program> listByDay(string day) const;
+	 vector<Program> listByChannel(string  channel) const;
+	 vector<Program> listByChannel(string  channel, string day) const;
+	 vector<Program> listByType(string type) const;
+	 vector<Program> listByType(string type, string day) const;
 	 bool rentMovies(string title);
-	 float moneySpent();
-	 int timesWhatched(string title);
+	 float moneySpent() const;
+	 int timesWhatched(string title) const;
 
 	 bool checkPassword();
 	 bool checkPasswordAgain();
