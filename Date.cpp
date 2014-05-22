@@ -5,31 +5,28 @@ using namespace std;
 
 #include <string>
 
-Date::Date()
-{
-}
+Date::Date(){}
 
 Date::Date(string weekDay, unsigned hour, unsigned minutes){
 	this->weekDay = weekDay;
 	this->hour = hour;
 	this->minutes = minutes;
-
 }
 
-string Date::getDay(){
+string Date::getDay() const{
 	return weekDay;
 }
 
-int Date::getHour(){
+unsigned int Date::getHour() const{
 	return hour;
 }
 
-int Date::getMinutes(){
+unsigned int Date::getMinutes() const{
 	return minutes;
 }
 
-bool Date::operator<(Date d){
-	int day1, day2;
+bool Date::operator<(const Date& d){
+	unsigned int day1, day2;
 	if (weekDay == "MONDAY") day1 = 1;
 	else if (weekDay == "TUESDAY") day1 = 2;
 	else if (weekDay == "WEDNESDAY") day1 = 3;

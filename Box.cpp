@@ -738,10 +738,10 @@ void Box::submenuRemovePrograms(){
 /********************************************************Listar Programas*********************************************/
 vector<Program> Box::listByDay(){
 	vector<Program> progsDay;
-	for (unsigned int i; i < channels.size(); i++)
+	for (unsigned int i = 0; i < channels.size(); i++)
 	{
 		vector<Program> progsChannel = channels[i].getPrograms();
-		for (unsigned int j; j < progsChannel.size(); j++)
+		for (unsigned int j = 0; j < progsChannel.size(); j++)
 		{
 			if (progsChannel[j].getDate().getDay() == currentDate.getDay())
 				progsDay.push_back(progsChannel[j]);
@@ -752,10 +752,10 @@ vector<Program> Box::listByDay(){
 
 vector<Program> Box::listByDay(string day){
 	vector<Program> progsDay;
-	for (unsigned int i; i < channels.size(); i++)
+	for (unsigned int i = 0; i < channels.size(); i++)
 	{
 		vector<Program> progsChannel = channels[i].getPrograms();
-		for (unsigned int j; j < progsChannel.size(); j++)
+		for (unsigned int j = 0; j < progsChannel.size(); j++)
 		{
 			if (progsChannel[j].getDate().getDay() == day)
 				progsDay.push_back(progsChannel[j]);
@@ -766,7 +766,7 @@ vector<Program> Box::listByDay(string day){
 
 vector<Program> Box::listByChannel(string channel){
 	vector<Program> progsChannel;
-	for (unsigned int i; i < channels.size(); i++)
+	for (unsigned int i = 0; i < channels.size(); i++)
 	{
 		if (channels[i].getChannelName() == channel)
 		{
@@ -779,12 +779,12 @@ vector<Program> Box::listByChannel(string channel){
 
 vector<Program> Box::listByChannel(string channel, string day){
 	vector<Program> progsDay;
-	for (unsigned int i; i < channels.size(); i++)
+	for (unsigned int i = 0; i < channels.size(); i++)
 	{
 		if (channels[i].getChannelName() == channel)
 		{
 			vector<Program> progsChannel = channels[i].getPrograms();
-			for (unsigned int j; j < progsChannel.size(); j++)
+			for (unsigned int j = 0; j < progsChannel.size(); j++)
 			{
 				if (progsChannel[j].getDate().getDay() == currentDate.getDay())
 					progsDay.push_back(progsChannel[j]);
@@ -797,10 +797,10 @@ vector<Program> Box::listByChannel(string channel, string day){
 
 vector<Program> Box::listByType(string type){
 	vector<Program> progsType;
-	for (unsigned int i; i < channels.size(); i++)
+	for (unsigned int i = 0; i < channels.size(); i++)
 	{
 		vector<Program> progsChannel = channels[i].getPrograms();
-		for (unsigned int j; j < progsChannel.size(); j++)
+		for (unsigned int j = 0; j < progsChannel.size(); j++)
 		{
 			if (progsChannel[j].getType() == type)
 				progsType.push_back(progsChannel[j]);
@@ -811,10 +811,10 @@ vector<Program> Box::listByType(string type){
 
 vector<Program> Box::listByType(string type, string day){
 	vector<Program> progsType;
-	for (unsigned int i; i < channels.size(); i++)
+	for (unsigned int i = 0; i < channels.size(); i++)
 	{
 		vector<Program> progsChannel = channels[i].getPrograms();
-		for (unsigned int j; j < progsChannel.size(); j++)
+		for (unsigned int j = 0; j < progsChannel.size(); j++)
 		{
 			if ((progsChannel[j].getType() == type) && (progsChannel[j].getDate().getDay() == day))
 				progsType.push_back(progsChannel[j]);

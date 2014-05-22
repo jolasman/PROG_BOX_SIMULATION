@@ -13,13 +13,13 @@ class Date{
  public:
 	 Date();
 	 Date(string day, unsigned int hour, unsigned int minutes);
-	 bool operator<(Date d);
+	 bool operator<(const Date& d);
 	 /*retorna o dia da data*/
-	 string getDay();
+	 string getDay() const;
 	 /*retorna a hora da data*/
-	 int getHour();
+	 unsigned int getHour() const;
 	 /*retorna os minutos da data*/
-	 int getMinutes();
+	 unsigned int getMinutes() const;
 };
 
 #endif
