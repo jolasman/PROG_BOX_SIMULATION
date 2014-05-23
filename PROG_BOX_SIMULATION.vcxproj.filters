@@ -64,5 +64,8 @@
     <Text Include="Minute.txt" />
     <Text Include="Day.txt" />
     <Text Include="Type.txt" />
+    <Text Include="Recorded.txt" />
+    <Text Include="TODO.txt" />
+    <Text Include="Channels&amp;Programs.txt" />
   </ItemGroup>
 </Project>

@@ -92,6 +92,7 @@
     <ClInclude Include="Program.h" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="Channels&amp;Programs.txt" />
     <Text Include="Channels.txt" />
     <Text Include="Day.txt" />
     <Text Include="Durations.txt" />
@@ -100,6 +101,8 @@
     <Text Include="movies.txt" />
     <Text Include="Password.txt" />
     <Text Include="programs.txt" />
+    <Text Include="Recorded.txt" />
+    <Text Include="TODO.txt" />
     <Text Include="Type.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
