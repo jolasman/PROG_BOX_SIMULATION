@@ -431,6 +431,8 @@ void Box::submenuAddProgramChannel()
 	getline(cin, newtype);
 	cout << "Please type the name of the channel to create a new Program:\n\n";
 	getline(cin, newchannel);
+	cout << "Please type the day of the new Program:\n\n";
+	getline(cin, newday);
 	system("cls");
 	cout << "Please type the hour when the new Program starts(only the hour, not the minutes):\n\n";
 	cin >> hour;
