@@ -82,36 +82,8 @@ bool Box::changePassword()
 /********************************************************************************************************************/
 
 /***************************************************load box*********************************************************/
-string typePassw() //depois mover para o main.cpp
-{
-	string passw;
-	char ch;
-	const char ENTER = 13;
-	const char BACKSPACE = 8;
-	ch = _getch();
-	while (ch != ENTER){
-		if (ch == BACKSPACE) //se a tecla premida for backspace
-		{
-			if (passw.size() > 0)
-			{
-				passw = passw.substr(0, passw.size() - 1);
-				cout << '\b';	//Cursor move-se 1 posicao para tras
-				cout << " ";	//Cursor sobrepoe letra escrita
-				cout << '\b';	//Cursor move-se novamente 1 posicao para tras
-			}
-		}
-		else
-		{
-			passw += ch;
-			cout << '*';
-		}
-		ch = _getch();
-	}
-	cout << endl;
-	return passw;
-}
 
-void Box::openBox()
+/*void Box::openBox()
 {
 	cout << "----------------------- You are trying to access the Box -----------------------\n" << endl;
 	cout << "Type your PASSWORD please:" << endl;
@@ -130,7 +102,7 @@ void Box::openBox()
 	{
 		menu_box();
 	}
-}
+}*/
 /********************************************************************************************************************/
 
 /***************************************************abrir e ler ficheiros********************************************/
@@ -265,6 +237,8 @@ bool Box::importChannels(string file_path)
 		while (!file.eof())
 		{
 			channel_exists = false;
+
+			/*Procura nome do canal*/
 			getline(file, line);
 			pos1 = line.find(';');
 			if (pos1 == string::npos)
@@ -317,7 +291,8 @@ bool Box::importChannels(string file_path)
 			minutes = atoi(temp.c_str());
 			
 			program = Program(progName, progType, duration, progWeekDay, hour, minutes);
-				
+			//cout << program.getName() << endl;
+
 			/*verifica se ja existe o canal*/
 			for (unsigned int i = 0; i < channels.size(); i++)
 			{
@@ -356,6 +331,7 @@ bool Box::importRecorded(string file_path)
 				programs = channels[i].getPrograms();
 				for (unsigned int j = 0; j < programs.size(); j++)
 				{
+					//cout << programs[j].getName() << endl; //////////////////DEBUG
 					if (programs[j].getName() == progName)
 					{
 						if (programs[j].getDate() < currentDate)
@@ -815,14 +791,11 @@ void Box::submenuChangeDurationPrograms()
 				}
 			}
 		}
-
 	}
-
 	if (mudar == 0)
 	{
 		cout << "\nNot changed! Try again later" << endl;
 	}
-
 }
 
 void Box::submenuRemovePrograms(){
@@ -840,7 +813,6 @@ void Box::submenuRemovePrograms(){
 	cout << "Which Channel have this program?:\n\n";
 	getline(cin, channel);
 
-	
 	for (unsigned int i = 0; i < channels.size(); i++)
 	{
 		if (channels[i].getChannelName() == channel)//procura o nome do canal no vector e ve se existe
@@ -855,9 +827,7 @@ void Box::submenuRemovePrograms(){
 				}
 			}
 		}
-
 	}
-
 	if (mudar == 0)
 	{
 		cout << "\nNot removed! Try again later" << endl;
@@ -1028,7 +998,9 @@ int Box::timesWhatched(string title) const
 }
 /*********************************************************************************************************************/
 
+/********************************************************Date*********************************************************/
 Date Box::getDate() const
 {
 	return currentDate;
 }
+/*********************************************************************************************************************/

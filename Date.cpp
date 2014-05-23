@@ -35,7 +35,7 @@ bool Date::operator<(const Date& d){
 	else if (weekDay == "SATURDAY") day1 = 6;
 	else if (weekDay == "SUNDAY") day1 = 7;
 
-	if (weekDay == "MONDAY") day2 = 1;
+	if (d.getDay() == "MONDAY") day2 = 1;
 	else if (d.getDay() == "TUESDAY") day2 = 2;
 	else if (d.getDay() == "WEDNESDAY") day2 = 3;
 	else if (d.getDay() == "THURSDAY") day2 = 4;

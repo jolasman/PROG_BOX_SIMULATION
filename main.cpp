@@ -1,6 +1,8 @@
 #include <iostream>
 #include <cstdlib>
 #include "fstream"
+#include <sstream>
+#include <iomanip>
 #include <time.h>
 #include <vector>
 #include <conio.h>
@@ -26,11 +28,66 @@ Date currentDate(){
 	return dat;
 }
 
-//CHANNEL ~69 
-//MOVIES ~51
-//PROGRAMS ~60
+string displayDate;
+
+string dateToString(Date date)
+{
+	string s;
+	ostringstream ss;
+	ss << date.getDay() << ' ';
+	ss << setfill('0') << setw(2) << date.getHour() << ':' << setfill('0') << setw(2) << date.getMinutes();
+	s = ss.str();
+	return s;
+}
+
+string typePassw() //depois mover para o main.cpp
+{
+	string passw;
+	char ch;
+	const char ENTER = 13;
+	const char BACKSPACE = 8;
+	ch = _getch();
+	while (ch != ENTER){
+		if (ch == BACKSPACE) //se a tecla premida for backspace
+		{
+			if (passw.size() > 0)
+			{
+				passw = passw.substr(0, passw.size() - 1);
+				cout << '\b';	//Cursor move-se 1 posicao para tras
+				cout << " ";	//Cursor sobrepoe letra escrita
+				cout << '\b';	//Cursor move-se novamente 1 posicao para tras
+			}
+		}
+		else
+		{
+			passw += ch;
+			cout << '*';
+		}
+		ch = _getch();
+	}
+	cout << endl;
+	return passw;
+}
+
+/*funcao que vai buscar a password do utilizador ao ficheiro password.txt*/
+string getPassword()
+{
+	ifstream password_file;
+	string passw = "default"; //no caso de nao encontrar o ficheiro a password fica "default"
+
+	password_file.open("PASSWORD.txt");
+	if (password_file.is_open()){
+		getline(password_file, passw);
+		password_file.close();
+	}
+	return passw;
+}
 
 Box box = Box(getPassword(), currentDate());
+
+
+
+
 
 /*apresenta no ecra o menu de opções entre os outros submenus para a possivel navegacao do utilizador*/
 void menu_inicial(){
@@ -45,6 +102,7 @@ void menu_inicial(){
 
 }
 /*apresenta no ecra o submenu com a interacao do utilizador/canais*/
+
 void menu_channels(){
 	system("CLS");
 	cout << "--------------------------Welcome to the Channels menu--------------------------\n\n";
@@ -205,17 +263,185 @@ void menu_movies(){
 	}
 }
 
-/*apresenta no ecra o submenu da saida da aplicacao*/
-void menu_exit(){
+
+
+
+
+
+
+
+
+/*Apresenta o ecra de entrada na aplicacao*/
+void screen_begin()
+{
+	system("CLS");
+	cout << "\n\n\n\n\n\n\n\n";
+	cout << "                        WELCOME TO THE CABLE TV BOX\n\n\n\n\n\n\n\n\n";
+	cout << "\n                        (press any key to continue)\n\n";
+	_getch();
+}
+
+/*Exibir um ecra de loading no caso da importação de ficheiros for demorada */
+void screen_loading()
+{
+	system("CLS");
+	cout << "\n\n\n\n\n\n\n\n                        Loading BOX information...\n\n\n\n\n\n\n\n\n";
+}
+
+/*Exibir programas gravados*/
+void screen_recorded()
+{
+	system("CLS");
+	cout << "-------------------------------------BOX----------------------------------------";
+	cout.width(80);
+	cout << right << displayDate << endl << endl;
+	vector<Program> programas = box.listRecorded();
+	for (unsigned int j = 0; j < programas.size(); j++)
+		cout << programas[j].getName() << " " << programas[j].getDuration() << " " << programas[j].getType() << " " << programas[j].getDate().getDay() << " " << programas[j].getDate().getHour() << ":" << programas[j].getDate().getMinutes() << endl;
+	cout << "\n                        (press any key to continue)\n\n";
+	_getch();
+	cout << endl;
+}
+
+/*Exibir gravacoes agendadas*/
+void screen_toRecord()
+{
+	system("CLS");
+	cout << "-------------------------------------BOX----------------------------------------";
+	cout.width(80);
+	cout << right << displayDate << endl << endl;
+	vector<Program> programas = box.listToRecord();
+	for (unsigned int j = 0; j < programas.size(); j++)
+		cout << programas[j].getName() << " " << programas[j].getDuration() << " " << programas[j].getType() << " " << programas[j].getDate().getDay() << " " << programas[j].getDate().getHour() << ":" << programas[j].getDate().getMinutes() << endl;
+	cout << "\n                        (press any key to continue)\n\n";
+	_getch();
+	cout << endl;
+}
+
+/*Apresenta o ecra de saida da aplicacao*/
+void screen_exit(){
 
 	system("CLS");
-	cout << " \n\n\n----------------------------Thank You For Watching------------------------------\n\n\n\n\n\n\n\n\n\n\n";
+	cout << "\n\n\n-----------------------------Thank You For Watching-----------------------------\n\n\n\n\n\n\n\n\n\n\n";
 	cout << "\n                                                       program by:";
 	cout << "\n                                                                 Joel Carneiro";
 	cout << "\n                                                               Filipe Cordeiro\n\n";
-	system("pause");
-
+	_getch();
 }
+
+/*Prototipos dos menus*/
+void main_menu();
+void menu_tv();
+void menu_movies();
+void menu_admin();
+void menu_programs();
+void menu_recordings();
+
+void main_menu(){
+
+	system("CLS");
+	cout << "-------------------------------------BOX----------------------------------------";
+	cout.width(80);
+	cout << right << displayDate;
+	cout << "1. TV" << endl;
+	cout << "2. Movies" << endl;
+	cout << "3. Manage BOX (password protected)" << endl;
+	cout << "4. Exit\n\n";
+	cout << "(Press a valid number)" << endl;
+
+	int loop = 1, n;
+	char choice;
+
+	while (loop == 1)
+	{
+		choice = _getch();
+		n = choice - '0';
+		switch (n)
+		{
+		case 1:
+			menu_tv();
+			pressed_key_channels();
+			break;
+		case 2:
+			menu_movies();
+			pressed_key_movies();
+			break;
+		case 3:
+			menu_admin(); //ALTERAR!
+			pressed_key_programs();
+			break;
+		case 4:
+			screen_exit();
+			loop = 0;
+			break;
+		}
+	}
+	exit(0);
+}
+
+void menu_tv(){
+
+	system("CLS");
+	cout << "-------------------------------------BOX----------------------------------------";
+	cout.width(80);
+	cout << right << displayDate << endl << endl;
+	cout << "1. View Tv Program Guide" << endl;
+	cout << "2. Manage Recordings" << endl;
+	cout << "3. Return to main menu\n\n";
+	cout << "(Press a valid number)" << endl;
+
+	int loop = 1, n;
+	char choice;
+
+	while (loop == 1)
+	{
+		choice = _getch();
+		n = choice - '0';
+		switch (n)
+		{
+		case 1:
+			menu_programs();
+			pressed_key_channels();
+			break;
+		case 2:
+			//menu_recordings();
+			pressed_key_movies();
+			break;
+		case 3:
+			main_menu();
+			pressed_key_programs();
+			break;
+		}
+	}
+	exit(0);
+}
+
+void menu_admin()
+{
+	system("CLS");
+	cout << "------------------ You are trying to access a Protected Area -------------------\n" << endl;
+	cout << "Type your PASSWORD please:" << endl;
+
+	string passw = typePassw();
+	if (box.checkPassword(passw) == true)
+	{
+		menu_box();
+	}
+
+	cout << "\nWrong PASSWORD! You have just ONE more chance." << endl;
+	cout << "Type your PASSWORD again please:" << endl;
+
+	passw = typePassw();
+	if (box.checkPassword(passw) == true)
+	{
+		menu_box();
+	}
+	cout << "\nWrong PASSWORD again. Returning to Main Menu." << endl;
+	cout << "\n(press any key to continue)";
+	_getch();
+	main_menu();
+}
+
 
 /****************************************ainda por acabar as tres funcoes de verificacao de teclas carregadas******************************/
 void pressed_key_channels()
@@ -247,19 +473,7 @@ void pressed_key_programs()
 
 /*****************************************************************************************************************************************/
 
-/*funcao que vai buscar a password do utilizador ao ficheiro password.txt*/
-string getPassword()
-{
-	ifstream password_file;
-	string passw = "default"; //no caso de nao encontrar o ficheiro a password fica "default"
 
-	password_file.open("PASSWORD.txt");
-	if (password_file.is_open()){
-		getline(password_file, passw);
-		password_file.close();
-	}
-	return passw;
-}
 
 /*onde é gerado o codigo para interagir com o utilizador para a escolha do que pretende no menu inicial*/
 void menu_box(){
@@ -290,7 +504,7 @@ void menu_box(){
 			break;
 
 		case 4:
-			menu_exit();
+			screen_exit();
 			loop = 0;
 			break;
 
@@ -303,21 +517,26 @@ void menu_box(){
 	exit(0);
 }
 
-int main(){
-	/***************************coloca em cada vector os programas, canais e filmes lidos dos respectivos ficheiros.txt*******************************/
-	//box.open_channels_file();
-	//box.open_movies_file();
-	//box.open_programs_file();
-	box.importChannels("Channels&Programs.txt");
 
+
+
+int main()
+{
+	screen_begin();
+	/***************************coloca em cada vector os programas, canais e filmes lidos dos respectivos ficheiros.txt*******************************/
+	screen_loading();
+	box.importChannels("Channels&Programs.txt");
+	box.importRecorded("Recorded.txt");
+	//box.importMovies("Movies.txt");	
 	/************************************************************************************************************************************************/
 
-	box.openBox();//chama a funcao que tem o funcionamento da box em si
-	
-	/*vector<Program> programas = box.listByChannel("SIC","THURSDAY");
-	for (unsigned int j = 0; j < programas.size(); j++)
-		cout << programas[j].getName() << " " << programas[j].getDuration() << " " << programas[j].getType() << " " << programas[j].getDate().getDay() << " " << programas[j].getDate().getHour() << ":" << programas[j].getDate().getMinutes() << endl;
-	_getch();*/
+	//box.openBox();//alterar esta funcao para menu Admin
+
+	displayDate = dateToString(box.getDate());
+
+	main_menu();
+	//screen_recorded();
+	//screen_toRecord();
 
   //exit(0);
 	
