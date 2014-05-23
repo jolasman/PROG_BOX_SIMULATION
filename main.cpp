@@ -229,10 +229,8 @@ void menu_movies(){
 
 	int number;
 	cout << "1. See Movieclub" << endl;
-	cout << "2. Title change" << endl;
-	cout << "3. Cost change" << endl;
-	cout << "4. Remove Movie" << endl;
-	cout << "5. Return to main menu\n\n";
+	cout << "2. Rent a movie" << endl;
+	cout << "3. Return to main menu\n\n";
 	cout << "Choose a number: ";
 	cin >> number;
 
@@ -247,20 +245,14 @@ void menu_movies(){
 
 	if (number == 2)
 	{
-		box.submenuNameMovies();
+		//chamar a funcao para alugar filmes
 		system("pause");
 	}
-	
+
 	if (number == 3)
 	{
-		box.submenuChangeCostMovies();
-		system("pause");
-	}
-	
-	if (number == 4)
-	{
-		box.submenuRemoveMovies();
-		system("pause");
+		system("cls");
+		menu_inicial();
 	}
 }
 
@@ -339,6 +331,7 @@ void menu_movies();
 void menu_admin();
 void menu_programs();
 void menu_recordings();
+void menu_movies_admin();
 
 void main_menu()
 {
@@ -548,6 +541,48 @@ void menu_programs()
 	}
 }
 
+void menu_movies_admin()
+{
+	system("CLS");
+	cout << "--------------------------Welcome to the Movies menu----------------------------\n\n";
+
+	int number;
+	cout << "1. See Movieclub" << endl;
+	cout << "2. Title change" << endl;
+	cout << "3. Cost change" << endl;
+	cout << "4. Remove Movie" << endl;
+	cout << "5. Return to main menu\n\n";
+	cout << "Choose a number: ";
+	cin >> number;
+
+	if (number == 1)
+	{
+		system("cls");
+		cout << "The movies list:\n\n";
+		//chamar lista de filmes
+		box.readMoviesVector();
+		system("pause");
+	}
+
+	if (number == 2)
+	{
+		box.submenuNameMovies();
+		system("pause");
+	}
+
+	if (number == 3)
+	{
+		box.submenuChangeCostMovies();
+		system("pause");
+	}
+
+	if (number == 4)
+	{
+		box.submenuRemoveMovies();
+		system("pause");
+	}
+
+}
 
 
 
@@ -571,7 +606,7 @@ void menu_box(){
 			break;
 
 		case 2:
-			menu_movies();
+			menu_movies_admin();
 			cin.clear();
 			cin.ignore(1000, '\n');
 			break;
