@@ -7,12 +7,12 @@ using namespace std;
 
 class Movie{
   string title;
-  string type;
   float cost;
   unsigned int timesRented;
  public:
 	 Movie(); 
 	 Movie(string title, float cost);
+	 Movie(string title, float cost, unsigned int timesRented);
 	 /*retorna o titulo do filme*/
 	 string getTitle() const;
 	 /*retorna o preco do filme*/

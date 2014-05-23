@@ -11,6 +11,13 @@ Movie::Movie(){}
 Movie::Movie(string title, float cost){
 	this->title = title;
 	this->cost = cost;
+	this->timesRented = 0;
+}
+
+Movie::Movie(string title, float cost, unsigned int timesRented){
+	this->title = title;
+	this->cost = cost;
+	this->timesRented = timesRented;
 }
 
 string Movie::getTitle() const

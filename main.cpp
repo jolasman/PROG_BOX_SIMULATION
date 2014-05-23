@@ -671,15 +671,15 @@ int main()
 	screen_loading();
 	box.importChannels("Channels&Programs.txt");
 	box.importRecorded("Recorded.txt");
-	//box.importMovies("movies.txt");	
+	//box.importMovies("movies.txt");
 	/************************************************************************************************************************************************/
 
 	main_menu();
 	screen_exit();
 
 	/***********************************************exporta dados para ficheiros.txt*****************************************************************/
-	box.exportChannels("Channels&Programs_.txt");
-	//box.exportChannels("Recorded.txt");
+	box.exportChannels("Channels&Programs.txt");
+	//box.exportRecorded("Recorded.txt");
 	//box.importMovies("Movies.txt");
 	/************************************************************************************************************************************************/
 	_getch();

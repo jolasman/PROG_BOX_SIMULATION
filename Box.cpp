@@ -82,124 +82,6 @@ bool Box::changePassword()
 /********************************************************************************************************************/
 
 /***************************************************abrir e ler ficheiros********************************************/
-
-void Box::open_channels_file()
-{
-	string line;
-	ifstream fs("Channels.txt");
-
-	if (fs.is_open())
-	{
-		//se ficheiro estiver aberto importa informacao 
-		while (!fs.eof()){
-			getline(fs, line);
-			if (line != "")
-				channels.push_back(Channel(line)); //poe no vector
-		}
-		fs.close();	//fecha ficheiro 
-	}
-	else{
-		cout << "ficheiro nao abre" << endl;
-	}
-}
-
-void Box::readChannelsVector()
-{
-	for(unsigned int i = 0; i < channels.size(); i++)
-	{
-		cout << channels[i].getChannelName() << endl;
-	}
-}
-
-void Box::open_movies_file(){
-
-	string line;
-	float cost = 5.00;
-	Movie nome = { line, cost };
-
-	ifstream fs("Movies.txt");
-
-	if (fs.is_open())
-	{
-		//se ficheiro estiver aberto importa informacao 
-		while (!fs.eof()){
-			getline(fs, line);
-			if (line != "")
-				movieClub.push_back(Movie(line,cost)); //poe no vector
-		}
-		fs.close();	//fecha ficheiro 
-	}
-	else{
-		cout << "ficheiro nao abre" << endl;
-	}
-}
-
-void Box::readMoviesVector()
-{
-	for (unsigned int i = 0; i < movieClub.size(); i++)
-	{
-		cout << movieClub[i].getTitle() << endl;
-	}
-}
-
-void Box::open_programs_file(){
-	string prog, durationTime, hourTime, minuteTime, typeProgram, dayWeek;
-	int h, m, dur;
-	
-	ifstream prog_file("Programs.txt");
-	ifstream duration_file("Durations.txt");
-	ifstream hour_file("Hour.txt");
-	ifstream minute_file("Minute.txt");
-	ifstream day_file("Day.txt");
-	ifstream type_file("Type.txt");
-
-	if (prog_file.is_open() && duration_file.is_open() && hour_file.is_open() && minute_file.is_open() && day_file.is_open() && type_file.is_open())
-	{
-		while (!prog_file.eof() && !duration_file.eof() && !hour_file.eof() && !minute_file.eof() && !day_file.eof() && !type_file.eof())
-		{
-			getline(prog_file, prog); // nome do programa
-			getline(hour_file, hourTime);
-			h = atoi(hourTime.c_str());// receber o valor das horas
-			getline(minute_file, minuteTime);
-			m = atoi(minuteTime.c_str());// receber o valor dos minutos
-			getline(duration_file, durationTime);
-			dur = atoi(durationTime.c_str());// receber o valor da duracao
-			getline(day_file, dayWeek);// receber o dia
-			getline(type_file, typeProgram);// receber o tipo de programa
-
-			if (prog != "")
-				for (unsigned int i = 0; i < channels.size(); i++)
-				{
-					Program nome = { prog, typeProgram, dur, dayWeek, h, m };	//declarar o programa
-					//nome.setType(typeProgram);					// altera o tipo (alterar constructor?!)
-
-					channels[i].addProgram(nome);					// poe no vector
-				}
-		}
-
-		//fechar os ficheiros todos
-		prog_file.close();
-		duration_file.close();
-		hour_file.close();
-		minute_file.close();
-		day_file.close();
-		type_file.close();
-	}
-	else{
-		cout << "ficheiro nao abre" << endl;
-	}
-}
-
-void Box::readProgramsVector()
-{
-	for (unsigned int i = 0; i < channels.size(); i++)
-	{
-		vector<Program> programs = channels[i].getPrograms();
-		for (unsigned int j = 0; j < programs.size(); j++)
-			cout << programs[j].getName() << endl;
-	}
-}
-
 bool Box::importChannels(string file_path)
 {
 	ifstream file(file_path);
@@ -335,12 +217,6 @@ bool Box::exportChannels(string file_path)
 {
 	ofstream file(file_path, ofstream::out);
 	vector<Program> p;
-	ostringstream ss;
-	//string line, temp, channelName, progName, progType, progWeekDay;
-	//int pos1, pos2, duration, hour, minutes;
-	//bool channel_exists;
-	//Channel channel;
-	//Program program;
 
 	if (file.is_open())
 	{
@@ -358,6 +234,35 @@ bool Box::exportChannels(string file_path)
 	return false;
 }
 
+bool Box::exportRecorded(string file_path)
+{
+	ofstream file(file_path, ofstream::out);
+
+	if (file.is_open())
+	{
+		for (unsigned int i = 0; i < recorded.size(); i++)
+		{
+			file << recorded[i].getName() << endl;
+		}
+		return true;
+	}
+	return false;
+}
+
+bool Box::exportMovies(string file_path)
+{
+	ofstream file(file_path, ofstream::out);
+
+	if (file.is_open())
+	{
+		for (unsigned int i = 0; i < movieClub.size(); i++)
+		{
+			file << movieClub[i].getTitle() << ";" << movieClub[i].getCost() << endl;
+		}
+		return true;
+	}
+	return false;
+}
 /*********************************************************************************************************************/
 
 /********************************************************submenus Channels********************************************/
@@ -461,7 +366,6 @@ void Box::submenuRemoveChannel(){
 		cout << "Channel does not exists! try later" << endl;
 	}
 }
-
 /*********************************************************************************************************************/
 
 /*******************falta acabar este submenu de adicionar programas**************************************************/
@@ -526,7 +430,6 @@ void Box::submenuAddProgramChannel()
 	if (existe == 0)
 		cout << "Program not created! try again later" << endl;
 }
-
 /*********************************************************************************************************************/
 
 /********************************************************submenus Movies**********************************************/
@@ -843,7 +746,6 @@ void Box::submenuRemovePrograms(){
 		cout << "\nNot removed! Try again later" << endl;
 	}
 }
-
 /*********************************************************************************************************************/
 
 /********************************************************Listar Programas*********************************************/
