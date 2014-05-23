@@ -264,14 +264,6 @@ void menu_movies(){
 	}
 }
 
-
-
-
-
-
-
-
-
 /*Apresenta o ecra de entrada na aplicacao*/
 void screen_begin()
 {
