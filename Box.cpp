@@ -81,31 +81,8 @@ bool Box::changePassword()
 }
 /********************************************************************************************************************/
 
-/***************************************************load box*********************************************************/
-
-/*void Box::openBox()
-{
-	cout << "----------------------- You are trying to access the Box -----------------------\n" << endl;
-	cout << "Type your PASSWORD please:" << endl;
-
-	string passw = typePassw();
-	if (checkPassword(passw) == true)
-	{
-		menu_box();
-	}
-
-	cout << "\nWrong PASSWORD! You have just ONE more chance." << endl;
-	cout << "\nType your PASSWORD again please:" << endl;
-
-	passw = typePassw();
-	if (checkPassword(passw) == true)
-	{
-		menu_box();
-	}
-}*/
-/********************************************************************************************************************/
-
 /***************************************************abrir e ler ficheiros********************************************/
+
 void Box::open_channels_file()
 {
 	string line;
