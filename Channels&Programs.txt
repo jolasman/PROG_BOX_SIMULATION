@@ -49,9 +49,9 @@ DISNEY CHANNEL;Phineas E Ferb T4 - Ep. 22;ANIMACAO;15;FRIDAY;17;15
 DISNEY CHANNEL;Phineas E Ferb T4 - Ep. 8;ANIMACAO;15;THURSDAY;17;30
 DISNEY CHANNEL;Phineas E Ferb T4 - Ep. 9;ANIMACAO;15;SATURDAY;17;45
 DISNEY CHANNEL;Phineas E Ferb T4 - Ep. 2;ANIMACAO;15;FRIDAY;18;00
-FOX;Investigacao Criminal: Los Angeles T4 - Ep. 3;SERIE;50;FRIDAY;18;00
-FOX;Investigacao Criminal: Los Angeles T4 - Ep. 4;SERIE;50;THURSDAY;19;00
-FOX;Investigacao Criminal: Los Angeles T4 - Ep. 5;SERIE;50;FRIDAY;20;00
-FOX;Investigacao Criminal: Los Angeles T4 - Ep. 6;SERIE;50;FRIDAY;21;00
-FOX;Investigacao Criminal: Los Angeles T4 - Ep. 7;SERIE;50;FRIDAY;22;00
-FOX;Investigacao Criminal: Los Angeles T4 - Ep. 8;SERIE;50;FRIDAY;23;00
+FOX;Investigacao Criminal: Los Angeles;SERIE;50;FRIDAY;18;00
+FOX;Investigacao Criminal: Los Angeles;SERIE;50;THURSDAY;19;00
+FOX;Investigacao Criminal: Los Angeles;SERIE;50;FRIDAY;20;00
+FOX;Investigacao Criminal: Los Angeles;SERIE;50;FRIDAY;21;00
+FOX;Investigacao Criminal: Los Angeles;SERIE;50;FRIDAY;22;00
+FOX;Investigacao Criminal: Los Angeles;SERIE;50;FRIDAY;23;00

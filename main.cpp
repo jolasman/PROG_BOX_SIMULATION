@@ -641,7 +641,7 @@ int main()
 	screen_loading();
 	box.importChannels("Channels&Programs.txt");
 	box.importRecorded("Recorded.txt");
-	//box.importMovies("Movies.txt");	
+	//box.importMovies("movies.txt");	
 	/************************************************************************************************************************************************/
 
 	//box.openBox();//alterar esta funcao para menu Admin
