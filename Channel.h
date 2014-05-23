@@ -21,13 +21,13 @@ class Channel{
 	 void setChannelName(string nome);
 	 	
 	 /*adiciona um programa no vector de programas de um canal*/
-	 void addProgram(Program p);
+	 bool addProgram(Program p);
 	 /*vector que nos da os programas de um canal*/
 	 vector<Program> getPrograms() const;
 	 /*muda o nome de um programa de um canal*/
-	 void changeNamePrograms(string oldname, string newname);
+	 bool changeNamePrograms(string oldname, string newname);
 	 /*verifica sobreposicao de programas*/
-	 bool checkOverlap(Program p); //const?
+	 bool checkOverlap(Program p) const; //const?
 
 };
 

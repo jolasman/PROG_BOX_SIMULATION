@@ -3,13 +3,14 @@
 #include "Movie.h"
 #include "fstream"
 #include "menu.h"
+
 #include <vector>
 #include <string>
 #include <time.h>
-
+#include <conio.h>
 #include <iostream>
-using namespace std;
 
+using namespace std;
 
 Box::Box(){}
 
@@ -44,82 +45,92 @@ bool Box::seeTime(int hour, int minute, int duration, int newHour, int newMinute
 }
 
 /*************************************************password **********************************************************/
-bool Box::checkPassword()
+bool Box::checkPassword(string passw) const
 {
-	string passw;
-	
-	cout << "----------------------- You are trying to access the Box -----------------------\n" << endl;
-	cout << "type your PASSWORD please:\n " << endl;
-	getline(cin,passw);
-
 	if (passw == password)
-	{
 		return true;
-	}
 	else
-	{
 		return false;
-	}
 }
 
-bool Box::checkPasswordAgain()
-{
-	string passw;
-
-	cout << "\n\n Wrong PASSWORD! Is your LAST chance now!" << endl;
-	cout << "\n Type your PASSWORD again please:\n\n " << endl;
-	cin >> passw;
-
-	if (passw == password)
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
-}
-
-void Box::changePassword()
+bool Box::changePassword()
 {
 	string oldpass, newpass;
 
-	cout << "type your old PASSWORD please:" << endl;
+	cout << "Type your old PASSWORD please:" << endl;
 	cin >> oldpass;
 	system("cls");
 
 	if (oldpass == password)
 	{
-		cout << "type your new PASSWORD: " << endl;
+		cout << "Type your new PASSWORD (at least five characters): " << endl;
 		cin >> newpass;
-		cout << "Success!" << endl;
+		if (newpass.size() > 5)
+		{
+			password = newpass;
+			return true;
+		}
+		cout << "PASSWORD to short. Not changed." << endl;
+		return false;
 	}
 	else
 	{
-		cout << "INCORRECT PASSWORD! try again! " << endl;
+		cout << "INCORRECT PASSWORD." << endl;
+		return false;
 	}
 }
-
 /********************************************************************************************************************/
 
 /***************************************************load box*********************************************************/
-void Box::openBox()
+string typePassw() //depois mover para o main.cpp
 {
-
-	if (checkPassword() == true)
-	{
-		menu_box();
+	string passw;
+	char ch;
+	const char ENTER = 13;
+	const char BACKSPACE = 8;
+	ch = _getch();
+	while (ch != ENTER){
+		if (ch == BACKSPACE) //se a tecla premida for backspace
+		{
+			if (passw.size() > 0)
+			{
+				passw = passw.substr(0, passw.size() - 1);
+				cout << '\b';	//Cursor move-se 1 posicao para tras
+				cout << " ";	//Cursor sobrepoe letra escrita
+				cout << '\b';	//Cursor move-se novamente 1 posicao para tras
+			}
+		}
+		else
+		{
+			passw += ch;
+			cout << '*';
+		}
+		ch = _getch();
 	}
-	if (checkPasswordAgain() == true)
-	{
-		menu_box();
-	}
-	else
-	{
-		checkPasswordAgain();
-	}
+	cout << endl;
+	return passw;
 }
 
+void Box::openBox()
+{
+	cout << "----------------------- You are trying to access the Box -----------------------\n" << endl;
+	cout << "Type your PASSWORD please:" << endl;
+
+	string passw = typePassw();
+	if (checkPassword(passw) == true)
+	{
+		menu_box();
+	}
+
+	cout << "\nWrong PASSWORD! You have just ONE more chance." << endl;
+	cout << "\nType your PASSWORD again please:" << endl;
+
+	passw = typePassw();
+	if (checkPassword(passw) == true)
+	{
+		menu_box();
+	}
+}
 /********************************************************************************************************************/
 
 /***************************************************abrir e ler ficheiros********************************************/
@@ -210,8 +221,8 @@ void Box::open_programs_file(){
 			if (prog != "")
 				for (unsigned int i = 0; i < channels.size(); i++)
 				{
-					Program nome = { prog, dur, dayWeek, h, m };	//declarar o programa
-					nome.setTypeName(typeProgram);					// altera o tipo (alterar constructor?!)
+					Program nome = { prog, typeProgram, dur, dayWeek, h, m };	//declarar o programa
+					//nome.setType(typeProgram);					// altera o tipo (alterar constructor?!)
 
 					channels[i].addProgram(nome);					// poe no vector
 				}
@@ -240,6 +251,126 @@ void Box::readProgramsVector()
 	}
 }
 
+bool Box::importChannels(string file_path)
+{
+	ifstream file(file_path);
+	string line, temp, channelName, progName, progType, progWeekDay;
+	int pos1, pos2, duration, hour, minutes;
+	bool channel_exists;
+	Channel channel;
+	Program program;
+
+	if (file.is_open())
+	{
+		while (!file.eof())
+		{
+			channel_exists = false;
+			getline(file, line);
+			pos1 = line.find(';');
+			if (pos1 == string::npos)
+				break;
+			channelName = line.substr(0, pos1);
+			
+			/*Procura nome do programa*/
+			pos2 = line.find(';', pos1 + 1);
+			if (pos2 == string::npos)
+				break;
+			pos1++;
+			progName = line.substr(pos1, pos2 - pos1);
+
+			/*Procura tipo do programa*/
+			pos1 = pos2;
+			pos2 = line.find(';', pos1 + 1);
+			if (pos2 == string::npos)
+				break;
+			pos1++;
+			progType = line.substr(pos1, pos2 - pos1);
+			
+			/*Procura duracao do programa*/
+			pos1 = pos2;
+			pos2 = line.find(';', pos1 + 1);
+			if (pos2 == string::npos)
+				break;
+			pos1++;
+			temp = line.substr(pos1, pos2 - pos1);
+			duration = atoi(temp.c_str());
+
+			/*Procura dia do programa*/
+			pos1 = pos2;
+			pos2 = line.find(';', pos1 + 1);
+			if (pos2 == string::npos)
+				break;
+			pos1++;
+			progWeekDay = line.substr(pos1, pos2 - pos1);
+
+			/*Procura hora do programa*/
+			pos1 = pos2;
+			pos2 = line.find(';', pos1 + 1);
+			if (pos2 == string::npos)
+				break;
+			pos1++;
+			temp = line.substr(pos1, pos2 - pos1);
+			hour = atoi(temp.c_str());
+
+			/*Procura minuto do programa*/
+			temp = line.substr(pos2 + 1);
+			minutes = atoi(temp.c_str());
+			
+			program = Program(progName, progType, duration, progWeekDay, hour, minutes);
+				
+			/*verifica se ja existe o canal*/
+			for (unsigned int i = 0; i < channels.size(); i++)
+			{
+				if (channels[i].getChannelName() == channelName)
+				{
+					channels[i].addProgram(program);
+					channel_exists = true;
+					break;
+				}
+			}
+			if (channel_exists == false)
+			{
+				Channel channel = Channel(channelName);
+				channel.addProgram(program);
+				channels.push_back(channel);
+			}
+		}
+		return true;
+	}
+	return false;
+}
+
+bool Box::importRecorded(string file_path)
+{
+	ifstream file(file_path);
+	string progName;
+	int pos1, pos2, duration, hour, minutes;
+	vector<Program> programs;
+
+	if (file.is_open())
+	{
+		while (!file.eof())
+		{
+			getline(file, progName);
+			for (unsigned int i = 0; i < channels.size(); i++)
+			{
+				programs = channels[i].getPrograms();
+				for (unsigned int j = 0; j < programs.size(); j++)
+				{
+					if (programs[j].getName() == progName)
+					{
+						//set flag recorded to true!!!! Preciso criar nova função na classe Channel?!
+						recorded.push_back(programs[j]);
+						break;
+					}
+				}
+			}			
+		}
+		return true;
+	}
+	cout << "ficheiro nao abre" << endl;
+	return false;
+}
 /*********************************************************************************************************************/
 
 /********************************************************submenus Channels********************************************/
@@ -347,7 +478,7 @@ void Box::submenuRemoveChannel(){
 
 /*********************************************************************************************************************/
 
-/*******************falta acabar este submenu de addiconar programas**************************************************/
+/*******************falta acabar este submenu de adicionar programas**************************************************/
 void Box::submenuAddProgramChannel()
 {
 	system("cls");
@@ -371,8 +502,8 @@ void Box::submenuAddProgramChannel()
 	cout << "Please type the duration of the new Program starts:\n\n";
 	cin >> duration;
 
-	Program prog = { newProgram, duration, newday, hour, minute };//declaracao do programa
-	prog.setTypeName(newtype);// muda o tipo do programa
+	Program prog = { newProgram, newtype, duration, newday, hour, minute };//declaracao do programa
+	prog.setType(newtype);// muda o tipo do programa
 
 	for (unsigned int i = 0; i < channels.size(); i++)
 	{
@@ -549,7 +680,7 @@ void Box::submenuNamePrograms()
 			}
 			else
 			{
-				recorded[i].setProgramName(namenew);
+				recorded[i].setName(namenew);
 
 				cout << "\nName changed you success!\n" << endl;
 				mudar = 1;
@@ -589,7 +720,7 @@ void Box::submenuChangeTypePrograms()
 			}
 			else
 			{
-				recorded[i].setTypeName(newnameType);
+				recorded[i].setType(newnameType);
 
 				cout << "\nType changed you success!\n" << endl;
 				mudar = 1;
@@ -790,7 +921,7 @@ vector<Program> Box::listByChannel(string channel, string day) const
 			vector<Program> progsChannel = channels[i].getPrograms();
 			for (unsigned int j = 0; j < progsChannel.size(); j++)
 			{
-				if (progsChannel[j].getDate().getDay() == currentDate.getDay())
+				if (progsChannel[j].getDate().getDay() == day)
 					progsDay.push_back(progsChannel[j]);
 			}
 			break;
@@ -873,5 +1004,9 @@ int Box::timesWhatched(string title) const
 	}
 	return 0;
 }
-
 /*********************************************************************************************************************/
+
+Date Box::getDate() const
+{
+	return currentDate;
+}

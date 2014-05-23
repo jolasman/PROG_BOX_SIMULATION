@@ -10,7 +10,7 @@ Menu utilizador normal:
 	- Videoclube
 		- alugar filme
 		- ver numero de visualizações do filme x
-		- consultar despesa do videoclube (necessario importar e exportar este valor para ficheiro?! ou é sempre calculado "on the fly"?!)
+		- consultar despesa do videoclube ("on the fly")
 	- Aceder menu Administrador
 		- operações CRUD
 

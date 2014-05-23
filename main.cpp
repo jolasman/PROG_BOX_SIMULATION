@@ -1,30 +1,27 @@
 #include <iostream>
-using namespace std;
 #include <cstdlib>
 #include "fstream"
 #include <time.h>
 #include <vector>
+#include <conio.h>
+
 #include "Channel.h"
 #include "Date.h"
 #include "Box.h"
 #include "menu.h"
 
+using namespace std;
+
 // Randomly generates a valid day, hour and minute
 Date currentDate(){
 	
 	srand((unsigned)time(NULL));
-	//vector<string> vdays = { "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY" };
 	string vdays[] = { "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY" }; //alterei de vector para array
-	//int aleat = rand() % 7 + 1;
 	int aleat = rand() % 7; //indice do array: numero aleatorio de 0-6
 	string day1;
-	//for (int j = 0; j < aleat; j++)
-	//	day1 = vdays[j];
 	day1 = vdays[aleat];
-	//unsigned int hour1 = rand() % 24 + 1;
-	unsigned int hour1 = rand() % 24; //numero aleatorio de 0-23
-	//unsigned int minutes = rand() % 60 + 1;
-	unsigned int minutes = rand() % 60;  //numero aleatorio de 0-59
+	unsigned int hour1 = rand() % 24;		//numero aleatorio de 0-23
+	unsigned int minutes = rand() % 60;		//numero aleatorio de 0-59
 	Date dat = {day1, hour1, minutes};
 	return dat;
 }
@@ -47,7 +44,7 @@ void menu_inicial(){
 	cout << "Choose a number: ";
 
 }
-/*apresenta no ecra osub menu com a interacao do utilizador/canais*/
+/*apresenta no ecra o submenu com a interacao do utilizador/canais*/
 void menu_channels(){
 	system("CLS");
 	cout << "--------------------------Welcome to the Channels menu--------------------------\n\n";
@@ -221,52 +218,31 @@ void menu_exit(){
 }
 
 /****************************************ainda por acabar as tres funcoes de verificacao de teclas carregadas******************************/
-void pressed_key_channels(){
-
-	char x;
-	cin >> x;
-
+void pressed_key_channels()
+{
+	char x = getchar();
 	if (x == 'esc')
-	{
 		menu_inicial();
-	}
-
-	if (x != 'esc')
-	{
+	else
 		menu_channels();
-	}
 }
 
-void pressed_key_movies(){
-
-	char x;
-	x = getchar();
-
-	if (x == 0x27)
-	{
+void pressed_key_movies()
+{
+	char x = getchar();
+	if (x == 'esc')
 		menu_inicial();
-	}
-
-	if (x != 0x27)
-	{
+	else
 		menu_movies();
-	}
 }
 
-void pressed_key_programs(){
-
-	char x;
-	x = getchar();
-
-	if (x == 0x27)
-	{
+void pressed_key_programs()
+{
+	char x = getchar();
+	if (x == 'esc')
 		menu_inicial();
-	}
-
-	if (x != 0x27)
-	{
+	else
 		menu_programs();
-	}
 }
 
 /*****************************************************************************************************************************************/
@@ -274,13 +250,15 @@ void pressed_key_programs(){
 /*funcao que vai buscar a password do utilizador ao ficheiro password.txt*/
 string getPassword()
 {
-	ifstream password;
-	string pass;
+	ifstream password_file;
+	string passw = "default"; //no caso de nao encontrar o ficheiro a password fica "default"
 
-	password.open("PASSWORD.txt");
-	getline(password, pass);
-	password.close();
-	return pass;
+	password_file.open("PASSWORD.txt");
+	if (password_file.is_open()){
+		getline(password_file, passw);
+		password_file.close();
+	}
+	return passw;
 }
 
 /*onde é gerado o codigo para interagir com o utilizador para a escolha do que pretende no menu inicial*/
@@ -327,14 +305,20 @@ void menu_box(){
 
 int main(){
 	/***************************coloca em cada vector os programas, canais e filmes lidos dos respectivos ficheiros.txt*******************************/
-	box.open_channels_file();
-	box.open_movies_file();
-	box.open_programs_file();
+	//box.open_channels_file();
+	//box.open_movies_file();
+	//box.open_programs_file();
+	box.importChannels("Channels&Programs.txt");
 
 	/************************************************************************************************************************************************/
 
 	box.openBox();//chama a funcao que tem o funcionamento da box em si
 	
+	/*vector<Program> programas = box.listByChannel("SIC","THURSDAY");
+	for (unsigned int j = 0; j < programas.size(); j++)
+		cout << programas[j].getName() << " " << programas[j].getDuration() << " " << programas[j].getType() << " " << programas[j].getDate().getDay() << " " << programas[j].getDate().getHour() << ":" << programas[j].getDate().getMinutes() << endl;
+	_getch();*/
+
   //exit(0);
 	
 }

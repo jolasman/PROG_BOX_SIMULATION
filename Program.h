@@ -4,37 +4,38 @@
 #include<iostream> 
 #include "Date.h"
 
-
 using namespace std;
-
 
 class Program{
   string name;
-  string type;    // introduced in the final version of the work text
-  bool recorded;  // introduced in the final version of the work text
-  int duration;  // in minutes
+  string type;
+  bool recorded;
+  int duration;   // in minutes
   Date exhibitionDate;
 
  public:
 	 Program();
-	 Program(string name, int duration, string day, int hour, int minutes);
-	 string getType();
+	 Program(string name, string type, int duration, string day, int hour, int minutes);
+	 string getType() const;
 	 /*retorna o valor inteiro da duracao do programa*/
-	 int getDuration();
+	 int getDuration() const;
 	 /*retorna o nome do programa*/
-	 string getName();
+	 string getName() const;
 	 /*muda o nome do programa*/
-	 void setProgramName(string nome);
+	 void setName(string nome);
 	 /*muda o tipo do programa*/
-	 void setTypeName(string nome);
+	 void setType(string nome);
 	 /*muda a data do programa*/
 	 void changeDate(Date data);
 	 /*muda a duracao do programa*/
 	 void setDuration(int duration);
-
+	 /*verifica a flag recorded*/
+	 bool isRecorded();
+	 /*altera a flag recorded*/
+	 void setRecorded();
 
 	 /*retorna a data do programa*/
-	 Date getDate();
+	 Date getDate() const;
 
 };
 

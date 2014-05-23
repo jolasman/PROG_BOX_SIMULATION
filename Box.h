@@ -82,23 +82,30 @@ class Box{
 	 vector<Program> listByChannel(string  channel, string day) const;
 	 vector<Program> listByType(string type) const;
 	 vector<Program> listByType(string type, string day) const;
+
+	 vector<Program> listRecorded() const;
+	 vector<Program> listToRecord() const;
+	 
 	 bool rentMovies(string title);
 	 float moneySpent() const;
 	 int timesWhatched(string title) const;
+	 bool checkPassword(string passw) const;
+	 bool changePassword();          // ask, verify and change the password
+	 Date getDate() const;
+	 bool importChannels(string file_path);
+	 bool importMovies(string file_path);
+	 bool importRecorded(string file_path);
 
-	 bool checkPassword();
-	 bool checkPasswordAgain();
-	 void changePassword();          // ask, verify and change the password
 	 // Channel CRUD
-	 bool createdChanel();
+	 bool createChanel();
 	 bool removeChanel();
 	 bool updateChanel();
 	 // Program CRUD
-	 bool createdProgram(string chanel);
+	 bool createProgram(string chanel);
 	 bool removeProgram();
 	 bool updateProgram();
 	 // Movie CRUD
-	 bool createdMovie();
+	 bool createMovie();
 	 bool removeMovie();
 	 bool updateMovie(); 
 };

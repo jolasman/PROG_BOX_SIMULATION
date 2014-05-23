@@ -1,7 +1,9 @@
 #include "Movie.h"
+
 #include "fstream"
 #include <string>
 #include <iostream>
+
 using namespace std;
 
 Movie::Movie(){}
