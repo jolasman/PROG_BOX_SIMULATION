@@ -584,11 +584,12 @@ void menu_recordings()
 	int n;
 	bool loop1 = 1, loop2;
 	char choice;
+	string programName;
 
 	while (loop1 == 1)
 	{
 		system("CLS");
-		cout << "---------------------------------RECORDINGS-------------------------------------";
+		cout << "-------------------------------RECORDINGS MENU----------------------------------";
 		cout.width(80);
 		cout << right << displayDate;
 		cout << "1. View Recorded Programs" << endl;
@@ -608,19 +609,37 @@ void menu_recordings()
 			case 1:
 				cin.clear();
 				cin.ignore(1000, '\n');
-				//
+				screen_list_programs(box.listRecorded());
 				loop2 = 0;
 				break;
 			case 2:
 				cin.clear();
 				cin.ignore(1000, '\n');
-				//
+				screen_list_programs(box.listToRecord());
 				loop2 = 0;
 				break;
 			case 3:
 				cin.clear();
 				cin.ignore(1000, '\n');
-				//
+				system("CLS");
+				cout << "-------------------------------RECORDINGS MENU----------------------------------";
+				cout.width(80);
+				cout << right << displayDate;
+				cout << "\nEnter movie title to rent: ";
+				getline(cin, programName);
+				programName = toUpper(programName);
+
+
+				system("CLS");
+				cout << "-------------------------------RECORDINGS MENU----------------------------------";
+				cout.width(80);
+				cout << right << displayDate;
+				if (1)
+					cout << "\n" << programName << " is scheduled to be recorded!";
+				else
+					cout << "\Program could not be scheduled to be recorded.";
+				cout << "\n\n\n                        (press any key to continue)\n\n";
+				_getch();
 				loop2 = 0;
 				break;
 			case 0:
@@ -639,6 +658,7 @@ void menu_movies(){
 	int n;
 	bool loop1 = 1, loop2;
 	char choice;
+	string movieTitle;
 
 	while (loop1 == 1)
 	{
@@ -670,7 +690,23 @@ void menu_movies(){
 			case 2:
 				cin.clear();
 				cin.ignore(1000, '\n');
-				//menu_recordings();
+				system("CLS");
+				cout << "------------------------------------MOVIES--------------------------------------";
+				cout.width(80);
+				cout << right << displayDate;
+				cout << "\nEnter movie title to rent: ";
+				getline(cin, movieTitle);
+				movieTitle = toUpper(movieTitle);
+				system("CLS");
+				cout << "------------------------------------MOVIES--------------------------------------";
+				cout.width(80);
+				cout << right << displayDate;
+				if (box.rentMovies(movieTitle))
+					cout << "\n" << movieTitle << " rented!";
+				else
+					cout << "\nMovie could not be rented.";
+				cout << "\n\n\n                        (press any key to continue)\n\n";
+				_getch();
 				loop2 = 0;
 				break;
 			case 3:
@@ -686,7 +722,7 @@ void menu_movies(){
 				cout << "------------------------------------MOVIES--------------------------------------";
 				cout.width(80);
 				cout << right << displayDate;
-				cout << endl << "You have spent " << box.moneySpent() << " EUR on the videoclub";
+				cout << endl << "You have spent " << setprecision(2) << std::fixed << box.moneySpent() << " EUR on the videoclub";
 				cout << "\n\n\n                        (press any key to continue)\n\n";
 				_getch();
 				loop2 = 0;
