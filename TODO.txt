@@ -24,8 +24,8 @@ Box::seeTime() ?
 	- criei uma função Canal::checkOverlap()
 
 Importar ficheiros
-	- Canal e programas devem estar juntos
-	- verifica se existe canal
+	- Canal e programas devem estar juntos			DONE
+	- verifica se existe canal				DONE
 		- se nao existe adiciona canal e insere programa
 		- se existe canal:
 			- verifica sobreposição de programas, se nao houver sobreposição:
@@ -50,8 +50,3 @@ função "criar programa" (da classe canal)
 	- cria programa (parametros pedidos na interface)
 	- funçao recebe programa como parametro (já estava)
 	- verifica se existe sobreposição (overlap na grelha) e insere no vector programas do canal
-
-
-
-
-	

@@ -28,8 +28,6 @@ Date currentDate(){
 	return dat;
 }
 
-string displayDate;
-
 string dateToString(Date date)
 {
 	string s;
@@ -84,13 +82,22 @@ string getPassword()
 	return passw;
 }
 
+/*converte uma string em maiusculas*/
+string toUpper(string s)
+{
+	for (int i = 0; i < s.length(); i++)
+	{
+		s[i] = toupper(s[i]);
+	}
+	return s;
+}
+
 Box box = Box(getPassword(), currentDate());
-
-
+string displayDate = dateToString(box.getDate());
 
 /*apresenta no ecra o menu de opções entre os outros submenus para a possivel navegacao do utilizador*/
-void menu_inicial(){
-
+void menu_inicial()
+{
 	system("CLS");
 	cout << "-------------------------------------BOX----------------------------------------\n\n";
 	cout << "1. Channels" << endl;
@@ -98,11 +105,11 @@ void menu_inicial(){
 	cout << "3. Programs" << endl;
 	cout << "4. Exit\n\n";
 	cout << "Choose a number: ";
-
 }
 /*apresenta no ecra o submenu com a interacao do utilizador/canais*/
 
-void menu_channels_admin(){
+void menu_channels_admin()
+{
 	system("CLS");
 	cout << "--------------------------Welcome to the Channels menu--------------------------\n\n";
 	int number;
@@ -159,7 +166,8 @@ void menu_channels_admin(){
 }
 
 /*apresenta no ecra o submenu com a interacao utilizador/programas*/
-void menu_programs_admin(){
+void menu_programs_admin()
+{
 	system("CLS");
 	cout << "--------------------------Welcome to the Programs menu--------------------------\n\n";
 	int number;
@@ -216,7 +224,6 @@ void menu_programs_admin(){
 	{
 		system("cls");
 		menu_inicial();
-		
 	}
 }
 
@@ -322,7 +329,6 @@ void screen_exit(){
 	cout << "\n                                                               Filipe Cordeiro\n\n";
 }
 
-
 /*apresenta o menu inicial com as opcoes se ir para admin ou nao*/
 void main_menu()
 {
@@ -345,40 +351,40 @@ void main_menu()
 		loop2 = 1;
 		while (loop2 == 1)
 		{
+			//choice=_getch();
 			cin >> choice;
 			n = choice - '0';
 			switch (n)
 			{
 			case 1:
+				cin.clear();
+				cin.ignore(1000, '\n');
 				menu_tv();
 				loop2 = 0;
-				cin.clear();
-				cin.ignore(1000, '\n');
 				break;
 			case 2:
+				cin.clear();
+				cin.ignore(1000, '\n');
 				menu_movies();
 				loop2 = 0;
-				cin.clear();
-				cin.ignore(1000, '\n');
 				break;
 			case 3:
+				cin.clear();
+				cin.ignore(1000, '\n');
 				screen_password();
 				loop2 = 0;
-				cin.clear();
-				cin.ignore(1000, '\n');
 				break;
 			case 0:
-				screen_exit();
-				loop1 = 0;
-				loop2 = 0;
 				cin.clear();
 				cin.ignore(1000, '\n');
+				loop1 = 0;
+				loop2 = 0;
 				break;
 			}
 		}
 	}
-	exit(0);
 }
+
 /*menu se escolher a opcao tv*/
 void menu_tv()
 {
@@ -400,33 +406,34 @@ void menu_tv()
 		loop2 = 1;
 		while (loop2 == 1)
 		{
+			//choice = _getch();
 			cin >> choice;
 			n = choice - '0';
 			switch (n)
 			{
 			case 1:
+				cin.clear();
+				cin.ignore(1000, '\n');
 				menu_programs();
 				loop2 = 0;
-				cin.clear();
-				cin.ignore(1000, '\n');
 				break;
 			case 2:
+				cin.clear();
+				cin.ignore(1000, '\n');
 				//menu_recordings();
 				loop2 = 0;
-				cin.clear();
-				cin.ignore(1000, '\n');
 				break;
 			case 0:
-				loop1 = 0;
-				loop2 = 0;
-				main_menu();
 				cin.clear();
 				cin.ignore(1000, '\n');
+				loop1 = 0;
+				loop2 = 0;
 				break;
 			}
 		}
 	}
 }
+
 /*para ver o programas por listagens*/
 void menu_programs()
 {
@@ -452,17 +459,21 @@ void menu_programs()
 		loop2 = 1;
 		while (loop2 == 1)
 		{
+			//choice = _getch();
 			cin >> choice;
 			n = choice - '0';
 			switch (n)
 			{
 			case 1:
+				cin.clear();
+				cin.ignore(1000, '\n');
 				system("CLS");
 				cout << "-------------------------------------BOX----------------------------------------";
 				cout.width(80);
 				cout << right << displayDate;
 				cout << endl << "Enter day of week (empty for today):";
 				getline(cin, day);
+				day = toUpper(day);
 				exists = 0;				
 				for (unsigned int i = 0; i < 7; i++)
 				{
@@ -474,18 +485,20 @@ void menu_programs()
 				else
 					screen_list_programs(box.listByDay());
 				loop2 = 0;
-				cin.clear();
-				cin.ignore(1000, '\n');
 				break;
 			case 2:
+				cin.clear();
+				cin.ignore(1000, '\n');
 				system("CLS");
 				cout << "-------------------------------------BOX----------------------------------------";
 				cout.width(80);
 				cout << right << displayDate;
 				cout << endl << "Enter channel:";
 				getline(cin, channel);
+				channel = toUpper(channel);
 				cout << endl << "Enter day of week (empty for today):";
 				getline(cin, day);
+				day = toUpper(day);
 				exists = 0;
 				for (unsigned int i = 0; i < 7; i++)
 				{
@@ -497,18 +510,20 @@ void menu_programs()
 				else
 					screen_list_programs(box.listByChannel(channel));
 				loop2 = 0;
-				cin.clear();
-				cin.ignore(1000, '\n');
 				break;
 			case 3:
+				cin.clear();
+				cin.ignore(1000, '\n');
 				system("CLS");
 				cout << "-------------------------------------BOX----------------------------------------";
 				cout.width(80);
 				cout << right << displayDate;
 				cout << endl << "Enter type of program:";
 				getline(cin, type);
+				type = toUpper(type);
 				cout << endl << "Enter day of week (empty for today):";
 				getline(cin, day);
+				day = toUpper(day);
 				exists = 0;
 				for (unsigned int i = 0; i < 7; i++)
 				{
@@ -520,20 +535,18 @@ void menu_programs()
 				else
 					screen_list_programs(box.listByType(type));
 				loop2 = 0;
-				cin.clear();
-				cin.ignore(1000, '\n');
 				break;
 			case 0:
-				loop1 = 0;
-				loop2 = 0;
-				main_menu();
 				cin.clear();
 				cin.ignore(1000, '\n');
+				loop1 = 0;
+				loop2 = 0;
 				break;
 			}
 		}
 	}
 }
+
 /*menu de opcoes para o admin utilizar com os filmes*/
 void menu_movies_admin()
 {
@@ -583,8 +596,6 @@ void menu_movies_admin()
 
 }
 
-
-
 /*onde é gerado o codigo para interagir com o utilizador para a escolha do que pretende no menu inicial*/
 void menu_box(){
 
@@ -631,28 +642,25 @@ void menu_box(){
 	}
 }
 
-
-
-
 int main()
 {
 	screen_begin();
-	/***************************coloca em cada vector os programas, canais e filmes lidos dos respectivos ficheiros.txt*******************************/
+
+	/***********************************************importa dados de ficheiros.txt*******************************************************************/
 	screen_loading();
 	box.importChannels("Channels&Programs.txt");
 	box.importRecorded("Recorded.txt");
 	//box.importMovies("movies.txt");	
 	/************************************************************************************************************************************************/
 
-	//box.openBox();//alterar esta funcao para menu Admin
-
-	displayDate = dateToString(box.getDate());
-
 	main_menu();
+	screen_exit();
 
+	/***********************************************exporta dados para ficheiros.txt*****************************************************************/
 	//box.exportChannels("Channels&Programs.txt");
 	//box.exportChannels("Recorded.txt");
 	//box.importMovies("Movies.txt");
+	/************************************************************************************************************************************************/
 	_getch();
 
 	return 0;
