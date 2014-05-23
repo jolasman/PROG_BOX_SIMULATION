@@ -657,7 +657,7 @@ int main()
 	screen_exit();
 
 	/***********************************************exporta dados para ficheiros.txt*****************************************************************/
-	//box.exportChannels("Channels&Programs.txt");
+	box.exportChannels("Channels&Programs_.txt");
 	//box.exportChannels("Recorded.txt");
 	//box.importMovies("Movies.txt");
 	/************************************************************************************************************************************************/

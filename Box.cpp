@@ -324,6 +324,40 @@ bool Box::importRecorded(string file_path)
 	cout << "ficheiro nao abre" << endl;
 	return false;
 }
+
+bool Box::importMovies(string file_path)
+{
+
+	return false;
+}
+
+bool Box::exportChannels(string file_path)
+{
+	ofstream file(file_path, ofstream::out);
+	vector<Program> p;
+	ostringstream ss;
+	//string line, temp, channelName, progName, progType, progWeekDay;
+	//int pos1, pos2, duration, hour, minutes;
+	//bool channel_exists;
+	//Channel channel;
+	//Program program;
+
+	if (file.is_open())
+	{
+		for (unsigned int i = 0; i < channels.size(); i++)
+		{
+			p = channels[i].getPrograms();
+			for (unsigned int j = 0; j < p.size(); j++)
+			{
+				file << channels[i].getChannelName() << ";" << p[j].getName() << ";" << p[j].getType() << ";" << p[j].getDuration() << ";";
+				file << p[j].getDate().getDay() << ";" << p[j].getDate().getHour() << ";" << p[j].getDate().getMinutes() << endl;
+			}
+		}
+		return true;
+	}
+	return false;
+}
+
 /*********************************************************************************************************************/
 
 /********************************************************submenus Channels********************************************/
@@ -364,8 +398,7 @@ void Box::submenuNameChannels()
 	if (mudar == 0)
 	{
 		cout << "\nNot changed! Try again later" << endl;
-	}
-	
+	}	
 }
 
 void Box::submenuNewChannel(){

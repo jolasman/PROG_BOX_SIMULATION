@@ -4,6 +4,7 @@
 #include<iostream>
 #include<vector>
 #include<string>
+#include <sstream>
 
 #include "Date.h"
 #include "Channel.h"
@@ -92,10 +93,14 @@ class Box{
 	 bool checkPassword(string passw) const;
 	 bool changePassword();          // ask, verify and change the password
 	 Date getDate() const;
-	 bool importChannels(string file_path);
-	 bool importMovies(string file_path);
-	 bool importRecorded(string file_path);
 
+	 bool importChannels(string file_path);
+	 bool importRecorded(string file_path);
+	 bool importMovies(string file_path);
+	 bool exportChannels(string file_path);
+	 bool exportRecorded(string file_path);
+	 bool exportMovies(string file_path);
+	
 	 // Channel CRUD
 	 bool createChanel();
 	 bool removeChanel();
