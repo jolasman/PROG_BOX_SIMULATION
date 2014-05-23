@@ -343,7 +343,7 @@ void screen_list_movies(vector<Movie> movies)
 	cout << right << displayDate << endl;
 	cout << left << setw(57) << "TITLE" << setw(10) << "COST" << "TIMES SEEN" << endl;
 	for (unsigned int j = 0; j < movies.size(); j++)
-		cout << setw(55) << movies[j].getTitle() << setprecision(2) << std::fixed << movies[j].getCost() << setw(10) << " EUR" << movies[j].getRented() << endl;
+		cout << setw(55) << movies[j].getTitle() << setprecision(2) << fixed << movies[j].getCost() << setw(10) << " EUR" << movies[j].getRented() << endl;
 	cout << "\n                        (press any key to continue)\n\n";
 	_getch();
 	cout << endl;
@@ -413,7 +413,6 @@ void main_menu()
 			}
 		}
 	}
-	exit(0);
 }
 
 /*menu se escolher a opcao tv*/
@@ -585,6 +584,7 @@ void menu_recordings()
 	bool loop1 = 1, loop2;
 	char choice;
 	string programName;
+	bool progFound;
 
 	while (loop1 == 1)
 	{
@@ -594,7 +594,7 @@ void menu_recordings()
 		cout << right << displayDate;
 		cout << "1. View Recorded Programs" << endl;
 		cout << "2. View Scheduled Recordings" << endl;
-		cout << "3. Set program to record" << endl;
+		cout << "3. Set/unset program to record" << endl;
 		cout << "0. Return to main menu\n\n";
 		cout << "(Press a valid number)" << endl;
 
@@ -625,19 +625,28 @@ void menu_recordings()
 				cout << "-------------------------------RECORDINGS MENU----------------------------------";
 				cout.width(80);
 				cout << right << displayDate;
-				cout << "\nEnter movie title to rent: ";
+				cout << "\nEnter program name to set/unset to record: ";
 				getline(cin, programName);
 				programName = toUpper(programName);
-
-
 				system("CLS");
 				cout << "-------------------------------RECORDINGS MENU----------------------------------";
 				cout.width(80);
 				cout << right << displayDate;
-				if (1)
-					cout << "\n" << programName << " is scheduled to be recorded!";
-				else
-					cout << "\Program could not be scheduled to be recorded.";
+				switch (box.setRecorded(programName))
+				{
+				case 0:
+					cout << "\nProgram not found.";
+					break;
+				case -1:
+					cout << "\n" << programName << " can not be scheduled to be recorded because it has already aired.";
+					break;
+				case 1:
+					cout << "\n" << programName << " is scheduled to be recorded!";;
+					break;
+				case 2:
+					cout << "\n" << programName << " is canceled to be recorded!";
+					break;
+				}
 				cout << "\n\n\n                        (press any key to continue)\n\n";
 				_getch();
 				loop2 = 0;
@@ -800,8 +809,8 @@ int main()
 
 	/***********************************************exporta dados para ficheiros.txt*****************************************************************/
 	box.exportChannels("Channels&Programs.txt");
-	//box.exportRecorded("Recorded.txt");
-	//box.exportMovies("Movies.txt");
+	box.exportRecorded("Recorded_.txt");
+	box.exportMovies("Movies_.txt");
 	/************************************************************************************************************************************************/
 	_getch();
 

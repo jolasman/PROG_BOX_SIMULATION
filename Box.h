@@ -5,6 +5,7 @@
 #include<vector>
 #include<string>
 #include <sstream>
+#include <iomanip>
 
 #include "Date.h"
 #include "Channel.h"
@@ -71,6 +72,7 @@ class Box{
 
 	 vector<Program> listRecorded() const;
 	 vector<Program> listToRecord() const;
+	 int setRecorded(string name);
 
 	 void readChannelsVector();
 	 void readProgramsVector();

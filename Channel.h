@@ -23,7 +23,7 @@ class Channel{
 	 /*adiciona um programa no vector de programas de um canal*/
 	 bool addProgram(Program p);
 	 /*altera a flag recorded do Programa p*/
-	 void setRecorded(string name);
+	 int setRecorded(string name, Date d);
 	 /*vector que nos da os programas de um canal*/
 	 vector<Program> getPrograms() const;
 	 /*muda o nome de um programa de um canal*/

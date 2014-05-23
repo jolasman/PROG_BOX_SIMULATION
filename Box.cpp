@@ -190,11 +190,10 @@ bool Box::importRecorded(string file_path)
 				programs = channels[i].getPrograms();
 				for (unsigned int j = 0; j < programs.size(); j++)
 				{
-					//cout << programs[j].getName() << endl; //////////////////DEBUG
 					if (programs[j].getName() == progName)
 					{
 						if (programs[j].getDate() < currentDate)
-							channels[i].setRecorded(programs[j].getName());			//set flag recorded to true!!!! Preciso criar nova função na classe Channel?!
+							channels[i].setRecorded(programs[j].getName(), currentDate);
 						recorded.push_back(programs[j]);
 						break;
 					}
@@ -258,7 +257,7 @@ bool Box::importMovies(string file_path)
 
 bool Box::exportChannels(string file_path)
 {
-	ofstream file(file_path, ofstream::out);
+	ofstream file(file_path, ofstream::trunc);
 	vector<Program> p;
 
 	if (file.is_open())
@@ -279,7 +278,7 @@ bool Box::exportChannels(string file_path)
 
 bool Box::exportRecorded(string file_path)
 {
-	ofstream file(file_path, ofstream::out);
+	ofstream file(file_path, ofstream::trunc);
 
 	if (file.is_open())
 	{
@@ -294,7 +293,7 @@ bool Box::exportRecorded(string file_path)
 
 bool Box::exportMovies(string file_path)
 {
-	ofstream file(file_path, ofstream::out);
+	ofstream file(file_path, ofstream::trunc);
 
 	if (file.is_open())
 	{
@@ -304,7 +303,7 @@ bool Box::exportMovies(string file_path)
 		}
 		for (unsigned int i = 0; i < seenMovies.size(); i++)
 		{
-			file << seenMovies[i].getTitle() << ";" << seenMovies[i].getCost() << ";" << seenMovies[i].getRented()<< endl;
+			file << seenMovies[i].getTitle() << ";" << setprecision(2) << fixed << seenMovies[i].getCost() << ";" << seenMovies[i].getRented() << endl;
 		}
 		return true;
 	}
@@ -942,6 +941,43 @@ void Box::readProgramsVector()
 			cout << programs[j].getName() << endl;
 	}
 	system("pause");
+}
+
+int Box::setRecorded(string name)
+{
+	int res;
+	for (unsigned int i = 0; i < channels.size(); i++)
+	{
+		res = channels[i].setRecorded(name, currentDate);
+		if (res != 0)
+		{
+			if (res == 1)
+			{
+				vector<Program> programs = channels[i].getPrograms();
+				for (unsigned int j = 0; j < programs.size(); j++)
+				{
+					if (programs[i].getName() == name)
+					{
+						recorded.push_back(programs[i]);
+						break;
+					}
+				}
+			}
+			if (res == 2)
+			{
+				for (unsigned int j = 0; j < recorded.size(); j++)
+				{
+					if (recorded[j].getName() == name)
+					{
+						recorded.erase(recorded.begin() + j);
+						break;
+					}
+				}
+			}
+			return res;
+		}
+	}
+	return 0;
 }
 
 /*********************************************************************************************************************/
