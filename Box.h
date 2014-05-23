@@ -72,6 +72,10 @@ class Box{
 	 vector<Program> listRecorded() const;
 	 vector<Program> listToRecord() const;
 
+	 void readChannelsVector();
+	 void readProgramsVector();
+	 void readMoviesVector();
+
 	 vector<Movie> listMovies() const;
 	 vector<Movie> listSeen() const;
 	 

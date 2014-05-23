@@ -477,7 +477,7 @@ void menu_programs()
 	while (loop1 == 1)
 	{
 		system("CLS");
-		cout << "-------------------------------------PROGRAMS----------------------------------------";
+		cout << "----------------------------------PROGRAMS--------------------------------------";
 		cout.width(80);
 		cout << right << displayDate;
 		cout << "1. Search Programming by day" << endl;
@@ -586,7 +586,7 @@ void menu_movies(){
 	while (loop1 == 1)
 	{
 		system("CLS");
-		cout << "---------------------------------MOVIES MENU-----------------------------------\n\n";
+		cout << "----------------------------------MOVIES MENU-----------------------------------\n\n";
 
 		int number;
 		cout << "1. See Movieclub" << endl;

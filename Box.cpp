@@ -925,6 +925,25 @@ vector<Movie> Box::listSeen() const
 	return mov;
 }
 
+void Box::readChannelsVector()
+{
+	for (unsigned int i = 0; i < channels.size(); i++)
+	{
+		cout << channels[i].getChannelName() << endl;
+	}
+}
+
+void Box::readProgramsVector()
+{
+	for (unsigned int i = 0; i < channels.size(); i++)
+	{
+		vector<Program> programs = channels[i].getPrograms();
+		for (unsigned int j = 0; j < programs.size(); j++)
+			cout << programs[j].getName() << endl;
+	}
+}
+
+
 /*********************************************************************************************************************/
 
 /********************************************************Movies*******************************************************/
@@ -970,6 +989,15 @@ int Box::timesWhatched(string title) const
 	}
 	return 0;
 }
+
+void Box::readMoviesVector()
+{
+	for (unsigned int i = 0; i < movieClub.size(); i++)
+	{
+		cout << movieClub[i].getTitle() << endl;
+	}
+}
+
 /*********************************************************************************************************************/
 
 /********************************************************Date*********************************************************/
