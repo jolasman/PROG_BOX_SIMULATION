@@ -209,7 +209,50 @@ bool Box::importRecorded(string file_path)
 
 bool Box::importMovies(string file_path)
 {
+	ifstream file(file_path);
+	string line, movieName, temp;
+	//temp, channelName, progName, progType, progWeekDay;
+	unsigned int pos1, pos2, timesRented;
+	float cost;
 
+	if (file.is_open())
+	{
+		while (!file.eof())
+		{
+			/*Procura nome do filme*/
+			getline(file, line);
+			pos1 = line.find(';');
+			if (pos1 == string::npos)
+				break;
+			movieName = line.substr(0, pos1);
+
+			/*Procura preco do filme*/
+			pos2 = line.find(';', pos1 + 1);
+			if (pos2 == string::npos)
+				break;
+			pos1++;
+			temp = line.substr(pos1, pos2 - pos1);
+			cost = atof(temp.c_str());
+
+			/*Procura numero de visualizacoes do filme*/
+			temp = line.substr(pos2 + 1);
+			timesRented = atoi(temp.c_str());
+
+			if (timesRented > 0)
+			{
+				Movie movie(movieName, cost, timesRented);
+				seenMovies.push_back(movie);
+				//cout << movie.getTitle() << " " << movie.getCost() << " " << movie.getRented() << endl;
+			}
+			else
+			{
+				Movie movie(movieName, cost);
+				movieClub.push_back(movie);
+				//cout << movie.getTitle() << " " << movie.getCost() << " " << movie.getRented() << endl;
+			}			
+		}
+		return true;
+	}
 	return false;
 }
 
@@ -257,7 +300,11 @@ bool Box::exportMovies(string file_path)
 	{
 		for (unsigned int i = 0; i < movieClub.size(); i++)
 		{
-			file << movieClub[i].getTitle() << ";" << movieClub[i].getCost() << endl;
+			file << movieClub[i].getTitle() << ";" << movieClub[i].getCost() << ";0" << endl;
+		}
+		for (unsigned int i = 0; i < seenMovies.size(); i++)
+		{
+			file << seenMovies[i].getTitle() << ";" << seenMovies[i].getCost() << ";" << seenMovies[i].getRented()<< endl;
 		}
 		return true;
 	}
@@ -863,6 +910,19 @@ vector<Program> Box::listToRecord() const
 	}
 	return rec;
 }
+
+vector<Movie> Box::listMovies() const
+{
+	vector<Movie> mov = movieClub;
+	return mov;
+}
+
+vector<Movie> Box::listSeen() const
+{
+	vector<Movie> mov = seenMovies;
+	return mov;
+}
+
 /*********************************************************************************************************************/
 
 /********************************************************Movies*******************************************************/

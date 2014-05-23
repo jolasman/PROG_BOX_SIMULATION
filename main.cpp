@@ -85,7 +85,7 @@ string getPassword()
 /*converte uma string em maiusculas*/
 string toUpper(string s)
 {
-	for (int i = 0; i < s.length(); i++)
+	for (unsigned int i = 0; i < s.length(); i++)
 	{
 		s[i] = toupper(s[i]);
 	}
@@ -127,7 +127,7 @@ void menu_channels_admin()
 		system("cls");
 		cout << "The Channels list:\n\n";
 		//chamar lista de canais
-		box.readChannelsVector();
+		//box.readChannelsVector();
 		system("pause");
 	}
 		
@@ -187,7 +187,7 @@ void menu_programs_admin()
 		system("cls");
 		cout << "The Programs list:\n\n";
 		//chamar lista de progrmas
-		box.readProgramsVector();
+		//box.readProgramsVector();
 	}
 	
 	if (number == 2)
@@ -227,16 +227,17 @@ void menu_programs_admin()
 	}
 }
 
-/*apresenta no ecra o submenu com a interacao utilizador/filmes*/
-void menu_movies(){
+/*menu de opcoes para o admin utilizar com os filmes*/
+void menu_movies_admin()
+{
 	system("CLS");
 	cout << "--------------------------Welcome to the Movies menu----------------------------\n\n";
 
 	int number;
 	cout << "1. See Movieclub" << endl;
-	cout << "2. Rent a movie" << endl;
-	cout << "3. Already seen list" << endl;
-	cout << "4. Money Spent" << endl;
+	cout << "2. Title change" << endl;
+	cout << "3. Cost change" << endl;
+	cout << "4. Remove Movie" << endl;
 	cout << "0. Return to main menu\n\n";
 	cout << "Choose a number: ";
 	cin >> number;
@@ -246,40 +247,33 @@ void menu_movies(){
 		system("cls");
 		cout << "The movies list:\n\n";
 		//chamar lista de filmes
-		box.readMoviesVector();
-		
+		//box.readMoviesVector();
+		system("pause");
 	}
 
 	if (number == 2)
 	{
-		system("cls");
-		string name;
-		//chamar a funcao para alugar filmes
-		cout << "Which film you want to rent?\t Type the name please:\n" << endl;
-		cin >> name;
-		box.rentMovies(name);
-		system("cls");
-		cout << "\n Now you have the movie: " << name << endl;
+		box.submenuNameMovies();
+		system("pause");
 	}
+
 	if (number == 3)
 	{
-		system("cls");
-		//chamar a funcao para a lista dos filmes ja vistos
-		
+		box.submenuChangeCostMovies();
+		system("pause");
 	}
+
 	if (number == 4)
 	{
-		system("cls");
-		//chamar a funcao para o dinheiro gasto
-		cout << " You spent : " << box.moneySpent() << "euros seeing movies..." << endl;
-		cout << "\n\n Thank you for spending your money with us..." << endl;
+		box.submenuRemoveMovies();
+		system("pause");
 	}
 
 	if (number == 0)
 	{
-		system("cls");
-		main_menu();
+		menu_inicial();
 	}
+
 }
 
 /*Apresenta o ecra de entrada na aplicacao*/
@@ -329,12 +323,27 @@ void screen_password()
 void screen_list_programs(vector<Program> programas)
 {
 	system("CLS");
-	cout << "-------------------------------------BOX----------------------------------------";
+	cout << "-------------------------------------PROGRAMS----------------------------------------";
 	cout.width(80);
 	cout << right << displayDate;
 	cout << left << setw(30) << "NAME" << setw(15) << "TYPE" << setw(20) << "EXHIBITION DATE" << "DURATION" << endl;
 	for (unsigned int j = 0; j < programas.size(); j++)
 		cout << setw(30) << programas[j].getName() << setw(15) << programas[j].getType() << setw(20) << dateToString(programas[j].getDate()) << programas[j].getDuration() << " min" << endl;
+	cout << "\n                        (press any key to continue)\n\n";
+	_getch();
+	cout << endl;
+}
+
+/*Exibir uma lista de filmes passada por vector*/
+void screen_list_movies(vector<Movie> movies)
+{
+	system("CLS");
+	cout << "-------------------------------------MOVIES----------------------------------------";
+	cout.width(80);
+	cout << right << displayDate;
+	cout << left << setw(30) << "TITLE" << setw(15) << "COST" << "TIMES SEEN" << endl;
+	for (unsigned int j = 0; j < movies.size(); j++)
+		cout << setw(30) << movies[j].getTitle() << setw(15) << movies[j].getCost() << " €" << movies[j].getRented() << endl;
 	cout << "\n                        (press any key to continue)\n\n";
 	_getch();
 	cout << endl;
@@ -416,7 +425,7 @@ void menu_tv()
 	while (loop1 == 1)
 	{
 		system("CLS");
-		cout << "-------------------------------------BOX----------------------------------------";
+		cout << "-----------------------------------TV MENU--------------------------------------";
 		cout.width(80);
 		cout << right << displayDate;
 		cout << "1. View Tv Program Guide" << endl;
@@ -468,7 +477,7 @@ void menu_programs()
 	while (loop1 == 1)
 	{
 		system("CLS");
-		cout << "-------------------------------------BOX----------------------------------------";
+		cout << "-------------------------------------PROGRAMS----------------------------------------";
 		cout.width(80);
 		cout << right << displayDate;
 		cout << "1. Search Programming by day" << endl;
@@ -489,7 +498,7 @@ void menu_programs()
 				cin.clear();
 				cin.ignore(1000, '\n');
 				system("CLS");
-				cout << "-------------------------------------BOX----------------------------------------";
+				cout << "-------------------------------------PROGRAMS----------------------------------------";
 				cout.width(80);
 				cout << right << displayDate;
 				cout << endl << "Enter day of week (empty for today):";
@@ -511,7 +520,7 @@ void menu_programs()
 				cin.clear();
 				cin.ignore(1000, '\n');
 				system("CLS");
-				cout << "-------------------------------------BOX----------------------------------------";
+				cout << "-------------------------------------PROGRAMS----------------------------------------";
 				cout.width(80);
 				cout << right << displayDate;
 				cout << endl << "Enter channel:";
@@ -536,7 +545,7 @@ void menu_programs()
 				cin.clear();
 				cin.ignore(1000, '\n');
 				system("CLS");
-				cout << "-------------------------------------BOX----------------------------------------";
+				cout << "-------------------------------------PROGRAMS----------------------------------------";
 				cout.width(80);
 				cout << right << displayDate;
 				cout << endl << "Enter type of program:";
@@ -568,53 +577,71 @@ void menu_programs()
 	}
 }
 
-/*menu de opcoes para o admin utilizar com os filmes*/
-void menu_movies_admin()
-{
-	system("CLS");
-	cout << "--------------------------Welcome to the Movies menu----------------------------\n\n";
+/*apresenta no ecra o submenu com a interacao utilizador/filmes*/
+void menu_movies(){
+	int n;
+	bool loop1 = 1, loop2;
+	char choice;
 
-	int number;
-	cout << "1. See Movieclub" << endl;
-	cout << "2. Title change" << endl;
-	cout << "3. Cost change" << endl;
-	cout << "4. Remove Movie" << endl;
-	cout << "0. Return to main menu\n\n";
-	cout << "Choose a number: ";
-	cin >> number;
-
-	if (number == 1)
+	while (loop1 == 1)
 	{
-		system("cls");
-		cout << "The movies list:\n\n";
-		//chamar lista de filmes
-		box.readMoviesVector();
-		system("pause");
-	}
+		system("CLS");
+		cout << "---------------------------------MOVIES MENU-----------------------------------\n\n";
 
-	if (number == 2)
-	{
-		box.submenuNameMovies();
-		system("pause");
-	}
+		int number;
+		cout << "1. See Movieclub" << endl;
+		cout << "2. Rent a movie" << endl;
+		cout << "3. Already seen list" << endl;
+		cout << "4. Money Spent" << endl;
+		cout << "0. Return to main menu\n\n";
+		cout << "Choose a number: ";
+		cin >> number;
 
-	if (number == 3)
-	{
-		box.submenuChangeCostMovies();
-		system("pause");
+		loop2 = 1;
+		while (loop2 == 1)
+		{
+			//choice = _getch();
+			cin >> choice;
+			n = choice - '0';
+			switch (n)
+			{
+			case 1:
+				cin.clear();
+				cin.ignore(1000, '\n');
+				screen_list_movies(box.listMovies());
+				loop2 = 0;
+				break;
+			case 2:
+				cin.clear();
+				cin.ignore(1000, '\n');
+				//menu_recordings();
+				loop2 = 0;
+				break;
+			case 3:
+				cin.clear();
+				cin.ignore(1000, '\n');
+				screen_list_movies(box.listSeen());
+				loop2 = 0;
+				break;
+			case 4:
+				cin.clear();
+				cin.ignore(1000, '\n');
+				system("CLS");
+				cout << "-------------------------------------PROGRAMS----------------------------------------";
+				cout.width(80);
+				cout << right << displayDate;
+				cout << endl << "You have spent " << box.moneySpent() << "€ on the viedoclub";
+				loop2 = 0;
+				break;
+			case 0:
+				cin.clear();
+				cin.ignore(1000, '\n');
+				loop1 = 0;
+				loop2 = 0;
+				break;
+			}
+		}
 	}
-
-	if (number == 4)
-	{
-		box.submenuRemoveMovies();
-		system("pause");
-	}
-
-	if (number == 0)
-	{
-		menu_inicial();
-	}
-
 }
 
 /*onde é gerado o codigo para interagir com o utilizador para a escolha do que pretende no menu inicial*/
@@ -671,7 +698,7 @@ int main()
 	screen_loading();
 	box.importChannels("Channels&Programs.txt");
 	box.importRecorded("Recorded.txt");
-	//box.importMovies("movies.txt");
+	box.importMovies("movies.txt");
 	/************************************************************************************************************************************************/
 
 	main_menu();
@@ -680,7 +707,7 @@ int main()
 	/***********************************************exporta dados para ficheiros.txt*****************************************************************/
 	box.exportChannels("Channels&Programs.txt");
 	//box.exportRecorded("Recorded.txt");
-	//box.importMovies("Movies.txt");
+	//box.exportMovies("Movies.txt");
 	/************************************************************************************************************************************************/
 	_getch();
 

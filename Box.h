@@ -71,6 +71,9 @@ class Box{
 
 	 vector<Program> listRecorded() const;
 	 vector<Program> listToRecord() const;
+
+	 vector<Movie> listMovies() const;
+	 vector<Movie> listSeen() const;
 	 
 	 bool rentMovies(string title);
 	 float moneySpent() const;
