@@ -111,9 +111,9 @@ void menu_inicial()
 void menu_channels_admin()
 {
 	int number;
-	int loop1 = 1, loop2;
+	bool loop1 = 1, loop2;
 
-	while (loop1 = 1)
+	while (loop1 == 1)
 	{
 		system("CLS");
 		cout << "--------------------------Welcome to the Channels menu--------------------------\n\n";
@@ -127,7 +127,7 @@ void menu_channels_admin()
 		cout << "Choose a number: ";
 
 		loop2 = 1;
-		while (loop2 = 1)
+		while (loop2 == 1)
 		{
 			cin >> number;
 
@@ -140,6 +140,7 @@ void menu_channels_admin()
 				//chamar lista de canais
 				box.readChannelsVector();
 				system("pause");
+				loop2 = 0;
 			}
 
 			if (number == 2)
@@ -149,6 +150,7 @@ void menu_channels_admin()
 				//chama a funcao que muda o nome do canal
 				box.submenuNameChannels();
 				system("pause");
+				loop2 = 0;
 			}
 
 			if (number == 3)
@@ -158,6 +160,7 @@ void menu_channels_admin()
 				//chama a funcao que adiciona um canal novo
 				box.submenuNewChannel();
 				system("pause");
+				loop2 = 0;
 			}
 
 			if (number == 4)
@@ -167,6 +170,7 @@ void menu_channels_admin()
 				//chama a funcao que remove um novo canal
 				box.submenuRemoveChannel();
 				system("pause");
+				loop2 = 0;
 			}
 
 			/************************************************************falta fazer a funcao de adicionar um programa ao canal no box.cpp**************************/
@@ -190,9 +194,9 @@ void menu_channels_admin()
 void menu_programs_admin()
 {
 	int number;
-	int loop1 = 1, loop2;
+	bool loop1 = 1, loop2;
 
-	while (loop1 = 1)
+	while (loop1 == 1)
 	{
 		system("CLS");
 		cout << "--------------------------Welcome to the Programs menu--------------------------\n\n";
@@ -209,7 +213,7 @@ void menu_programs_admin()
 
 
 		loop2 = 1;
-		while (loop2 = 1)
+		while (loop2 == 1)
 		{
 			cin >> number;
 
@@ -221,6 +225,7 @@ void menu_programs_admin()
 				cout << "The Programs list:\n\n";
 				//chamar lista de progrmas
 				box.readProgramsVector();
+				loop2 = 0;
 			}
 
 			if (number == 2)
@@ -228,6 +233,7 @@ void menu_programs_admin()
 				cin.clear();
 				cin.ignore(1000, '\n');
 				box.submenuAddProgramChannel();
+				loop2 = 0;
 			}
 
 			if (number == 3)
@@ -235,6 +241,7 @@ void menu_programs_admin()
 				cin.clear();
 				cin.ignore(1000, '\n');
 				box.submenuNamePrograms();
+				loop2 = 0;
 			}
 
 			if (number == 4)
@@ -242,6 +249,7 @@ void menu_programs_admin()
 				cin.clear();
 				cin.ignore(1000, '\n');
 				box.submenuChangeTypePrograms();
+				loop2 = 0;
 			}
 
 			if (number == 5)
@@ -249,6 +257,7 @@ void menu_programs_admin()
 				cin.clear();
 				cin.ignore(1000, '\n');
 				box.submenuChangeDatePrograms();
+				loop2 = 0;
 			}
 
 			if (number == 6)
@@ -256,6 +265,7 @@ void menu_programs_admin()
 				cin.clear();
 				cin.ignore(1000, '\n');
 				box.submenuChangeDurationPrograms();
+				loop2 = 0;
 			}
 
 			if (number == 7)//remove
@@ -263,6 +273,7 @@ void menu_programs_admin()
 				cin.clear();
 				cin.ignore(1000, '\n');
 				box.submenuRemovePrograms();
+				loop2 = 0;
 			}
 
 			if (number == 0)// exit
@@ -279,8 +290,9 @@ void menu_programs_admin()
 /*menu de opcoes para o admin utilizar com os filmes*/
 void menu_movies_admin()
 {
-	int loop1 = 1, loop2;
-	int number;
+	bool loop1 = 1, loop2;
+	int n;
+	char choice;
 
 	while (loop1 == 1)
 	{
@@ -297,9 +309,9 @@ void menu_movies_admin()
 		loop2 = 1;
 		while (loop2 == 1)
 		{
-			cin >> number;
-
-			if (number == 1)
+			cin >> choice;
+			n = choice - '0';
+			switch (n)
 			{
 				system("cls");
 				cin.clear();
@@ -308,38 +320,39 @@ void menu_movies_admin()
 				//chamar lista de filmes
 				box.readMoviesVector();
 				system("pause");
-			}
+				loop2 = 0;
+				break;
 
-			if (number == 2)
-			{
+			case 2:
 				cin.clear();
 				cin.ignore(1000, '\n');
 				box.submenuNameMovies();
 				system("pause");
-			}
+				loop2 = 0;
+				break;
 
-			if (number == 3)
-			{
+			case 3:
 				cin.clear();
 				cin.ignore(1000, '\n');
 				box.submenuChangeCostMovies();
 				system("pause");
-			}
+				loop2 = 0;
+				break;
 
-			if (number == 4)
-			{
+			case 4:
 				cin.clear();
 				cin.ignore(1000, '\n');
 				box.submenuRemoveMovies();
 				system("pause");
-			}
+				loop2 = 0;
+				break;
 
-			if (number == 0)
-			{
+			case 0:
 				cin.clear();
 				cin.ignore(1000, '\n');
 				loop1 = 0;
 				loop2 = 0;
+				break;
 			}
 		}
 
