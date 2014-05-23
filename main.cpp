@@ -14,6 +14,16 @@
 
 using namespace std;
 
+
+/*Prototipos dos menus*/
+void main_menu();
+void menu_tv();
+void menu_movies();
+void menu_admin();
+void menu_programs();
+void menu_recordings();
+void menu_movies_admin();
+
 // Randomly generates a valid day, hour and minute
 Date currentDate(){
 	
@@ -88,8 +98,6 @@ Box box = Box(getPassword(), currentDate());
 
 
 
-
-
 /*apresenta no ecra o menu de opções entre os outros submenus para a possivel navegacao do utilizador*/
 void menu_inicial(){
 
@@ -113,7 +121,7 @@ void menu_channels_admin(){
 	cout << "3. Add Channels" << endl;
 	cout << "4. Remove Channels" << endl;
 	cout << "5. Add programs" << endl;
-	cout << "6. Return to main menu\n\n";
+	cout << "0. Return to main menu\n\n";
 	cout << "Choose a number: ";
 	cin >> number;
 	
@@ -153,7 +161,7 @@ void menu_channels_admin(){
 		box.submenuAddProgramChannel();
 	}
 
-	if (number == 6)
+	if (number == 0)
 	{
 		system("cls");
 		menu_inicial();
@@ -172,7 +180,7 @@ void menu_programs_admin(){
 	cout << "5. Date change" << endl;
 	cout << "6. Duration change" << endl;
 	cout << "7. Remove Program" << endl;
-	cout << "8. Return to main menu\n\n";
+	cout << "0. Return to main menu\n\n";
 	cout << "Choose a number: ";
 	cin >> number;
 
@@ -214,11 +222,11 @@ void menu_programs_admin(){
 		box.submenuRemovePrograms();
 	}
 
-	if (number == 8)// exit
+	if (number == 0)// exit
 	{
 		system("cls");
 		menu_inicial();
-		system("pause");
+		
 	}
 }
 
@@ -230,7 +238,7 @@ void menu_movies(){
 	int number;
 	cout << "1. See Movieclub" << endl;
 	cout << "2. Rent a movie" << endl;
-	cout << "3. Return to main menu\n\n";
+	cout << "0. Return to main menu\n\n";
 	cout << "Choose a number: ";
 	cin >> number;
 
@@ -249,10 +257,10 @@ void menu_movies(){
 		system("pause");
 	}
 
-	if (number == 3)
+	if (number == 0)
 	{
 		system("cls");
-		menu_inicial();
+		main_menu();
 	}
 }
 
@@ -324,14 +332,7 @@ void screen_exit(){
 	cout << "\n                                                               Filipe Cordeiro\n\n";
 }
 
-/*Prototipos dos menus*/
-void main_menu();
-void menu_tv();
-void menu_movies();
-void menu_admin();
-void menu_programs();
-void menu_recordings();
-void menu_movies_admin();
+
 
 void main_menu()
 {
@@ -386,6 +387,7 @@ void main_menu()
 			}
 		}
 	}
+	exit(0);
 }
 
 void menu_tv()
@@ -427,6 +429,7 @@ void menu_tv()
 			case 0:
 				loop1 = 0;
 				loop2 = 0;
+				main_menu();
 				cin.clear();
 				cin.ignore(1000, '\n');
 				break;
@@ -533,6 +536,7 @@ void menu_programs()
 			case 0:
 				loop1 = 0;
 				loop2 = 0;
+				main_menu();
 				cin.clear();
 				cin.ignore(1000, '\n');
 				break;
@@ -551,7 +555,7 @@ void menu_movies_admin()
 	cout << "2. Title change" << endl;
 	cout << "3. Cost change" << endl;
 	cout << "4. Remove Movie" << endl;
-	cout << "5. Return to main menu\n\n";
+	cout << "0. Return to main menu\n\n";
 	cout << "Choose a number: ";
 	cin >> number;
 
@@ -580,6 +584,11 @@ void menu_movies_admin()
 	{
 		box.submenuRemoveMovies();
 		system("pause");
+	}
+
+	if (number == 0)
+	{
+		menu_inicial();
 	}
 
 }
@@ -612,13 +621,13 @@ void menu_box(){
 			break;
 
 		case 3:
-			menu_programs();
+			menu_programs_admin();
 			cin.clear();
 			cin.ignore(1000, '\n');
 			break;
 
 		case 4:
-			screen_exit();
+			main_menu();
 			loop = 0;
 			cin.clear();
 			cin.ignore(1000, '\n');
