@@ -40,7 +40,8 @@ string dateToString(Date date)
 	return s;
 }
 
-string typePassw() //depois mover para o main.cpp
+/*funcao que esconde password enquanto esta a ser digitada*/
+string typePassw()
 {
 	string passw;
 	char ch;
@@ -103,7 +104,7 @@ void menu_inicial(){
 }
 /*apresenta no ecra o submenu com a interacao do utilizador/canais*/
 
-void menu_channels(){
+void menu_channels_admin(){
 	system("CLS");
 	cout << "--------------------------Welcome to the Channels menu--------------------------\n\n";
 	int number;
@@ -160,7 +161,7 @@ void menu_channels(){
 }
 
 /*apresenta no ecra o submenu com a interacao utilizador/programas*/
-void menu_programs(){
+void menu_programs_admin(){
 	system("CLS");
 	cout << "--------------------------Welcome to the Programs menu--------------------------\n\n";
 	int number;
@@ -288,31 +289,16 @@ void screen_loading()
 	cout << "\n\n\n\n\n\n\n\n                        Loading BOX information...\n\n\n\n\n\n\n\n\n";
 }
 
-/*Exibir programas gravados*/
-void screen_recorded()
+/*Exibir uma lista de Programas passada por vector*/
+void screen_list_programs(vector<Program> programas)
 {
 	system("CLS");
 	cout << "-------------------------------------BOX----------------------------------------";
 	cout.width(80);
-	cout << right << displayDate << endl << endl;
-	vector<Program> programas = box.listRecorded();
+	cout << right << displayDate;
+	cout << left << setw(30) << "NAME" << setw(15) << "TYPE" << setw(20) << "EXHIBITION DATE" << "DURATION" << endl;
 	for (unsigned int j = 0; j < programas.size(); j++)
-		cout << programas[j].getName() << " " << programas[j].getDuration() << " " << programas[j].getType() << " " << programas[j].getDate().getDay() << " " << programas[j].getDate().getHour() << ":" << programas[j].getDate().getMinutes() << endl;
-	cout << "\n                        (press any key to continue)\n\n";
-	_getch();
-	cout << endl;
-}
-
-/*Exibir gravacoes agendadas*/
-void screen_toRecord()
-{
-	system("CLS");
-	cout << "-------------------------------------BOX----------------------------------------";
-	cout.width(80);
-	cout << right << displayDate << endl << endl;
-	vector<Program> programas = box.listToRecord();
-	for (unsigned int j = 0; j < programas.size(); j++)
-		cout << programas[j].getName() << " " << programas[j].getDuration() << " " << programas[j].getType() << " " << programas[j].getDate().getDay() << " " << programas[j].getDate().getHour() << ":" << programas[j].getDate().getMinutes() << endl;
+		cout << setw(30) << programas[j].getName() << setw(15) << programas[j].getType() << setw(20) << dateToString(programas[j].getDate()) << programas[j].getDuration() << " min" << endl;
 	cout << "\n                        (press any key to continue)\n\n";
 	_getch();
 	cout << endl;
@@ -367,7 +353,7 @@ void main_menu(){
 			pressed_key_movies();
 			break;
 		case 3:
-			menu_admin(); //ALTERAR!
+			menu_admin();
 			pressed_key_programs();
 			break;
 		case 4:
@@ -384,7 +370,7 @@ void menu_tv(){
 	system("CLS");
 	cout << "-------------------------------------BOX----------------------------------------";
 	cout.width(80);
-	cout << right << displayDate << endl << endl;
+	cout << right << displayDate;
 	cout << "1. View Tv Program Guide" << endl;
 	cout << "2. Manage Recordings" << endl;
 	cout << "3. Return to main menu\n\n";
@@ -442,6 +428,46 @@ void menu_admin()
 	main_menu();
 }
 
+void menu_programs(){
+
+	system("CLS");
+	cout << "-------------------------------------BOX----------------------------------------";
+	cout.width(80);
+	cout << right << displayDate;
+	cout << "1. Search Programming by day" << endl;
+	cout << "2. Search Programming by Channel" << endl;
+	cout << "3. Search Programming by Type" << endl;
+	cout << "4. Return to main menu\n\n";
+	cout << "(Press a valid number)" << endl;
+
+	int loop = 1, n;
+	char choice;
+
+	while (loop == 1)
+	{
+		choice = _getch();
+		n = choice - '0';
+		switch (n)
+		{
+		case 1:
+			menu_programs();
+			break;
+		case 2:
+			//menu_recordings();
+			pressed_key_movies();
+			break;
+		case 3:
+			main_menu();
+			pressed_key_programs();
+			break;
+		case 4:
+			main_menu();
+			pressed_key_programs();
+			break;
+		}
+	}
+}
+
 
 /****************************************ainda por acabar as tres funcoes de verificacao de teclas carregadas******************************/
 void pressed_key_channels()
@@ -450,7 +476,7 @@ void pressed_key_channels()
 	if (x == 'esc')
 		menu_inicial();
 	else
-		menu_channels();
+		menu_channels_admin();
 }
 
 void pressed_key_movies()
@@ -489,7 +515,7 @@ void menu_box(){
 		switch (choice)
 		{
 		case 1:
-			menu_channels();
+			menu_channels_admin();
 			pressed_key_channels();
 			break;
 
@@ -535,9 +561,8 @@ int main()
 	displayDate = dateToString(box.getDate());
 
 	main_menu();
-	//screen_recorded();
-	//screen_toRecord();
-
+	//screen_list_programs(box.listToRecord());
+	//screen_list_programs(box.listRecorded());
   //exit(0);
 	
 }
