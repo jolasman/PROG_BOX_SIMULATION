@@ -341,9 +341,9 @@ void screen_list_movies(vector<Movie> movies)
 	cout << "------------------------------------MOVIES--------------------------------------";
 	cout.width(80);
 	cout << right << displayDate << endl;
-	cout << left << setw(55) << "TITLE" << setw(10) << "COST" << "TIMES SEEN" << endl;
+	cout << left << setw(57) << "TITLE" << setw(10) << "COST" << "TIMES SEEN" << endl;
 	for (unsigned int j = 0; j < movies.size(); j++)
-		cout << setw(55) << movies[j].getTitle() << setprecision(2) << movies[j].getCost() << setw(10) << " €" << movies[j].getRented() << endl;
+		cout << setw(55) << movies[j].getTitle() << setprecision(2) << std::fixed << movies[j].getCost() << setw(10) << " EUR" << movies[j].getRented() << endl;
 	cout << "\n                        (press any key to continue)\n\n";
 	_getch();
 	cout << endl;
@@ -683,10 +683,12 @@ void menu_movies(){
 				cin.clear();
 				cin.ignore(1000, '\n');
 				system("CLS");
-				cout << "-------------------------------------PROGRAMS----------------------------------------";
+				cout << "------------------------------------MOVIES--------------------------------------";
 				cout.width(80);
 				cout << right << displayDate;
-				cout << endl << "You have spent " << box.moneySpent() << "€ on the viedoclub";
+				cout << endl << "You have spent " << box.moneySpent() << " EUR on the videoclub";
+				cout << "\n\n\n                        (press any key to continue)\n\n";
+				_getch();
 				loop2 = 0;
 				break;
 			case 0:
