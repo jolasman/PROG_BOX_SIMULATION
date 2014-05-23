@@ -14,16 +14,6 @@
 
 using namespace std;
 
-
-/*Prototipos dos menus*/
-void main_menu();
-void menu_tv();
-void menu_movies();
-void menu_admin();
-void menu_programs();
-void menu_recordings();
-void menu_movies_admin();
-
 // Randomly generates a valid day, hour and minute
 Date currentDate(){
 	
@@ -328,12 +318,12 @@ void screen_exit(){
 	system("CLS");
 	cout << "\n\n\n-----------------------------Thank You For Watching-----------------------------\n\n\n\n\n\n\n\n\n\n\n";
 	cout << "\n                                                       program by:";
-	cout << "\n                                                                 Joel Carneiro";
+	cout << "\n                                                               Joel Carneiro";
 	cout << "\n                                                               Filipe Cordeiro\n\n";
 }
 
 
-
+/*apresenta o menu inicial com as opcoes se ir para admin ou nao*/
 void main_menu()
 {
 	int n;
@@ -389,7 +379,7 @@ void main_menu()
 	}
 	exit(0);
 }
-
+/*menu se escolher a opcao tv*/
 void menu_tv()
 {
 	int n;
@@ -437,7 +427,7 @@ void menu_tv()
 		}
 	}
 }
-
+/*para ver o programas por listagens*/
 void menu_programs()
 {
 	int n;
@@ -544,7 +534,7 @@ void menu_programs()
 		}
 	}
 }
-
+/*menu de opcoes para o admin utilizar com os filmes*/
 void menu_movies_admin()
 {
 	system("CLS");

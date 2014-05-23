@@ -31,3 +31,13 @@ void pressed_key_programs();
 string getPassword();
 
 void menu_box();
+
+
+/*Prototipos dos menus*/
+void main_menu();
+void menu_tv();
+void menu_movies();
+void menu_admin();
+void menu_programs();
+void menu_recordings();
+void menu_movies_admin();
