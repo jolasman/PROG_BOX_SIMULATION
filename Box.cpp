@@ -299,7 +299,7 @@ bool Box::exportMovies(string file_path)
 	{
 		for (unsigned int i = 0; i < movieClub.size(); i++)
 		{
-			file << movieClub[i].getTitle() << ";" << movieClub[i].getCost() << ";0" << endl;
+			file << movieClub[i].getTitle() << ";" << setprecision(2) << fixed << movieClub[i].getCost() << ";0" << endl;
 		}
 		for (unsigned int i = 0; i < seenMovies.size(); i++)
 		{

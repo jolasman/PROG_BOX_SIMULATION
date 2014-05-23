@@ -584,7 +584,6 @@ void menu_recordings()
 	bool loop1 = 1, loop2;
 	char choice;
 	string programName;
-	bool progFound;
 
 	while (loop1 == 1)
 	{
