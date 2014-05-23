@@ -103,177 +103,247 @@ void menu_inicial()
 	cout << "1. Channels" << endl;
 	cout << "2. Movies" << endl;
 	cout << "3. Programs" << endl;
-	cout << "4. Exit\n\n";
+	cout << "0. Exit\n\n";
 	cout << "Choose a number: ";
 }
 /*apresenta no ecra o submenu com a interacao do utilizador/canais*/
 
 void menu_channels_admin()
 {
-	system("CLS");
-	cout << "--------------------------Welcome to the Channels menu--------------------------\n\n";
 	int number;
-	cout << "1. See all Channels" << endl;
-	cout << "2. Name change" << endl;
-	cout << "3. Add Channels" << endl;
-	cout << "4. Remove Channels" << endl;
-	cout << "5. Add programs" << endl;
-	cout << "0. Return to main menu\n\n";
-	cout << "Choose a number: ";
-	cin >> number;
-	
-	if (number == 1)
-	{
-		system("cls");
-		cout << "The Channels list:\n\n";
-		//chamar lista de canais
-		box.readChannelsVector();
-		system("pause");
-	}
-		
-	if (number == 2)
-	{
-		//chama a funcao que muda o nome do canal
-		box.submenuNameChannels();
-		system("pause");
-	}
+	int loop1 = 1, loop2;
 
-	if (number == 3)
+	while (loop1 = 1)
 	{
-		//chama a funcao que adiciona um canal novo
-		box.submenuNewChannel();
-		system("pause");
-	}
+		system("CLS");
+		cout << "--------------------------Welcome to the Channels menu--------------------------\n\n";
 
-	if (number == 4)
-	{
-		//chama a funcao que remove um novo canal
-		box.submenuRemoveChannel();
-		system("pause");
-	}
+		cout << "1. See all Channels" << endl;
+		cout << "2. Name change" << endl;
+		cout << "3. Add Channels" << endl;
+		cout << "4. Remove Channels" << endl;
+		cout << "5. Add programs" << endl;
+		cout << "0. Return to main menu\n\n";
+		cout << "Choose a number: ";
 
-	/************************************************************falta fazer a funcao de adicionar um programa ao canal no box.cpp**************************/
-	if (number == 5)
-	{
-		box.submenuAddProgramChannel();
-	}
+		loop2 = 1;
+		while (loop2 = 1)
+		{
+			cin >> number;
 
-	if (number == 0)
-	{
-		system("cls");
-		menu_inicial();
+			if (number == 1)
+			{
+				system("cls");
+				cin.clear();
+				cin.ignore(1000, '\n');
+				cout << "The Channels list:\n\n";
+				//chamar lista de canais
+				box.readChannelsVector();
+				system("pause");
+			}
+
+			if (number == 2)
+			{
+				cin.clear();
+				cin.ignore(1000, '\n');
+				//chama a funcao que muda o nome do canal
+				box.submenuNameChannels();
+				system("pause");
+			}
+
+			if (number == 3)
+			{
+				cin.clear();
+				cin.ignore(1000, '\n');
+				//chama a funcao que adiciona um canal novo
+				box.submenuNewChannel();
+				system("pause");
+			}
+
+			if (number == 4)
+			{
+				cin.clear();
+				cin.ignore(1000, '\n');
+				//chama a funcao que remove um novo canal
+				box.submenuRemoveChannel();
+				system("pause");
+			}
+
+			/************************************************************falta fazer a funcao de adicionar um programa ao canal no box.cpp**************************/
+			if (number == 5)
+			{
+				box.submenuAddProgramChannel();
+			}
+
+			if (number == 0)
+			{
+				loop1 = 0;
+				loop2 = 0;
+				cin.clear();
+				cin.ignore(1000, '\n');
+			}
+		}
 	}
 }
 
 /*apresenta no ecra o submenu com a interacao utilizador/programas*/
 void menu_programs_admin()
 {
-	system("CLS");
-	cout << "--------------------------Welcome to the Programs menu--------------------------\n\n";
 	int number;
-	cout << "1. See all Programs" << endl;
-	cout << "2. Create a new Program" << endl;
-	cout << "3. Name change" << endl;
-	cout << "4. Type change" << endl;
-	cout << "5. Date change" << endl;
-	cout << "6. Duration change" << endl;
-	cout << "7. Remove Program" << endl;
-	cout << "0. Return to main menu\n\n";
-	cout << "Choose a number: ";
-	cin >> number;
+	int loop1 = 1, loop2;
 
-	if (number == 1)
+	while (loop1 = 1)
 	{
-		system("cls");
-		cout << "The Programs list:\n\n";
-		//chamar lista de progrmas
-		box.readProgramsVector();
-	}
-	
-	if (number == 2)
-	{
-		box.submenuAddProgramChannel();
-	}
+		system("CLS");
+		cout << "--------------------------Welcome to the Programs menu--------------------------\n\n";
 
-	if (number == 3)
-	{
-		box.submenuNamePrograms();
-	}
-	
-	if (number == 4)
-	{
-		box.submenuChangeTypePrograms();
-	}
+		cout << "1. See all Programs" << endl;
+		cout << "2. Create a new Program" << endl;
+		cout << "3. Name change" << endl;
+		cout << "4. Type change" << endl;
+		cout << "5. Date change" << endl;
+		cout << "6. Duration change" << endl;
+		cout << "7. Remove Program" << endl;
+		cout << "0. Return to main menu\n\n";
+		cout << "Choose a number: ";
 
-	if (number == 5)
-	{
-		box.submenuChangeDatePrograms();
-	}
-	
-	if (number == 6)
-	{
-		box.submenuChangeDurationPrograms();
-	}
 
-	if (number == 7)//remove
-	{
-		box.submenuRemovePrograms();
-	}
+		loop2 = 1;
+		while (loop2 = 1)
+		{
+			cin >> number;
 
-	if (number == 0)// exit
-	{
-		system("cls");
-		menu_inicial();
+			if (number == 1)
+			{
+				system("cls");
+				cin.clear();
+				cin.ignore(1000, '\n');
+				cout << "The Programs list:\n\n";
+				//chamar lista de progrmas
+				box.readProgramsVector();
+			}
+
+			if (number == 2)
+			{
+				cin.clear();
+				cin.ignore(1000, '\n');
+				box.submenuAddProgramChannel();
+			}
+
+			if (number == 3)
+			{
+				cin.clear();
+				cin.ignore(1000, '\n');
+				box.submenuNamePrograms();
+			}
+
+			if (number == 4)
+			{
+				cin.clear();
+				cin.ignore(1000, '\n');
+				box.submenuChangeTypePrograms();
+			}
+
+			if (number == 5)
+			{
+				cin.clear();
+				cin.ignore(1000, '\n');
+				box.submenuChangeDatePrograms();
+			}
+
+			if (number == 6)
+			{
+				cin.clear();
+				cin.ignore(1000, '\n');
+				box.submenuChangeDurationPrograms();
+			}
+
+			if (number == 7)//remove
+			{
+				cin.clear();
+				cin.ignore(1000, '\n');
+				box.submenuRemovePrograms();
+			}
+
+			if (number == 0)// exit
+			{
+				loop1 = 0;
+				loop2 = 0;
+				cin.clear();
+				cin.ignore(1000, '\n');
+			}
+		}
 	}
 }
 
 /*menu de opcoes para o admin utilizar com os filmes*/
 void menu_movies_admin()
 {
-	system("CLS");
-	cout << "--------------------------Welcome to the Movies menu----------------------------\n\n";
-
+	int loop1 = 1, loop2;
 	int number;
-	cout << "1. See Movieclub" << endl;
-	cout << "2. Title change" << endl;
-	cout << "3. Cost change" << endl;
-	cout << "4. Remove Movie" << endl;
-	cout << "0. Return to main menu\n\n";
-	cout << "Choose a number: ";
-	cin >> number;
 
-	if (number == 1)
+	while (loop1 == 1)
 	{
-		system("cls");
-		cout << "The movies list:\n\n";
-		//chamar lista de filmes
-		box.readMoviesVector();
-		system("pause");
-	}
+		system("CLS");
+		cout << "--------------------------Welcome to the Movies menu----------------------------\n\n";
 
-	if (number == 2)
-	{
-		box.submenuNameMovies();
-		system("pause");
-	}
+		cout << "1. See Movieclub" << endl;
+		cout << "2. Title change" << endl;
+		cout << "3. Cost change" << endl;
+		cout << "4. Remove Movie" << endl;
+		cout << "0. Return to main menu\n\n";
+		cout << "Choose a number: ";
 
-	if (number == 3)
-	{
-		box.submenuChangeCostMovies();
-		system("pause");
-	}
+		loop2 = 1;
+		while (loop2 == 1)
+		{
+			cin >> number;
 
-	if (number == 4)
-	{
-		box.submenuRemoveMovies();
-		system("pause");
-	}
+			if (number == 1)
+			{
+				system("cls");
+				cin.clear();
+				cin.ignore(1000, '\n');
+				cout << "The movies list:\n\n";
+				//chamar lista de filmes
+				box.readMoviesVector();
+				system("pause");
+			}
 
-	if (number == 0)
-	{
-		menu_inicial();
-	}
+			if (number == 2)
+			{
+				cin.clear();
+				cin.ignore(1000, '\n');
+				box.submenuNameMovies();
+				system("pause");
+			}
 
+			if (number == 3)
+			{
+				cin.clear();
+				cin.ignore(1000, '\n');
+				box.submenuChangeCostMovies();
+				system("pause");
+			}
+
+			if (number == 4)
+			{
+				cin.clear();
+				cin.ignore(1000, '\n');
+				box.submenuRemoveMovies();
+				system("pause");
+			}
+
+			if (number == 0)
+			{
+				cin.clear();
+				cin.ignore(1000, '\n');
+				loop1 = 0;
+				loop2 = 0;
+			}
+		}
+
+	}
 }
 
 /*Apresenta o ecra de entrada na aplicacao*/
@@ -777,8 +847,7 @@ void menu_box(){
 			cin.ignore(1000, '\n');
 			break;
 
-		case 4:
-			main_menu();
+		case 0:
 			loop = 0;
 			cin.clear();
 			cin.ignore(1000, '\n');
