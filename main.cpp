@@ -361,26 +361,34 @@ void main_menu()
 		loop2 = 1;
 		while (loop2 == 1)
 		{
-			choice = _getch();
+			cin >> choice;
 			n = choice - '0';
 			switch (n)
 			{
 			case 1:
 				menu_tv();
 				loop2 = 0;
+				cin.clear();
+				cin.ignore(1000, '\n');
 				break;
 			case 2:
 				menu_movies();
 				loop2 = 0;
+				cin.clear();
+				cin.ignore(1000, '\n');
 				break;
 			case 3:
 				screen_password();
 				loop2 = 0;
+				cin.clear();
+				cin.ignore(1000, '\n');
 				break;
 			case 0:
 				screen_exit();
 				loop1 = 0;
 				loop2 = 0;
+				cin.clear();
+				cin.ignore(1000, '\n');
 				break;
 			}
 		}
@@ -407,21 +415,27 @@ void menu_tv()
 		loop2 = 1;
 		while (loop2 == 1)
 		{
-			choice = _getch();
+			cin >> choice;
 			n = choice - '0';
 			switch (n)
 			{
 			case 1:
 				menu_programs();
 				loop2 = 0;
+				cin.clear();
+				cin.ignore(1000, '\n');
 				break;
 			case 2:
 				//menu_recordings();
 				loop2 = 0;
+				cin.clear();
+				cin.ignore(1000, '\n');
 				break;
 			case 0:
 				loop1 = 0;
 				loop2 = 0;
+				cin.clear();
+				cin.ignore(1000, '\n');
 				break;
 			}
 		}
@@ -452,7 +466,7 @@ void menu_programs()
 		loop2 = 1;
 		while (loop2 == 1)
 		{
-			choice = _getch();
+			cin >> choice;
 			n = choice - '0';
 			switch (n)
 			{
@@ -474,6 +488,8 @@ void menu_programs()
 				else
 					screen_list_programs(box.listByDay());
 				loop2 = 0;
+				cin.clear();
+				cin.ignore(1000, '\n');
 				break;
 			case 2:
 				system("CLS");
@@ -495,6 +511,8 @@ void menu_programs()
 				else
 					screen_list_programs(box.listByChannel(channel));
 				loop2 = 0;
+				cin.clear();
+				cin.ignore(1000, '\n');
 				break;
 			case 3:
 				system("CLS");
@@ -516,45 +534,20 @@ void menu_programs()
 				else
 					screen_list_programs(box.listByType(type));
 				loop2 = 0;
+				cin.clear();
+				cin.ignore(1000, '\n');
 				break;
 			case 0:
 				loop1 = 0;
 				loop2 = 0;
+				cin.clear();
+				cin.ignore(1000, '\n');
 				break;
 			}
 		}
 	}
 }
 
-/****************************************ainda por acabar as tres funcoes de verificacao de teclas carregadas******************************/
-void pressed_key_channels()
-{
-	char x = getchar();
-	if (x == 'esc')
-		menu_inicial();
-	else
-		menu_channels_admin();
-}
-
-void pressed_key_movies()
-{
-	char x = getchar();
-	if (x == 'esc')
-		menu_inicial();
-	else
-		menu_movies();
-}
-
-void pressed_key_programs()
-{
-	char x = getchar();
-	if (x == 'esc')
-		menu_inicial();
-	else
-		menu_programs();
-}
-
-/*****************************************************************************************************************************************/
 
 
 
@@ -573,22 +566,27 @@ void menu_box(){
 		{
 		case 1:
 			menu_channels_admin();
-			pressed_key_channels();
+			cin.clear();
+			cin.ignore(1000, '\n');
 			break;
 
 		case 2:
 			menu_movies();
-			pressed_key_movies();
+			cin.clear();
+			cin.ignore(1000, '\n');
 			break;
 
 		case 3:
 			menu_programs();
-			pressed_key_programs();
+			cin.clear();
+			cin.ignore(1000, '\n');
 			break;
 
 		case 4:
 			screen_exit();
 			loop = 0;
+			cin.clear();
+			cin.ignore(1000, '\n');
 			break;
 
 		default:
