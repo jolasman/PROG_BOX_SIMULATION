@@ -344,7 +344,6 @@ bool Box::importRecorded(string file_path)
 {
 	ifstream file(file_path);
 	string progName;
-	int pos1, pos2, duration, hour, minutes;
 	vector<Program> programs;
 
 	if (file.is_open())
@@ -958,6 +957,28 @@ vector<Program> Box::listByType(string type, string day) const
 		}
 	}
 	return progsType;
+}
+
+vector<Program> Box::listRecorded() const
+{
+	vector<Program> rec;
+	for (unsigned int i = 0; i < recorded.size(); i++)
+	{
+		if (recorded[i].getDate() < currentDate)
+			rec.push_back(recorded[i]);
+	}
+	return rec;
+}
+
+vector<Program> Box::listToRecord() const
+{
+	vector<Program> rec;
+	for (unsigned int i = 0; i < recorded.size(); i++)
+	{
+		if (!(recorded[i].getDate() < currentDate))
+			rec.push_back(recorded[i]);
+	}
+	return rec;
 }
 /*********************************************************************************************************************/
 
