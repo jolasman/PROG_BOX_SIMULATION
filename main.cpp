@@ -289,6 +289,32 @@ void screen_loading()
 	cout << "\n\n\n\n\n\n\n\n                        Loading BOX information...\n\n\n\n\n\n\n\n\n";
 }
 
+/*Exibir o ecra para introducao de password para acesso a area restricta */
+void screen_password()
+{
+	system("CLS");
+	cout << "------------------ You are trying to access a Protected Area -------------------\n" << endl;
+	cout << "Type your PASSWORD please:" << endl;
+
+	string passw = typePassw();
+	if (box.checkPassword(passw) == true)
+	{
+		menu_box();
+	}
+
+	cout << "\nWrong PASSWORD! You have just ONE more chance." << endl;
+	cout << "Type your PASSWORD again please:" << endl;
+
+	passw = typePassw();
+	if (box.checkPassword(passw) == true)
+	{
+		menu_box();
+	}
+	cout << "\nWrong PASSWORD again. Returning to Main Menu." << endl;
+	cout << "\n(press any key to continue)";
+	_getch();
+}
+
 /*Exibir uma lista de Programas passada por vector*/
 void screen_list_programs(vector<Program> programas)
 {
@@ -312,7 +338,6 @@ void screen_exit(){
 	cout << "\n                                                       program by:";
 	cout << "\n                                                                 Joel Carneiro";
 	cout << "\n                                                               Filipe Cordeiro\n\n";
-	_getch();
 }
 
 /*Prototipos dos menus*/
@@ -323,151 +348,191 @@ void menu_admin();
 void menu_programs();
 void menu_recordings();
 
-void main_menu(){
-
-	system("CLS");
-	cout << "-------------------------------------BOX----------------------------------------";
-	cout.width(80);
-	cout << right << displayDate;
-	cout << "1. TV" << endl;
-	cout << "2. Movies" << endl;
-	cout << "3. Manage BOX (password protected)" << endl;
-	cout << "4. Exit\n\n";
-	cout << "(Press a valid number)" << endl;
-
-	int loop = 1, n;
-	char choice;
-
-	while (loop == 1)
-	{
-		choice = _getch();
-		n = choice - '0';
-		switch (n)
-		{
-		case 1:
-			menu_tv();
-			pressed_key_channels();
-			break;
-		case 2:
-			menu_movies();
-			pressed_key_movies();
-			break;
-		case 3:
-			menu_admin();
-			pressed_key_programs();
-			break;
-		case 4:
-			screen_exit();
-			loop = 0;
-			break;
-		}
-	}
-	exit(0);
-}
-
-void menu_tv(){
-
-	system("CLS");
-	cout << "-------------------------------------BOX----------------------------------------";
-	cout.width(80);
-	cout << right << displayDate;
-	cout << "1. View Tv Program Guide" << endl;
-	cout << "2. Manage Recordings" << endl;
-	cout << "3. Return to main menu\n\n";
-	cout << "(Press a valid number)" << endl;
-
-	int loop = 1, n;
-	char choice;
-
-	while (loop == 1)
-	{
-		choice = _getch();
-		n = choice - '0';
-		switch (n)
-		{
-		case 1:
-			menu_programs();
-			pressed_key_channels();
-			break;
-		case 2:
-			//menu_recordings();
-			pressed_key_movies();
-			break;
-		case 3:
-			main_menu();
-			pressed_key_programs();
-			break;
-		}
-	}
-	exit(0);
-}
-
-void menu_admin()
+void main_menu()
 {
-	system("CLS");
-	cout << "------------------ You are trying to access a Protected Area -------------------\n" << endl;
-	cout << "Type your PASSWORD please:" << endl;
-
-	string passw = typePassw();
-	if (box.checkPassword(passw) == true)
-	{
-		menu_box();
-	}
-
-	cout << "\nWrong PASSWORD! You have just ONE more chance." << endl;
-	cout << "Type your PASSWORD again please:" << endl;
-
-	passw = typePassw();
-	if (box.checkPassword(passw) == true)
-	{
-		menu_box();
-	}
-	cout << "\nWrong PASSWORD again. Returning to Main Menu." << endl;
-	cout << "\n(press any key to continue)";
-	_getch();
-	main_menu();
-}
-
-void menu_programs(){
-
-	system("CLS");
-	cout << "-------------------------------------BOX----------------------------------------";
-	cout.width(80);
-	cout << right << displayDate;
-	cout << "1. Search Programming by day" << endl;
-	cout << "2. Search Programming by Channel" << endl;
-	cout << "3. Search Programming by Type" << endl;
-	cout << "4. Return to main menu\n\n";
-	cout << "(Press a valid number)" << endl;
-
-	int loop = 1, n;
+	int n;
+	bool loop1 = 1, loop2;
 	char choice;
 
-	while (loop == 1)
+	while (loop1 == 1)
 	{
-		choice = _getch();
-		n = choice - '0';
-		switch (n)
+		system("CLS");
+		cout << "-------------------------------------BOX----------------------------------------";
+		cout.width(80);
+		cout << right << displayDate;
+		cout << "1. TV" << endl;
+		cout << "2. Movies" << endl;
+		cout << "3. Manage BOX (password protected)" << endl;
+		cout << "0. Exit\n\n";
+		cout << "(Press a valid number)" << endl;
+
+		loop2 = 1;
+		while (loop2 == 1)
 		{
-		case 1:
-			menu_programs();
-			break;
-		case 2:
-			//menu_recordings();
-			pressed_key_movies();
-			break;
-		case 3:
-			main_menu();
-			pressed_key_programs();
-			break;
-		case 4:
-			main_menu();
-			pressed_key_programs();
-			break;
+			choice = _getch();
+			n = choice - '0';
+			switch (n)
+			{
+			case 1:
+				menu_tv();
+				loop2 = 0;
+				break;
+			case 2:
+				menu_movies();
+				loop2 = 0;
+				break;
+			case 3:
+				screen_password();
+				loop2 = 0;
+				break;
+			case 0:
+				screen_exit();
+				loop1 = 0;
+				loop2 = 0;
+				break;
+			}
 		}
 	}
 }
 
+void menu_tv()
+{
+	int n;
+	bool loop1 = 1, loop2;
+	char choice;
+
+	while (loop1 == 1)
+	{
+		system("CLS");
+		cout << "-------------------------------------BOX----------------------------------------";
+		cout.width(80);
+		cout << right << displayDate;
+		cout << "1. View Tv Program Guide" << endl;
+		cout << "2. Manage Recordings" << endl;
+		cout << "0. Return to main menu\n\n";
+		cout << "(Press a valid number)" << endl;
+
+		loop2 = 1;
+		while (loop2 == 1)
+		{
+			choice = _getch();
+			n = choice - '0';
+			switch (n)
+			{
+			case 1:
+				menu_programs();
+				loop2 = 0;
+				break;
+			case 2:
+				//menu_recordings();
+				loop2 = 0;
+				break;
+			case 0:
+				loop1 = 0;
+				loop2 = 0;
+				break;
+			}
+		}
+	}
+}
+
+void menu_programs()
+{
+	int n;
+	bool loop1 = 1, loop2;
+	char choice;
+	string day, channel, type;
+	string weekdays[] = { "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY" };
+	bool exists;
+
+	while (loop1 == 1)
+	{
+		system("CLS");
+		cout << "-------------------------------------BOX----------------------------------------";
+		cout.width(80);
+		cout << right << displayDate;
+		cout << "1. Search Programming by day" << endl;
+		cout << "2. Search Programming by Channel" << endl;
+		cout << "3. Search Programming by Type" << endl;
+		cout << "0. Return to main menu\n\n";
+		cout << "(Press a valid number)" << endl;
+
+		loop2 = 1;
+		while (loop2 == 1)
+		{
+			choice = _getch();
+			n = choice - '0';
+			switch (n)
+			{
+			case 1:
+				system("CLS");
+				cout << "-------------------------------------BOX----------------------------------------";
+				cout.width(80);
+				cout << right << displayDate;
+				cout << endl << "Enter day of week (empty for today):";
+				getline(cin, day);
+				exists = 0;				
+				for (unsigned int i = 0; i < 7; i++)
+				{
+					if (day == weekdays[i])
+						exists = 1;
+				}
+				if (exists)
+					screen_list_programs(box.listByDay(day));
+				else
+					screen_list_programs(box.listByDay());
+				loop2 = 0;
+				break;
+			case 2:
+				system("CLS");
+				cout << "-------------------------------------BOX----------------------------------------";
+				cout.width(80);
+				cout << right << displayDate;
+				cout << endl << "Enter channel:";
+				getline(cin, channel);
+				cout << endl << "Enter day of week (empty for today):";
+				getline(cin, day);
+				exists = 0;
+				for (unsigned int i = 0; i < 7; i++)
+				{
+					if (day == weekdays[i])
+						exists = 1;
+				}
+				if (exists)
+					screen_list_programs(box.listByChannel(channel, day));
+				else
+					screen_list_programs(box.listByChannel(channel));
+				loop2 = 0;
+				break;
+			case 3:
+				system("CLS");
+				cout << "-------------------------------------BOX----------------------------------------";
+				cout.width(80);
+				cout << right << displayDate;
+				cout << endl << "Enter type of program:";
+				getline(cin, type);
+				cout << endl << "Enter day of week (empty for today):";
+				getline(cin, day);
+				exists = 0;
+				for (unsigned int i = 0; i < 7; i++)
+				{
+					if (day == weekdays[i])
+						exists = 1;
+				}
+				if (exists)
+					screen_list_programs(box.listByType(type, day));
+				else
+					screen_list_programs(box.listByType(type));
+				loop2 = 0;
+				break;
+			case 0:
+				loop1 = 0;
+				loop2 = 0;
+				break;
+			}
+		}
+	}
+}
 
 /****************************************ainda por acabar as tres funcoes de verificacao de teclas carregadas******************************/
 void pressed_key_channels()
@@ -540,7 +605,6 @@ void menu_box(){
 			break;
 		}
 	}
-	exit(0);
 }
 
 
@@ -561,10 +625,13 @@ int main()
 	displayDate = dateToString(box.getDate());
 
 	main_menu();
-	//screen_list_programs(box.listToRecord());
-	//screen_list_programs(box.listRecorded());
-  //exit(0);
-	
+
+	//box.exportChannels("Channels&Programs.txt");
+	//box.exportChannels("Recorded.txt");
+	//box.importMovies("Movies.txt");
+	_getch();
+
+	return 0;
 }
 
 
