@@ -375,18 +375,22 @@ void screen_password()
 	{
 		menu_box();
 	}
-
-	cout << "\nWrong PASSWORD! You have just ONE more chance." << endl;
-	cout << "Type your PASSWORD again please:" << endl;
-
-	passw = typePassw();
-	if (box.checkPassword(passw) == true)
+	else
 	{
-		menu_box();
+		cout << "\nWrong PASSWORD! You have just ONE more chance." << endl;
+		cout << "Type your PASSWORD again please:" << endl;
+
+		passw = typePassw();
+		if (box.checkPassword(passw) == true)
+		{
+			menu_box();
+		}
+		else{
+			cout << "\nWrong PASSWORD again. Returning to Main Menu." << endl;
+			cout << "\n(press any key to continue)";
+			_getch();
+		}
 	}
-	cout << "\nWrong PASSWORD again. Returning to Main Menu." << endl;
-	cout << "\n(press any key to continue)";
-	_getch();
 }
 
 /*Exibir uma lista de Programas passada por vector*/
