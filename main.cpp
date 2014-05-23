@@ -325,7 +325,7 @@ void screen_list_programs(vector<Program> programas)
 	system("CLS");
 	cout << "----------------------------------PROGRAMS--------------------------------------";
 	cout.width(80);
-	cout << right << displayDate;
+	cout << right << displayDate << endl;
 	cout << left << setw(30) << "NAME" << setw(15) << "TYPE" << setw(20) << "EXHIBITION DATE" << "DURATION" << endl;
 	for (unsigned int j = 0; j < programas.size(); j++)
 		cout << setw(30) << programas[j].getName() << setw(15) << programas[j].getType() << setw(20) << dateToString(programas[j].getDate()) << programas[j].getDuration() << " min" << endl;
@@ -338,12 +338,12 @@ void screen_list_programs(vector<Program> programas)
 void screen_list_movies(vector<Movie> movies)
 {
 	system("CLS");
-	cout << "-------------------------------------MOVIES----------------------------------------";
+	cout << "------------------------------------MOVIES--------------------------------------";
 	cout.width(80);
-	cout << right << displayDate;
-	cout << left << setw(30) << "TITLE" << setw(15) << "COST" << "TIMES SEEN" << endl;
+	cout << right << displayDate << endl;
+	cout << left << setw(55) << "TITLE" << setw(10) << "COST" << "TIMES SEEN" << endl;
 	for (unsigned int j = 0; j < movies.size(); j++)
-		cout << setw(30) << movies[j].getTitle() << setw(15) << movies[j].getCost() << " €" << movies[j].getRented() << endl;
+		cout << setw(55) << movies[j].getTitle() << setprecision(2) << movies[j].getCost() << setw(10) << " €" << movies[j].getRented() << endl;
 	cout << "\n                        (press any key to continue)\n\n";
 	_getch();
 	cout << endl;
@@ -451,7 +451,7 @@ void menu_tv()
 			case 2:
 				cin.clear();
 				cin.ignore(1000, '\n');
-				//menu_recordings();
+				menu_recordings();
 				loop2 = 0;
 				break;
 			case 0:
@@ -465,7 +465,7 @@ void menu_tv()
 	}
 }
 
-/*para ver o programas por listagens*/
+/*para ver progracoes dos canais*/
 void menu_programs()
 {
 	int n;
@@ -578,6 +578,62 @@ void menu_programs()
 	}
 }
 
+/*para ver gravacoes*/
+void menu_recordings()
+{
+	int n;
+	bool loop1 = 1, loop2;
+	char choice;
+
+	while (loop1 == 1)
+	{
+		system("CLS");
+		cout << "---------------------------------RECORDINGS-------------------------------------";
+		cout.width(80);
+		cout << right << displayDate;
+		cout << "1. View Recorded Programs" << endl;
+		cout << "2. View Scheduled Recordings" << endl;
+		cout << "3. Set program to record" << endl;
+		cout << "0. Return to main menu\n\n";
+		cout << "(Press a valid number)" << endl;
+
+		loop2 = 1;
+		while (loop2 == 1)
+		{
+			//choice = _getch();
+			cin >> choice;
+			n = choice - '0';
+			switch (n)
+			{
+			case 1:
+				cin.clear();
+				cin.ignore(1000, '\n');
+				//
+				loop2 = 0;
+				break;
+			case 2:
+				cin.clear();
+				cin.ignore(1000, '\n');
+				//
+				loop2 = 0;
+				break;
+			case 3:
+				cin.clear();
+				cin.ignore(1000, '\n');
+				//
+				loop2 = 0;
+				break;
+			case 0:
+				cin.clear();
+				cin.ignore(1000, '\n');
+				loop1 = 0;
+				loop2 = 0;
+				break;
+			}
+		}
+	}
+}
+
 /*apresenta no ecra o submenu com a interacao utilizador/filmes*/
 void menu_movies(){
 	int n;
@@ -587,16 +643,15 @@ void menu_movies(){
 	while (loop1 == 1)
 	{
 		system("CLS");
-		cout << "----------------------------------MOVIES MENU-----------------------------------\n\n";
-
-		int number;
+		cout << "---------------------------------MOVIES MENU------------------------------------";
+		cout.width(80);
+		cout << right << displayDate;
 		cout << "1. See Movieclub" << endl;
 		cout << "2. Rent a movie" << endl;
 		cout << "3. Already seen list" << endl;
 		cout << "4. Money Spent" << endl;
 		cout << "0. Return to main menu\n\n";
 		cout << "Choose a number: ";
-		cin >> number;
 
 		loop2 = 1;
 		while (loop2 == 1)
