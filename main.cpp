@@ -808,8 +808,8 @@ int main()
 
 	/***********************************************exporta dados para ficheiros.txt*****************************************************************/
 	box.exportChannels("Channels&Programs.txt");
-	box.exportRecorded("Recorded_.txt");
-	box.exportMovies("Movies_.txt");
+	box.exportRecorded("Recorded.txt");
+	box.exportMovies("Movies.txt");
 	/************************************************************************************************************************************************/
 	_getch();
 
