@@ -413,6 +413,7 @@ void main_menu()
 			}
 		}
 	}
+	exit(0);
 }
 
 /*menu se escolher a opcao tv*/
