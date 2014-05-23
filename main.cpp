@@ -235,6 +235,8 @@ void menu_movies(){
 	int number;
 	cout << "1. See Movieclub" << endl;
 	cout << "2. Rent a movie" << endl;
+	cout << "3. Already seen list" << endl;
+	cout << "4. Money Spent" << endl;
 	cout << "0. Return to main menu\n\n";
 	cout << "Choose a number: ";
 	cin >> number;
@@ -245,13 +247,32 @@ void menu_movies(){
 		cout << "The movies list:\n\n";
 		//chamar lista de filmes
 		box.readMoviesVector();
-		system("pause");
+		
 	}
 
 	if (number == 2)
 	{
+		system("cls");
+		string name;
 		//chamar a funcao para alugar filmes
-		system("pause");
+		cout << "Which film you want to rent?\t Type the name please:\n" << endl;
+		cin >> name;
+		box.rentMovies(name);
+		system("cls");
+		cout << "\n Now you have the movie: " << name << endl;
+	}
+	if (number == 3)
+	{
+		system("cls");
+		//chamar a funcao para a lista dos filmes ja vistos
+		
+	}
+	if (number == 4)
+	{
+		system("cls");
+		//chamar a funcao para o dinheiro gasto
+		cout << " You spent : " << box.moneySpent() << "euros seeing movies..." << endl;
+		cout << "\n\n Thank you for spending your money with us..." << endl;
 	}
 
 	if (number == 0)
