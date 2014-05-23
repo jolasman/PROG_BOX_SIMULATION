@@ -323,7 +323,7 @@ void screen_password()
 void screen_list_programs(vector<Program> programas)
 {
 	system("CLS");
-	cout << "-------------------------------------PROGRAMS----------------------------------------";
+	cout << "----------------------------------PROGRAMS--------------------------------------";
 	cout.width(80);
 	cout << right << displayDate;
 	cout << left << setw(30) << "NAME" << setw(15) << "TYPE" << setw(20) << "EXHIBITION DATE" << "DURATION" << endl;
@@ -498,7 +498,7 @@ void menu_programs()
 				cin.clear();
 				cin.ignore(1000, '\n');
 				system("CLS");
-				cout << "-------------------------------------PROGRAMS----------------------------------------";
+				cout << "----------------------------------PROGRAMS--------------------------------------";
 				cout.width(80);
 				cout << right << displayDate;
 				cout << endl << "Enter day of week (empty for today):";
@@ -520,7 +520,7 @@ void menu_programs()
 				cin.clear();
 				cin.ignore(1000, '\n');
 				system("CLS");
-				cout << "-------------------------------------PROGRAMS----------------------------------------";
+				cout << "----------------------------------PROGRAMS--------------------------------------";
 				cout.width(80);
 				cout << right << displayDate;
 				cout << endl << "Enter channel:";
@@ -545,7 +545,7 @@ void menu_programs()
 				cin.clear();
 				cin.ignore(1000, '\n');
 				system("CLS");
-				cout << "-------------------------------------PROGRAMS----------------------------------------";
+				cout << "----------------------------------PROGRAMS--------------------------------------";
 				cout.width(80);
 				cout << right << displayDate;
 				cout << endl << "Enter type of program:";
