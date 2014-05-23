@@ -358,7 +358,8 @@ bool Box::importRecorded(string file_path)
 				{
 					if (programs[j].getName() == progName)
 					{
-						//set flag recorded to true!!!! Preciso criar nova função na classe Channel?!
+						if (programs[j].getDate() < currentDate)
+							channels[i].setRecorded(programs[j].getName());			//set flag recorded to true!!!! Preciso criar nova função na classe Channel?!
 						recorded.push_back(programs[j]);
 						break;
 					}

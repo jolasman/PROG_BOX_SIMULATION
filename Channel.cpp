@@ -34,6 +34,18 @@ bool Channel::addProgram(Program program)
 	return false;
 }
 
+void Channel::setRecorded(string name)
+{
+	for (unsigned int i = 0; i < programs.size(); i++)
+	{
+		if (programs[i].getName() == name)
+		{
+			programs[i].setRecorded();
+			break;
+		}
+	}
+}
+
 vector<Program> Channel::getPrograms() const
 {
 	return programs;

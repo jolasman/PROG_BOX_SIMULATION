@@ -38,18 +38,18 @@ Importar ficheiros
 
 Exportar ficheiros ao sair
 
-função "criar programa" (da classe canal)
-	- cria programa (parametros pedidos na interface)
-	- funçao recebe programa como parametro (já estava)
-	- verifica se existe sobreposição (overlap na grelha) e insere no vector programas do canal
+vector<Program> Box::listRecorded(){...} const;
+vector<Program> Box::listToRecord(){...} const;
 
 Separar interface (menus) da classe box 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-Movies
 	
-
+DONE:
+função "criar programa" (da classe canal)
+	- cria programa (parametros pedidos na interface)
+	- funçao recebe programa como parametro (já estava)
+	- verifica se existe sobreposição (overlap na grelha) e insere no vector programas do canal
 
 
 
