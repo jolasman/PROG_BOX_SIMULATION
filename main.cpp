@@ -127,7 +127,7 @@ void menu_channels_admin()
 		system("cls");
 		cout << "The Channels list:\n\n";
 		//chamar lista de canais
-		//box.readChannelsVector();
+		box.readChannelsVector();
 		system("pause");
 	}
 		
@@ -187,7 +187,7 @@ void menu_programs_admin()
 		system("cls");
 		cout << "The Programs list:\n\n";
 		//chamar lista de progrmas
-		//box.readProgramsVector();
+		box.readProgramsVector();
 	}
 	
 	if (number == 2)
@@ -247,7 +247,7 @@ void menu_movies_admin()
 		system("cls");
 		cout << "The movies list:\n\n";
 		//chamar lista de filmes
-		//box.readMoviesVector();
+		box.readMoviesVector();
 		system("pause");
 	}
 
