@@ -643,7 +643,7 @@ void Box::submenuChangeTypePrograms()
 	cin.clear();
 	cin.ignore(1000, '\n');
 
-	cout << "Which Movie name you want to change the type?:\n\n";
+	cout << "Which Program name you want to change the type?:\n\n";
 	getline(cin, nameType);
 
 	for (unsigned int i = 0; i < recorded.size(); i++)//compara se o nome introduzido e igual a algum do vector de canais
