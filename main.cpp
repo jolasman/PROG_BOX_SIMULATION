@@ -400,6 +400,7 @@ void menu_movies_admin()
 			n = choice - '0';
 			switch (n)
 			{
+			case 1:
 				system("cls");
 				cin.clear();
 				cin.ignore(1000, '\n');
