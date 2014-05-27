@@ -95,6 +95,108 @@ string toUpper(string s)
 Box box = Box(getPassword(), currentDate());
 string displayDate = dateToString(box.getDate());
 
+/*Apresenta o ecra de entrada na aplicacao*/
+void screen_begin()
+{
+	system("CLS");
+	cout << "\n\n\n\n\n\n\n\n";
+	cout << "                        WELCOME TO THE CABLE TV BOX\n\n\n\n\n\n\n\n\n";
+	cout << "\n                        (press any key to continue)\n\n";
+	_getch();
+}
+
+/*Exibir um ecra de loading no caso da importação de ficheiros for demorada */
+void screen_loading()
+{
+	system("CLS");
+	cout << "\n\n\n\n\n\n\n\n                        Loading BOX information...\n\n\n\n\n\n\n\n\n";
+}
+
+/*Exibir o ecra para introducao de password para acesso a area restricta */
+void screen_password()
+{
+	system("CLS");
+	cout << "------------------ You are trying to access a Protected Area -------------------" << endl;
+	cout << "Type your PASSWORD please:" << endl;
+
+	string passw = typePassw();
+	if (box.checkPassword(passw) == true)
+	{
+		menu_box();
+	}
+	else
+	{
+		cout << "\nWrong PASSWORD! You have just ONE more chance." << endl;
+		cout << "Type your PASSWORD again please:" << endl;
+
+		passw = typePassw();
+		if (box.checkPassword(passw) == true)
+		{
+			menu_box();
+		}
+		else{
+			cout << "\nWrong PASSWORD again. Returning to Main Menu." << endl;
+			cout << "\n                        (press any key to continue)\n\n";
+			_getch();
+		}
+	}
+}
+
+/*Exibir uma lista de Canais passada por vector*/
+void screen_list_channels(vector<Channel> channels)
+{
+	system("CLS");
+	cout << "----------------------------------CHANNELS--------------------------------------";
+	cout.width(80);
+	cout << right << displayDate;
+	cout << left << "CHANNEL" << endl << endl;
+	for (unsigned int i = 0; i < channels.size(); i++)
+		cout << channels[i].getChannelName() << endl;
+	cout << "\n                        (press any key to continue)\n\n";
+	_getch();
+	cout << endl;
+}
+
+/*Exibir uma lista de Programas passada por vector*/
+void screen_list_programs(vector<Program> programas)
+{
+	system("CLS");
+	cout << "----------------------------------PROGRAMS--------------------------------------";
+	cout.width(80);
+	cout << right << displayDate << endl;
+	cout << left << setw(30) << "NAME" << setw(15) << "TYPE" << setw(20) << "EXHIBITION DATE" << "DURATION" << endl;
+	for (unsigned int j = 0; j < programas.size(); j++)
+		cout << setw(30) << programas[j].getName() << setw(15) << programas[j].getType() << setw(20) << dateToString(programas[j].getDate()) << programas[j].getDuration() << " min" << endl;
+	cout << "\n                        (press any key to continue)\n\n";
+	_getch();
+	cout << endl;
+}
+
+/*Exibir uma lista de filmes passada por vector*/
+void screen_list_movies(vector<Movie> movies)
+{
+	system("CLS");
+	cout << "------------------------------------MOVIES--------------------------------------";
+	cout.width(80);
+	cout << right << displayDate << endl;
+	cout << left << setw(57) << "TITLE" << setw(10) << "COST" << "TIMES SEEN" << endl;
+	for (unsigned int j = 0; j < movies.size(); j++)
+		cout << setw(55) << movies[j].getTitle() << setprecision(2) << fixed << movies[j].getCost() << setw(10) << " EUR" << movies[j].getRented() << endl;
+	cout << "\n                        (press any key to continue)\n\n";
+	_getch();
+	cout << endl;
+}
+
+/*Apresenta o ecra de saida da aplicacao*/
+void screen_exit(){
+
+	system("CLS");
+	cout << "\n\n\n-----------------------------Thank You For Watching-----------------------------\n\n\n\n\n\n\n\n\n\n\n";
+	cout << "\n                                                       program by:";
+	cout << "\n                                                               Joel Carneiro";
+	cout << "\n                                                               Filipe Cordeiro\n\n";
+}
+
 /*apresenta no ecra o menu de opções entre os outros submenus para a possivel navegacao do utilizador*/
 void menu_inicial()
 {
@@ -110,81 +212,66 @@ void menu_inicial()
 
 void menu_channels_admin()
 {
-	int number;
+	int n;
 	bool loop1 = 1, loop2;
+	char choice;
 
 	while (loop1 == 1)
 	{
 		system("CLS");
-		cout << "--------------------------Welcome to the Channels menu--------------------------\n\n";
-
+		cout << "------------------------------MANAGE CHANNELS-----------------------------------";
+		cout.width(80);
+		cout << right << displayDate;
 		cout << "1. See all Channels" << endl;
-		cout << "2. Name change" << endl;
-		cout << "3. Add Channels" << endl;
-		cout << "4. Remove Channels" << endl;
-		cout << "5. Add programs" << endl;
+		cout << "2. Change channel name" << endl;
+		cout << "3. Add Channel" << endl;
+		cout << "4. Remove Channel" << endl;
+		cout << "5. Add program" << endl;
 		cout << "0. Return to main menu\n\n";
 		cout << "Choose a number: ";
 
 		loop2 = 1;
 		while (loop2 == 1)
 		{
-			cin >> number;
-
-			if (number == 1)
+			cin >> choice;
+			n = choice - '0';
+			switch (n)
 			{
-				system("cls");
+			case 1:
 				cin.clear();
 				cin.ignore(1000, '\n');
-				cout << "The Channels list:\n\n";
-				//chamar lista de canais
-				box.readChannelsVector();
-				system("pause");
+				screen_list_channels(box.readChannelsVector());	//chamar lista de canais
 				loop2 = 0;
-			}
-
-			if (number == 2)
-			{
+				break;
+			case 2:
 				cin.clear();
 				cin.ignore(1000, '\n');
-				//chama a funcao que muda o nome do canal
-				box.submenuNameChannels();
-				system("pause");
+				box.submenuNameChannel();				//chama a funcao que muda o nome do canal
 				loop2 = 0;
-			}
-
-			if (number == 3)
-			{
+				break;
+			case 3:
 				cin.clear();
 				cin.ignore(1000, '\n');
-				//chama a funcao que adiciona um canal novo
-				box.submenuNewChannel();
+				box.submenuNewChannel();				//chama a funcao que adiciona um canal novo
 				system("pause");
 				loop2 = 0;
-			}
-
-			if (number == 4)
-			{
+				break;
+			case 4:
 				cin.clear();
 				cin.ignore(1000, '\n');
-				//chama a funcao que remove um novo canal
-				box.submenuRemoveChannel();
+				box.submenuRemoveChannel();				//chama a funcao que remove um novo canal
 				system("pause");
 				loop2 = 0;
-			}
-
-			/************************************************************falta fazer a funcao de adicionar um programa ao canal no box.cpp**************************/
-			if (number == 5)
-			{
+			case 5:
+				cin.clear();
+				cin.ignore(1000, '\n');
 				box.submenuAddProgramChannel();
-			}
-
-			if (number == 0)
-			{
+				loop2 = 0;
+			case 0:
+				cin.clear();
+				cin.ignore(1000, '\n');
 				loop1 = 0;
 				loop2 = 0;
-				cin.clear();
-				cin.ignore(1000, '\n');
 			}
 		}
 	}
@@ -359,93 +446,6 @@ void menu_movies_admin()
 	}
 }
 
-/*Apresenta o ecra de entrada na aplicacao*/
-void screen_begin()
-{
-	system("CLS");
-	cout << "\n\n\n\n\n\n\n\n";
-	cout << "                        WELCOME TO THE CABLE TV BOX\n\n\n\n\n\n\n\n\n";
-	cout << "\n                        (press any key to continue)\n\n";
-	_getch();
-}
-
-/*Exibir um ecra de loading no caso da importação de ficheiros for demorada */
-void screen_loading()
-{
-	system("CLS");
-	cout << "\n\n\n\n\n\n\n\n                        Loading BOX information...\n\n\n\n\n\n\n\n\n";
-}
-
-/*Exibir o ecra para introducao de password para acesso a area restricta */
-void screen_password()
-{
-	system("CLS");
-	cout << "------------------ You are trying to access a Protected Area -------------------\n" << endl;
-	cout << "Type your PASSWORD please:" << endl;
-
-	string passw = typePassw();
-	if (box.checkPassword(passw) == true)
-	{
-		menu_box();
-	}
-	else
-	{
-		cout << "\nWrong PASSWORD! You have just ONE more chance." << endl;
-		cout << "Type your PASSWORD again please:" << endl;
-
-		passw = typePassw();
-		if (box.checkPassword(passw) == true)
-		{
-			menu_box();
-		}
-		else{
-			cout << "\nWrong PASSWORD again. Returning to Main Menu." << endl;
-			cout << "\n(press any key to continue)";
-			_getch();
-		}
-	}
-}
-
-/*Exibir uma lista de Programas passada por vector*/
-void screen_list_programs(vector<Program> programas)
-{
-	system("CLS");
-	cout << "----------------------------------PROGRAMS--------------------------------------";
-	cout.width(80);
-	cout << right << displayDate << endl;
-	cout << left << setw(30) << "NAME" << setw(15) << "TYPE" << setw(20) << "EXHIBITION DATE" << "DURATION" << endl;
-	for (unsigned int j = 0; j < programas.size(); j++)
-		cout << setw(30) << programas[j].getName() << setw(15) << programas[j].getType() << setw(20) << dateToString(programas[j].getDate()) << programas[j].getDuration() << " min" << endl;
-	cout << "\n                        (press any key to continue)\n\n";
-	_getch();
-	cout << endl;
-}
-
-/*Exibir uma lista de filmes passada por vector*/
-void screen_list_movies(vector<Movie> movies)
-{
-	system("CLS");
-	cout << "------------------------------------MOVIES--------------------------------------";
-	cout.width(80);
-	cout << right << displayDate << endl;
-	cout << left << setw(57) << "TITLE" << setw(10) << "COST" << "TIMES SEEN" << endl;
-	for (unsigned int j = 0; j < movies.size(); j++)
-		cout << setw(55) << movies[j].getTitle() << setprecision(2) << fixed << movies[j].getCost() << setw(10) << " EUR" << movies[j].getRented() << endl;
-	cout << "\n                        (press any key to continue)\n\n";
-	_getch();
-	cout << endl;
-}
-
-/*Apresenta o ecra de saida da aplicacao*/
-void screen_exit(){
-
-	system("CLS");
-	cout << "\n\n\n-----------------------------Thank You For Watching-----------------------------\n\n\n\n\n\n\n\n\n\n\n";
-	cout << "\n                                                       program by:";
-	cout << "\n                                                               Joel Carneiro";
-	cout << "\n                                                               Filipe Cordeiro\n\n";
-}
-
 /*apresenta o menu inicial com as opcoes se ir para admin ou nao*/
 void main_menu()
 {
@@ -463,7 +463,8 @@ void main_menu()
 		cout << "2. Movies" << endl;
 		cout << "3. Manage BOX (password protected)" << endl;
 		cout << "0. Exit\n\n";
-		cout << "(Press a valid number)" << endl;
+		//cout << "(Press a valid number)" << endl;
+		cout << "Choose a number: ";
 
 		loop2 = 1;
 		while (loop2 == 1)
@@ -497,6 +498,10 @@ void main_menu()
 				loop1 = 0;
 				loop2 = 0;
 				break;
+			default:
+				cin.clear();
+				cin.ignore(1000, '\n');
+				break;
 			}
 		}
 	}
@@ -518,7 +523,8 @@ void menu_tv()
 		cout << "1. View Tv Program Guide" << endl;
 		cout << "2. Manage Recordings" << endl;
 		cout << "0. Return to main menu\n\n";
-		cout << "(Press a valid number)" << endl;
+		//cout << "(Press a valid number)" << endl;
+		cout << "Choose a number: ";
 
 		loop2 = 1;
 		while (loop2 == 1)
@@ -546,6 +552,10 @@ void menu_tv()
 				loop1 = 0;
 				loop2 = 0;
 				break;
+			default:
+				cin.clear();
+				cin.ignore(1000, '\n');
+				break;
 			}
 		}
 	}
@@ -571,7 +581,8 @@ void menu_programs()
 		cout << "2. Search Programming by Channel" << endl;
 		cout << "3. Search Programming by Type" << endl;
 		cout << "0. Return to main menu\n\n";
-		cout << "(Press a valid number)" << endl;
+		//cout << "(Press a valid number)" << endl;
+		cout << "Choose a number: ";
 
 		loop2 = 1;
 		while (loop2 == 1)
@@ -588,7 +599,7 @@ void menu_programs()
 				cout << "----------------------------------PROGRAMS--------------------------------------";
 				cout.width(80);
 				cout << right << displayDate;
-				cout << endl << "Enter day of week (empty for today):";
+				cout << endl << "Enter day of week (empty for today): ";
 				getline(cin, day);
 				day = toUpper(day);
 				exists = 0;				
@@ -610,10 +621,10 @@ void menu_programs()
 				cout << "----------------------------------PROGRAMS--------------------------------------";
 				cout.width(80);
 				cout << right << displayDate;
-				cout << endl << "Enter channel:";
+				cout << endl << "Enter channel: ";
 				getline(cin, channel);
 				channel = toUpper(channel);
-				cout << endl << "Enter day of week (empty for today):";
+				cout << endl << "Enter day of week (empty for the whole week): ";
 				getline(cin, day);
 				day = toUpper(day);
 				exists = 0;
@@ -635,10 +646,10 @@ void menu_programs()
 				cout << "----------------------------------PROGRAMS--------------------------------------";
 				cout.width(80);
 				cout << right << displayDate;
-				cout << endl << "Enter type of program:";
+				cout << endl << "Enter type of program: ";
 				getline(cin, type);
 				type = toUpper(type);
-				cout << endl << "Enter day of week (empty for today):";
+				cout << endl << "Enter day of week (empty for the whole week): ";
 				getline(cin, day);
 				day = toUpper(day);
 				exists = 0;
@@ -658,6 +669,10 @@ void menu_programs()
 				cin.ignore(1000, '\n');
 				loop1 = 0;
 				loop2 = 0;
+				break;
+			default:
+				cin.clear();
+				cin.ignore(1000, '\n');
 				break;
 			}
 		}
@@ -682,7 +697,8 @@ void menu_recordings()
 		cout << "2. View Scheduled Recordings" << endl;
 		cout << "3. Set/unset program to record" << endl;
 		cout << "0. Return to main menu\n\n";
-		cout << "(Press a valid number)" << endl;
+		//cout << "(Press a valid number)" << endl;
+		cout << "Choose a number: ";
 
 		loop2 = 1;
 		while (loop2 == 1)
@@ -720,17 +736,20 @@ void menu_recordings()
 				cout << right << displayDate;
 				switch (box.setRecorded(programName))
 				{
-				case 0:
-					cout << "\nProgram not found.";
+				case -2:
+					cout << "\n" << programName << " is already recorded.";
 					break;
 				case -1:
-					cout << "\n" << programName << " can not be scheduled to be recorded because it has already aired.";
+					cout << "\n" << programName << " is canceled to be recorded!";
+					break;
+				case 0:
+					cout << "\nProgram not found.";
 					break;
 				case 1:
 					cout << "\n" << programName << " is scheduled to be recorded!";;
 					break;
 				case 2:
-					cout << "\n" << programName << " is canceled to be recorded!";
+					cout << "\n" << programName << " can not be scheduled to be recorded because it has already aired.";
 					break;
 				}
 				cout << "\n\n\n                        (press any key to continue)\n\n";
@@ -742,6 +761,10 @@ void menu_recordings()
 				cin.ignore(1000, '\n');
 				loop1 = 0;
 				loop2 = 0;
+				break;
+			default:
+				cin.clear();
+				cin.ignore(1000, '\n');
 				break;
 			}
 		}
@@ -766,6 +789,7 @@ void menu_movies(){
 		cout << "3. Already seen list" << endl;
 		cout << "4. Money Spent" << endl;
 		cout << "0. Return to main menu\n\n";
+		//cout << "(Press a valid number)" << endl;
 		cout << "Choose a number: ";
 
 		loop2 = 1;
@@ -828,6 +852,10 @@ void menu_movies(){
 				loop1 = 0;
 				loop2 = 0;
 				break;
+			default:
+				cin.clear();
+				cin.ignore(1000, '\n');
+				break;
 			}
 		}
 	}
@@ -836,44 +864,58 @@ void menu_movies(){
 /*onde é gerado o codigo para interagir com o utilizador para a escolha do que pretende no menu inicial*/
 void menu_box(){
 
-	int loop = 1, choice;
+	int n;
+	bool loop1 = 1, loop2;
+	char choice;
 
-	while (loop == 1)
+	while (loop1 == 1)
 	{
-		menu_inicial();
+		system("CLS");
+		cout << "---------------------------------MANAGE BOX-------------------------------------";
+		cout.width(80);
+		cout << right << displayDate;
+		cout << "1. Channels" << endl;
+		cout << "2. Movies" << endl;
+		cout << "3. Programs" << endl;
+		cout << "0. Return\n\n";
+		cout << "Choose a number: ";
 
-		cin >> choice;
-
-		switch (choice)
+		loop2 = 1;
+		while (loop2 == 1)
 		{
-		case 1:
-			menu_channels_admin();
-			cin.clear();
-			cin.ignore(1000, '\n');
-			break;
-
-		case 2:
-			menu_movies_admin();
-			cin.clear();
-			cin.ignore(1000, '\n');
-			break;
-
-		case 3:
-			menu_programs_admin();
-			cin.clear();
-			cin.ignore(1000, '\n');
-			break;
-
-		case 0:
-			loop = 0;
-			cin.clear();
-			cin.ignore(1000, '\n');
-			break;
-
-		default:
-			cin.clear();
-			cin.ignore(1000, '\n'); //problema do pisca pisca resolvido :)
-			break;
+			cin >> choice;
+			n = choice - '0';
+			switch (n)
+			{
+			case 1:
+				cin.clear();
+				cin.ignore(1000, '\n');
+				menu_channels_admin();
+				loop2 = 0;
+				break;
+			case 2:
+				cin.clear();
+				cin.ignore(1000, '\n');
+				menu_movies_admin();
+				loop2 = 0;
+				break;
+			case 3:
+				cin.clear();
+				cin.ignore(1000, '\n');
+				menu_programs_admin();
+				loop2 = 0;
+				break;
+			case 0:
+				cin.clear();
+				cin.ignore(1000, '\n');
+				loop1 = 0;
+				loop2 = 0;
+				break;
+			default:
+				cin.clear();
+				cin.ignore(1000, '\n');
+				break;
+			}
 		}
 	}
 }

@@ -14,6 +14,7 @@ Program::Program(string name, string type, int duration, string day, int hour, i
 	this->name = name;
 	this->type = type;
 	this->duration = duration;
+	recorded = false;
 }
 
 int Program::getDuration() const
@@ -54,7 +55,6 @@ void Program::changeDate(Date data)
 void Program::setDuration(int duration)
 {
 	this->duration = duration;
-
 }
 
 bool Program::isRecorded()

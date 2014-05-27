@@ -193,7 +193,10 @@ bool Box::importRecorded(string file_path)
 					if (programs[j].getName() == progName)
 					{
 						if (programs[j].getDate() < currentDate)
-							channels[i].setRecorded(programs[j].getName(), currentDate);
+						{
+							channels[i].setRecorded(programs[j].getName());
+							programs[j].setRecorded();
+						}
 						recorded.push_back(programs[j]);
 						break;
 					}
@@ -241,13 +244,11 @@ bool Box::importMovies(string file_path)
 			{
 				Movie movie(movieName, cost, timesRented);
 				seenMovies.push_back(movie);
-				//cout << movie.getTitle() << " " << movie.getCost() << " " << movie.getRented() << endl;
 			}
 			else
 			{
 				Movie movie(movieName, cost);
 				movieClub.push_back(movie);
-				//cout << movie.getTitle() << " " << movie.getCost() << " " << movie.getRented() << endl;
 			}			
 		}
 		return true;
@@ -312,44 +313,49 @@ bool Box::exportMovies(string file_path)
 /*********************************************************************************************************************/
 
 /********************************************************submenus Channels********************************************/
-void Box::submenuNameChannels()
+void Box::submenuNameChannel()
 {
 	int mudar = 0;
 	system("cls");
+	system("CLS");
+	cout << "----------------------------------CHANNELS--------------------------------------";
+	//cout.width(80);
+	//cout << right << displayDate << endl;
+	cout << endl;
 
 	string nameChannel;
-	cin.clear();
-	cin.ignore(1000, '\n');
 
-	cout << "Which  name Channel you want to change?:\n\n";
+	cout << "Enter channel's name you want to change:\n";
 	getline(cin, nameChannel);
 
-	for (unsigned int i = 0; i < channels.size(); i++)//compara se o nome introduzido e igual a algum do vector de canais
+	for (unsigned int i = 0; i < channels.size(); i++)	//compara se o nome introduzido e igual a algum do vector de canais
 	{
 		if (nameChannel == channels[i].getChannelName())
 		{
 			string namenew;
-			cout << "New name: \n" << endl;
+			cin.clear();
+
+			cout << endl << "New name:" << endl;
 
 			//alterar o nome
 			getline(cin, namenew);
 			if (namenew == "")
 			{
-				cout << "Invalid name! try again later" << endl;
+				cout << "\nInvalid name. Not changed!" << endl;
 			}
 			else
 			{
 				channels[i].setChannelName(namenew);
-				cout << "\nName changed you success!\n" << endl;
-				mudar = 1;
+				cout << "\nName changed with success (" << nameChannel << " to " << namenew << ")." << endl;
 			}
+			cout << "\n                        (press any key to continue)\n";
+			_getch();
+			return;
 		}
 	}
-		
-	if (mudar == 0)
-	{
-		cout << "\nNot changed! Try again later" << endl;
-	}	
+	cout << "\nName not found." << endl;
+	cout << "\n                        (press any key to continue)\n\n";
+	_getch();		
 }
 
 void Box::submenuNewChannel(){
@@ -599,7 +605,7 @@ void Box::submenuNamePrograms()
 	cin.clear();
 	cin.ignore(1000, '\n');
 
-	cout << "Which Program name you want to change?:\n\n";
+	cout << "Which Program name you want to change?:\n";
 	getline(cin, nameProgram);
 
 	for (unsigned int i = 0; i < recorded.size(); i++)	//compara se o nome introduzido e igual a algum do vector de canais
@@ -613,20 +619,18 @@ void Box::submenuNamePrograms()
 			getline(cin, namenew);
 			if (namenew == "")
 			{
-				cout << "Invalid name! try again later" << endl;
+				cout << "Invalid name. Not changed!" << endl;
+				return;
 			}
 			else
 			{
 				recorded[i].setName(namenew);
-
 				cout << "\nName changed you success!\n" << endl;
-				mudar = 1;
+				return;
 			}
 		}
 	}
-
-	if (mudar == 0)
-		cout << "\nNot changed! Try again later" << endl;
+	cout << "\nProgram not found." << endl;
 }
 
 void Box::submenuChangeTypePrograms()
@@ -924,12 +928,12 @@ vector<Movie> Box::listSeen() const
 	return mov;
 }
 
-void Box::readChannelsVector()
+vector<Channel> Box::readChannelsVector()
 {
+	vector<Channel> c;
 	for (unsigned int i = 0; i < channels.size(); i++)
-	{
-		cout << channels[i].getChannelName() << endl;
-	}
+		c.push_back(channels[i]);
+	return c;
 }
 
 void Box::readProgramsVector()
@@ -945,36 +949,29 @@ void Box::readProgramsVector()
 
 int Box::setRecorded(string name)
 {
-	int res;
+	for (unsigned int i = 0; i < recorded.size(); i++)
+	{
+		if (recorded[i].getName() == name)
+		{
+			if (recorded[i].isRecorded())
+				return -2; //programa ja esta gravado 
+			recorded.erase(recorded.begin() + i);
+			return -1; //gravacao cancelada
+		}
+	}
+
 	for (unsigned int i = 0; i < channels.size(); i++)
 	{
-		res = channels[i].setRecorded(name, currentDate);
-		if (res != 0)
+		vector<Program> programs = channels[i].getPrograms();
+		for (unsigned int j = 0; j < programs.size(); j++)
 		{
-			if (res == 1)
+			if (programs[j].getName() == name)
 			{
-				vector<Program> programs = channels[i].getPrograms();
-				for (unsigned int j = 0; j < programs.size(); j++)
-				{
-					if (programs[i].getName() == name)
-					{
-						recorded.push_back(programs[i]);
-						break;
-					}
-				}
+				if (programs[j].getDate() < currentDate)
+					return 2; //programa ja deu
+				recorded.push_back(programs[j]);
+				return 1; //gravacao agendada
 			}
-			if (res == 2)
-			{
-				for (unsigned int j = 0; j < recorded.size(); j++)
-				{
-					if (recorded[j].getName() == name)
-					{
-						recorded.erase(recorded.begin() + j);
-						break;
-					}
-				}
-			}
-			return res;
 		}
 	}
 	return 0;

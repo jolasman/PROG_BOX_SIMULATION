@@ -34,26 +34,19 @@ bool Channel::addProgram(Program program)
 	return false;
 }
 
-int Channel::setRecorded(string name, Date d)
+bool Channel::setRecorded(string name)
 {
 	for (unsigned int i = 0; i < programs.size(); i++)
 	{
 		if (programs[i].getName() == name)
 		{
-			if (programs[i].getDate() < d)
-			{
-				return -1;
-			}
-			else if (programs[i].isRecorded())
-			{
-				programs[i].setRecorded();
-				return 2;
-			}
+			if (programs[i].isRecorded())
+				return 0;	//programa ja esta gravado
 			programs[i].setRecorded();
-			return 1;
+			return 1;		//programa marcado como gravado
 		}
 	}
-	return 0;
+	return 0;				//nao encontra o programa
 }
 
 vector<Program> Channel::getPrograms() const

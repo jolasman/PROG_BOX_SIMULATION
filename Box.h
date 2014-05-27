@@ -32,7 +32,7 @@ class Box{
 	 
  	 /*********************************************************************menus de canais*************************************************************/
 	 /*imprime na consola o submenu que faz a operacao de mudar o nome a um canal*/
-	 void submenuNameChannels();
+	 void submenuNameChannel();
 	 /*imprime na consola o submenu que faz a operacao de criar um novo canal*/
 	 void submenuNewChannel();
 	 /*imprime na consola o submenu que faz a operacao de remover um canal*/
@@ -74,7 +74,7 @@ class Box{
 	 vector<Program> listToRecord() const;
 	 int setRecorded(string name);
 
-	 void readChannelsVector();
+	 vector<Channel> readChannelsVector();
 	 void readProgramsVector();
 	 void readMoviesVector();
 
